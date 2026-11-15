@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 GATEWAYS = ("https://gateway.pinata.cloud/ipfs/", "https://ipfs.io/ipfs/")
+INDEPENDENT_GATEWAYS = {"ipfs.io": GATEWAYS[1], "filebase": "https://ipfs.filebase.io/ipfs/"}
 PATHS = {"image": "assets/certificate.svg", "metadata": "assets/metadata.json"}
 UNIT = 10**18
 
@@ -138,6 +139,10 @@ def download(resource, data, gateway, output, timeout):
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_bytes(received)
         result.update(status="verified", downloaded_file=str(output))
+    except urllib.error.HTTPError as error:
+        result.update(http_status=error.code, error=str(error))
+        if error.headers is not None and error.headers.get("Retry-After") is not None:
+            result["retry_after"] = error.headers["Retry-After"]
     except (OSError, ValueError, ET.ParseError) as error:
         result["error"] = str(error)
     return result
@@ -321,7 +326,18 @@ def verify_anvil(uri, result):
                 process.wait(timeout=5)
 
 
-def verify(manifest, mode, output_dir, timeout):
+def check_anvil(resources, result):
+    try:
+        publication_reference(resources["image"])
+        publication_reference(resources["metadata"])
+        validate_metadata((ROOT / PATHS["metadata"]).read_bytes(), resources["image"]["uri"])
+        verify_anvil(resources["metadata"]["uri"], result["anvil"])
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, KeyError) as error:
+        result["anvil"]["error"] = str(error)
+        result["pending"].append(f"Anvil: {error}")
+
+
+def verify(manifest, mode, output_dir, timeout, gateways=GATEWAYS):
     require(manifest.get("schema_version") == 1, "Versión de manifiesto no compatible.")
     result = {"checked_at": now(), "status": "pending", "mode": mode, "resources": {},
               "anvil": {"status": "pending"}, "pending": []}
@@ -339,6 +355,10 @@ def verify(manifest, mode, output_dir, timeout):
                               "ipfs://" + validate_cid(resources["image"]["cid"]))
         result["pending"].append("Solo validación local; IPFS, pinning, presentación y Anvil pendientes.")
         return result
+    if mode == "anvil":
+        check_anvil(resources, result)
+        result["pending"].append("Solo prueba de URI en Anvil; no se comprobaron disponibilidad IPFS ni pinning.")
+        return result
     names = ("image",) if mode == "image" else tuple(PATHS)
     public_ok = True
     for name in names:
@@ -354,7 +374,7 @@ def verify(manifest, mode, output_dir, timeout):
         except (ValueError, TypeError) as error:
             result["pending"].append(f"{name}: {error}")
         data = (ROOT / resource["path"]).read_bytes()
-        for index, gateway in enumerate(GATEWAYS):
+        for index, gateway in enumerate(gateways):
             checked = download(resource, data, gateway, output_dir / str(index) / Path(resource["path"]).name, timeout)
             result["resources"][name]["gateways"].append(checked)
             if checked["status"] != "verified":
@@ -368,22 +388,7 @@ def verify(manifest, mode, output_dir, timeout):
         result["image_publication"] = "verified" if public_ok and not result["pending"] else "pending"
         result["pending"].append("Faltan el JSON definitivo y la prueba de su URI en Anvil.")
         return result
-    try:
-        require(resources["image"].get("cid") is not None,
-                "El JSON definitivo espera el CID real de la imagen.")
-        image_uri = "ipfs://" + validate_cid(resources["image"]["cid"])
-        validate_metadata((ROOT / PATHS["metadata"]).read_bytes(), image_uri)
-    except (ValueError, TypeError) as error:
-        public_ok = False
-        result["pending"].append(f"metadata: {error}")
-    if public_ok:
-        try:
-            verify_anvil(resources["metadata"]["uri"], result["anvil"])
-        except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, KeyError) as error:
-            result["anvil"]["error"] = str(error)
-            result["pending"].append(f"Anvil: {error}")
-    else:
-        result["pending"].append("Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo.")
+    check_anvil(resources, result)
     try:
         visual = manifest["visual_review"]
         require(visual["status"] == "verified" and visual["sha256"] == resources["image"]["sha256"]
@@ -402,28 +407,38 @@ def main():
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--local-only", action="store_true", help="Sin red ni Foundry; acepta JSON de borrador.")
     mode.add_argument("--image-only", action="store_true", help="Recupera solo la imagen antes de publicar el JSON.")
+    mode.add_argument("--anvil-only", action="store_true", help="Prueba la URI registrada sin descargar IPFS.")
+    parser.add_argument("--independent-gateway", choices=INDEPENDENT_GATEWAYS, default="ipfs.io",
+                        help="Gateway independiente explícito; nunca sustituye CIDs ni realiza fallback automático.")
     parser.add_argument("--record", action="store_true", help="Registra el resultado real en el manifiesto, aun si falla.")
     parser.add_argument("--manifest", type=Path, default=ROOT / "docs/ipfs-publication.json")
-    parser.add_argument("--output-dir", type=Path, default=ROOT / ".tools/metadata-verification")
+    parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--timeout", type=int, choices=range(1, 61), default=15, metavar="1..60")
     args = parser.parse_args()
-    mode = "local" if args.local_only else "image" if args.image_only else "full"
+    mode = "local" if args.local_only else "image" if args.image_only else "anvil" if args.anvil_only else "full"
+    if args.output_dir is None:
+        args.output_dir = ROOT / ".tools/metadata-verification"
+        if mode == "anvil":
+            args.output_dir /= "anvil"
     manifest = None
     try:
         manifest = json.loads(args.manifest.read_text())
-        result = verify(manifest, mode, args.output_dir, args.timeout)
+        result = verify(manifest, mode, args.output_dir, args.timeout,
+                        (GATEWAYS[0], INDEPENDENT_GATEWAYS[args.independent_gateway]))
     except (OSError, ValueError, TypeError, KeyError, ET.ParseError) as error:
         result = {"checked_at": now(), "status": "pending", "mode": mode, "pending": [str(error)]}
     args.output_dir.mkdir(parents=True, exist_ok=True)
     (args.output_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     if args.record and manifest is not None:
-        manifest["verification"] = result
+        manifest["anvil_verification" if mode == "anvil" else "verification"] = result
         args.manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if mode == "local" and all(r.get("local") == "verified" for r in result.get("resources", {}).values()) \
             and len(result.get("resources", {})) == 2:
         return 0
     if mode == "image" and result.get("image_publication") == "verified":
+        return 0
+    if mode == "anvil" and result.get("anvil", {}).get("status") == "verified":
         return 0
     return 0 if result["status"] == "verified" else 1
 

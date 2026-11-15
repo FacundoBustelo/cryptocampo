@@ -2,6 +2,15 @@ name: Verificar publicación IPFS y URI en Anvil
 
 on:
   workflow_dispatch:
+    inputs:
+      independent_gateway:
+        description: Gateway independiente a comprobar
+        required: true
+        default: ipfs.io
+        type: choice
+        options:
+          - ipfs.io
+          - filebase
 
 permissions:
   contents: read
@@ -18,7 +27,9 @@ jobs:
         run: bash tools/setup.sh
 
       - name: Verificar publicación y resolución
-        run: python3 tools/verify-metadata.py
+        env:
+          INDEPENDENT_GATEWAY: ${{ inputs.independent_gateway }}
+        run: python3 tools/verify-metadata.py --independent-gateway "$INDEPENDENT_GATEWAY"
 
       - name: Conservar evidencia incluso si falla la verificación
         if: ${{ always() }}

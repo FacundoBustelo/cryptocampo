@@ -1,7 +1,9 @@
 """Pruebas sin red del verificador; no acreditan publicación IPFS ni ejecución EVM."""
 
 import base64
+import contextlib
 import copy
+import io
 import importlib.util
 import json
 import tempfile
@@ -113,12 +115,58 @@ class MetadataVerifierTest(unittest.TestCase):
             return self.respond(request, timeout)
 
         with patch.object(verifier.urllib.request, "urlopen", side_effect=fail_one) as network, \
-                patch.object(verifier, "verify_anvil") as anvil:
+                patch.object(verifier, "verify_anvil", side_effect=self.anvil_passes) as anvil:
             result = verifier.verify(self.manifest, "full", self.output, 1)
         self.assertEqual(result["status"], "pending")
         self.assertEqual(network.call_count, 4)
+        self.assertEqual(result["anvil"]["status"], "verified")
         self.assertTrue(any("image:" in p and verifier.GATEWAYS[1] in p for p in result["pending"]))
-        anvil.assert_not_called()
+        anvil.assert_called_once()
+
+    def test_anvil_only_never_downloads_or_claims_ipfs_success(self):
+        with patch.object(verifier.urllib.request, "urlopen") as network, \
+                patch.object(verifier, "verify_anvil", side_effect=self.anvil_passes):
+            result = verifier.verify(self.manifest, "anvil", self.output, 1)
+        self.assertEqual(result["anvil"]["status"], "verified")
+        self.assertEqual(result["status"], "pending")
+        network.assert_not_called()
+
+    def test_anvil_only_record_preserves_existing_publication_evidence(self):
+        path = self.root / "manifest.json"
+        self.manifest["verification"] = {"status": "pending", "evidence": "Pinata HTTP 200, ipfs.io HTTP 429"}
+        path.write_text(json.dumps(self.manifest))
+        with patch.object(verifier.urllib.request, "urlopen") as network, \
+                patch.object(verifier, "verify_anvil", side_effect=self.anvil_passes), \
+                patch.object(verifier.sys, "argv", ["verify-metadata.py", "--anvil-only", "--record", "--manifest", str(path)]), \
+                contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(verifier.main(), 0)
+        updated = json.loads(path.read_text())
+        self.assertEqual(updated["verification"], self.manifest["verification"])
+        self.assertEqual(updated["anvil_verification"]["anvil"]["status"], "verified")
+        self.assertEqual(updated["anvil_verification"]["status"], "pending")
+        self.assertTrue((self.root / ".tools/metadata-verification/anvil/result.json").exists())
+        network.assert_not_called()
+
+    def test_explicit_independent_gateway_keeps_both_resources_and_cids(self):
+        gateways = (verifier.GATEWAYS[0], verifier.INDEPENDENT_GATEWAYS["filebase"])
+        with patch.object(verifier.urllib.request, "urlopen", side_effect=self.respond) as network, \
+                patch.object(verifier, "verify_anvil", side_effect=self.anvil_passes):
+            result = verifier.verify(self.manifest, "full", self.output, 1, gateways)
+        self.assertEqual(result["status"], "verified")
+        self.assertEqual(network.call_count, 4)
+        for name, resource in self.manifest["resources"].items():
+            urls = [g["url"] for g in result["resources"][name]["gateways"]]
+            self.assertEqual(urls, [base + resource["cid"] for base in gateways])
+
+    def test_rate_limit_records_retry_after_without_retrying(self):
+        error = urllib.error.HTTPError("https://ipfs.io/ipfs/test", 429, "Too Many Requests", {"Retry-After": "120"}, None)
+        with patch.object(verifier.urllib.request, "urlopen", side_effect=error) as network:
+            result = verifier.download(self.manifest["resources"]["image"], self.content["image"],
+                                       verifier.GATEWAYS[1], self.output / "image.svg", 1)
+        self.assertEqual(result["status"], "pending")
+        self.assertEqual(result["http_status"], 429)
+        self.assertEqual(result["retry_after"], "120")
+        network.assert_called_once()
 
     def test_directory_or_mismatched_content_is_not_accepted(self):
         self.output.mkdir()
