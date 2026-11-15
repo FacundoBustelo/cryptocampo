@@ -4,7 +4,7 @@ Estado al 15/11/2026: **publicación y resolución verificadas**. El usuario eje
 
 El pinning de ambos archivos se conserva documentado mediante la captura y la confirmación de las subidas públicas del usuario a Pinata. Las fechas se registraron con precisión de día cuando no se conocía la hora. Los hashes SHA-256, los CIDs y las URIs definitivas están registrados. El fallo anterior de `ipfs.io` por HTTP 429 permanece como evidencia histórica y no se convirtió en éxito.
 
-Los contratos y sus reglas económicas se conservan. La presentación en una billetera y Sepolia quedan para fases posteriores. La repetición remota de ambos workflows de GitHub Actions permanece pendiente de registrar; seleccionar `filebase` como operador independiente en el verificador manual.
+Los contratos y sus reglas económicas se conservan. La presentación en una billetera y Sepolia quedan para fases posteriores. Ambos workflows de GitHub Actions fueron confirmados en verde por el usuario y [sus enlaces están registrados](evidence/ci-runs-received-2026-11-15.json). El agente no inspeccionó las páginas ni los logs remotos. La fase 4 queda cerrada; para reproducir el resultado satisfactorio, seleccionar `filebase` en el verificador manual.
 
 ## 1. Validar antes de subir
 
@@ -127,4 +127,4 @@ Para repetir localmente los controles de contratos, una vez instalado el entorno
 python3 tools/measure-gas.py
 ```
 
-La [evidencia local de esta implementación](metadata-validation-2026-11-15.json) distingue pruebas del verificador de comprobaciones reales pendientes. La instalación inicial del agente falló por DNS y la primera compilación por restricciones de escritura. El usuario instaló después el entorno y ejecutó satisfactoriamente el verificador completo. Los controles generales posteriores pasaron salvo la repetición de gas por escenarios, bloqueada por permisos de sockets en la sesión del agente. La ejecución EVM de la URI sí está acreditada por el informe completo del usuario. La nueva ejecución remota de CI sigue pendiente; ver [resultado y límites actuales](ipfs-verification-2026-11-15.md).
+La [evidencia local de esta implementación](metadata-validation-2026-11-15.json) distingue pruebas del verificador de comprobaciones reales pendientes. La instalación inicial del agente falló por DNS y la primera compilación por restricciones de escritura. El usuario instaló después el entorno y ejecutó satisfactoriamente el verificador completo. Los controles generales posteriores pasaron salvo la repetición de gas por escenarios, bloqueada por permisos de sockets en la sesión del agente. La ejecución EVM de la URI sí está acreditada por el informe completo del usuario. El usuario confirmó después las dos ejecuciones remotas en verde y proporcionó sus enlaces; ver [resultado y límites actuales](ipfs-verification-2026-11-15.md).

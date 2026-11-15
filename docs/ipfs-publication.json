@@ -293,13 +293,36 @@
   },
   "workflow_runs": {
     "contracts": {
-      "status": "pending",
-      "url": null
+      "status": "confirmed_by_user",
+      "url": null,
+      "confirmed_at": "2026-11-15T05:11:23.089802+00:00",
+      "reported_conclusion": "success",
+      "evidence": "docs/evidence/ci-runs-received-2026-11-15.json"
     },
     "metadata": {
-      "status": "pending",
+      "status": "confirmed_by_user",
       "independent_gateway": "filebase",
-      "url": null
-    }
+      "url": null,
+      "confirmed_at": "2026-11-15T05:11:23.089802+00:00",
+      "reported_conclusion": "success",
+      "evidence": "docs/evidence/ci-runs-received-2026-11-15.json"
+    },
+    "submitted_runs_evidence": "docs/evidence/ci-runs-received-2026-11-15.json",
+    "status": "confirmed_by_user",
+    "run_urls": [
+      "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679591874",
+      "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679342774"
+    ],
+    "inspection_method": "user_report",
+    "url_mapping_note": "Los dos enlaces están registrados en conjunto. La correspondencia individual entre URL y nombre de workflow no fue inspeccionada; se mantienen los campos url individuales en null."
+  },
+  "phase4": {
+    "status": "complete",
+    "completed_at": "2026-11-15T05:11:23.089802+00:00",
+    "result": "publicación y resolución verificadas",
+    "ci_confirmation_source": "user_report",
+    "evidence": "docs/ipfs-verification-2026-11-15.md",
+    "wallet_presentation": "pending_later_phase",
+    "sepolia": "pending_later_phase"
   }
 }

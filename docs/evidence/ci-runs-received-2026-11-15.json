@@ -1,0 +1,49 @@
+{
+  "recorded_at": "2026-11-15T05:09:32.616084+00:00",
+  "source": "Enlaces proporcionados por el usuario.",
+  "status": "confirmed_by_user",
+  "runs": [
+    {
+      "id": 43679591874,
+      "job_id": 132707099584,
+      "url": "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679591874",
+      "job_url": "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679591874/job/132707099584",
+      "workflow_name": null,
+      "head_sha": null,
+      "run_status": "completed",
+      "conclusion": "success",
+      "evidence_status": "confirmed_by_user",
+      "confirmed_at": "2026-11-15T05:11:23.089802+00:00",
+      "result_source": "Confirmación del usuario de que ambas ejecuciones aparecen verdes."
+    },
+    {
+      "id": 43679342774,
+      "job_id": 132706349976,
+      "url": "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679342774",
+      "job_url": "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679342774/job/132706349976",
+      "workflow_name": null,
+      "head_sha": null,
+      "run_status": "completed",
+      "conclusion": "success",
+      "evidence_status": "confirmed_by_user",
+      "confirmed_at": "2026-11-15T05:11:23.089802+00:00",
+      "result_source": "Confirmación del usuario de que ambas ejecuciones aparecen verdes."
+    }
+  ],
+  "inspection": {
+    "web": "No se pudieron recuperar las páginas de las ejecuciones ni sus respuestas API.",
+    "local_api": "La consulta de la API pública falló por DNS: Name or service not known."
+  },
+  "confirmation": {
+    "confirmed_at": "2026-11-15T05:11:23.089802+00:00",
+    "source": "Confirmación textual del usuario tras recibir la lista de los dos workflows esperados.",
+    "statement": "ambos aparecen verdes, necesitas logs?",
+    "workflows": [
+      "Validar contratos",
+      "Verificar publicación IPFS y URI en Anvil"
+    ],
+    "conclusion": "success",
+    "inspection_method": "user_report",
+    "limitations": "El agente no pudo abrir las páginas ni la API de GitHub. No inspeccionó logs, SHA del commit, inputs, artefactos ni la correspondencia individual entre cada URL y cada workflow."
+  }
+}

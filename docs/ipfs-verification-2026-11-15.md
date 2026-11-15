@@ -48,6 +48,13 @@ Después de la ejecución del usuario se repitieron los controles disponibles en
 
 La compilación terminó con advertencias de mutabilidad en dos pruebas BUSD, avisos de retornos ERC20 sin comprobar en auxiliares/pruebas y notas de estilo. No impidieron la compilación ni la verificación. No se declara una compilación sin advertencias ni se modifican contratos o reglas económicas para eliminarlas.
 
-El resultado acreditado es **publicación y resolución verificadas**. La nueva ejecución remota de los workflows de GitHub Actions todavía no está registrada: repetir **Validar contratos** y **Verificar publicación IPFS y URI en Anvil**, seleccionando `filebase` en este último, y conservar sus enlaces. El resultado local no se presenta como un run remoto de CI.
+El resultado acreditado es **publicación y resolución verificadas** y la fase 4 queda cerrada. El usuario proporcionó los dos enlaces de GitHub Actions y confirmó que **Validar contratos** y **Verificar publicación IPFS y URI en Anvil** aparecen en verde. El resultado de CI se registra como confirmado por el usuario; el agente no pudo inspeccionar las páginas ni los logs desde esta sesión.
+
+Ejecuciones aportadas:
+
+- [Run 43679591874](https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679591874).
+- [Run 43679342774](https://github.com/FacundoBustelo/cryptocampo/actions/runs/43679342774).
+
+La [confirmación y los enlaces originales](evidence/ci-runs-received-2026-11-15.json) conservan la procedencia del resultado. No se atribuye individualmente una URL a un workflow ni se inventan SHA, inputs o métricas de los logs remotos. Las cifras detalladas anteriores corresponden a los informes locales y del verificador del usuario; no se transcriben como cifras leídas en CI. El bloqueo de sockets fue una limitación de la sesión local del agente.
 
 La presentación en una billetera y el despliegue en Sepolia permanecen pendientes para las fases posteriores.
