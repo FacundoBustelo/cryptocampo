@@ -192,6 +192,17 @@ class MetadataVerifierTest(unittest.TestCase):
             with self.subTest(date=bad), self.assertRaises(ValueError):
                 verifier.publication(resource)
 
+    def test_missing_publication_date_does_not_skip_downloads_or_claim_success(self):
+        metadata = self.manifest["resources"]["metadata"]
+        metadata["published_at"] = None
+        metadata.pop("published_on", None)
+        with patch.object(verifier.urllib.request, "urlopen", side_effect=self.respond) as network, \
+                patch.object(verifier, "verify_anvil", side_effect=self.anvil_passes):
+            result = verifier.verify(self.manifest, "full", self.output, 1)
+        self.assertEqual(network.call_count, 4)
+        self.assertEqual(result["status"], "pending")
+        self.assertTrue(any("metadata: Falta fecha de publicación" in p for p in result["pending"]))
+
     def test_duplicate_keys_and_extra_fields_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "duplicada"):
             verifier.validate_metadata(b'{"image":"a","image":"b"}')

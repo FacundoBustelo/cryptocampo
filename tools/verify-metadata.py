@@ -91,9 +91,14 @@ def check_date(value, label):
     require(parsed.tzinfo is not None and parsed <= datetime.now(timezone.utc), f"Fecha inválida de {label}.")
 
 
-def publication(resource):
+def publication_reference(resource):
     cid = validate_cid(resource.get("cid"))
     require(resource.get("uri") == f"ipfs://{cid}", "URI distinta del CID registrado.")
+    return cid
+
+
+def publication(resource):
+    cid = publication_reference(resource)
     if resource.get("published_at") is not None:
         check_date(resource["published_at"], "publicación")
     else:
@@ -339,11 +344,15 @@ def verify(manifest, mode, output_dir, timeout):
     for name in names:
         resource = resources[name]
         try:
-            publication(resource)
+            publication_reference(resource)
         except (ValueError, TypeError) as error:
             result["pending"].append(f"{name}: {error}")
             public_ok = False
             continue
+        try:
+            publication(resource)
+        except (ValueError, TypeError) as error:
+            result["pending"].append(f"{name}: {error}")
         data = (ROOT / resource["path"]).read_bytes()
         for index, gateway in enumerate(GATEWAYS):
             checked = download(resource, data, gateway, output_dir / str(index) / Path(resource["path"]).name, timeout)
