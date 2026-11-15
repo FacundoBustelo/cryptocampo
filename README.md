@@ -2,7 +2,7 @@
 
 Contratos para certificados agrícolas de demostración y pagos con un token ERC20 BUSD. Los certificados no acreditan existencias físicas verificadas y el token no tiene respaldo en dólares.
 
-Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 dispone de recursos locales, un verificador IPFS/Anvil y un workflow manual; faltan los CIDs reales para comprobar la publicación. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
+Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 dispone de recursos locales, un verificador IPFS/Anvil y un workflow manual; se recibió el CID de la imagen y resta comprobar su recuperación pública y publicar el JSON. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
 
 ## Entorno
 
@@ -69,7 +69,7 @@ El recorrido de aceptación compra dos NFTs de 100 BUSD con 2 % de comisión, re
 
 `tokenURI(uint256)` comprueba primero la existencia del NFT y revierte con `Token does not exist` para IDs inexistentes o quemados. Para un NFT vigente devuelve la cadena compartida, inicialmente vacía. Una reventa conserva esa URI. La configuración de metadatos no habilita operaciones ni modifica saldos, publicaciones o nominales; comprar, revender y reclamar funcionan sin configurar la URI.
 
-La referencia de imagen del JSON es **solo para pruebas locales**: `http://127.0.0.1:8000/certificate.svg`. Para revisar ambos archivos desde el directorio del proyecto:
+El JSON preparado para publicar referencia la imagen mediante `ipfs://bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4`. Conserva únicamente nombre, descripción de demostración e imagen. Para revisar los archivos locales desde el directorio del proyecto:
 
 ```bash
 python3 -m http.server 8000 --bind 127.0.0.1 --directory assets
@@ -79,7 +79,7 @@ Abrir `http://127.0.0.1:8000/certificate.svg` y `http://127.0.0.1:8000/metadata.
 
 La publicación se realiza manualmente desde Pinata, eligiendo **IPFS público** y subiendo cada archivo individualmente, sin carpeta contenedora. Primero se sube y fija `certificate.svg`; se comprueba su CID por dos gateways; luego se establece `image` como `ipfs://<CID_REAL_DE_IMAGEN>` y se retira de la descripción la frase sobre pruebas locales. Solo después se sube y fija el JSON definitivo. Ambos archivos deben permanecer fijados. Ver [instrucciones de publicación de Pinata](https://docs.pinata.cloud/files/uploading-files) y [pinning en IPFS](https://docs.ipfs.tech/how-to/pin-files/).
 
-El [registro de publicación](docs/ipfs-publication.json) conserva hashes SHA-256, CIDs, URIs, fechas, confirmación manual de pinning y resultados reales. Los CIDs todavía son `null`: el usuario confirmó que aún no dispone del CID de la imagen. El JSON sigue siendo un borrador local. No se precisan credenciales de Pinata.
+El [registro de publicación](docs/ipfs-publication.json) conserva hashes SHA-256, CIDs, URIs, fechas, confirmación manual de pinning y resultados reales. El CID real de la imagen ya está registrado y su digest SHA-256 coincide con el SVG local. La captura del usuario acredita la subida en Files/Public el 15/11/2026 y se registró como evidencia del pinning automático de Pinata. El usuario también confirmó que el enlace público de Pinata muestra el certificado de demostración. La comparación automática de los bytes mediante ambos gateways sigue pendiente por DNS. El JSON ya está preparado con la URI real de la imagen y la descripción final; falta subirlo a Pinata y registrar su CID, que permanece en `null`. No se precisan credenciales de Pinata.
 
 ```bash
 # Siempre disponible, sin red ni Foundry:
@@ -110,7 +110,7 @@ La [guía de publicación y evidencia](docs/ipfs-publication.md) detalla cómo c
 - `test/CCNFTFuzz.t.sol`: cuatro pruebas parametrizadas de fórmulas y conservación del nominal, con 256 casos por prueba.
 - `test/CCNFTMetadata.t.sol`: URI inicial, permisos, cadena vacía, eventos, actualización común, reventa, existencia y separación de la lógica económica.
 - `script/`: reservado para scripts de despliegue e interacción.
-- `assets/`: certificado SVG y borrador del JSON compartido; referencia local hasta verificar el CID de la imagen.
+- `assets/`: certificado SVG y JSON compartido preparado para publicar, con la URI IPFS real de la imagen.
 - `docs/`: evidencia de contratos, gas y registro de publicación IPFS.
 - `tools/`: instalación reproducible, medición de gas y verificación de metadatos.
 

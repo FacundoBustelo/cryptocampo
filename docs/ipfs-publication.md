@@ -1,6 +1,6 @@
 # Publicar y comprobar los metadatos
 
-Estado al 15/11/2026: **pendiente de publicación**. El usuario todavía no dispone del CID de la imagen. El SVG y el JSON actuales son válidos localmente; se revisó de nuevo el certificado renderizado a 1200 × 800. No hay CIDs, confirmación de pinning ni descargas públicas acreditadas. El [manifiesto](ipfs-publication.json) usa `null` en los datos todavía desconocidos. El hash del JSON corresponde al borrador local y deberá actualizarse cuando se finalice.
+Estado al 15/11/2026: **pendiente de publicación**. El usuario proporcionó el CID de la imagen `bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4`; su digest SHA-256 raw coincide con el SVG local. Se intentó recuperarlo por los dos gateways, pero ambos fallaron por DNS en esta sesión. La [captura aportada por el usuario](evidence/pinata-image-public-2026-11-15.png) muestra certificate.svg en Files/Public, 2.31 KB y Creation Date 11/15/2026. Se registra como evidencia de subida completada y del pinning automático de Pinata; no muestra una etiqueta explícita Pinned. La fecha se conserva con precisión de día, sin inventar una hora. El usuario confirmó posteriormente que el enlace público de Pinata muestra el certificado de demostración. La comparación automática de bytes por ambos gateways sigue pendiente por DNS. Se revisó el certificado local a 1200 × 800. El [manifiesto](ipfs-publication.json) conserva `null` para los datos todavía desconocidos. El JSON ya se preparó con la URI IPFS real de la imagen y la descripción final; su nuevo hash SHA-256 está registrado. Falta subir ese archivo individual a IPFS público, registrar su CID y confirmar su pinning.
 
 Los contratos y sus reglas económicas se conservan. Esta fase termina con **publicación y resolución verificadas**; la presentación en una billetera y el despliegue en Sepolia corresponden a fases posteriores.
 
@@ -26,7 +26,8 @@ Completar `resources.image` del manifiesto con datos reales:
 | --- | --- |
 | `cid` | CID entregado por Pinata para el archivo individual. |
 | `uri` | `ipfs://` seguido de ese CID, sin nombre de archivo ni ruta. |
-| `published_at` | Fecha de la subida, en ISO 8601 con zona horaria. |
+| `published_at` | Fecha y hora reales de subida, en ISO 8601 con zona horaria, si se conocen. |
+| `published_on` | Fecha `YYYY-MM-DD` cuando la evidencia solo muestra el día; dejar `published_at` en `null`. |
 | `pinning.status` | `confirmed_by_user` solo después de la confirmación del usuario. |
 | `pinning.confirmed_at` | Fecha de la confirmación, en ISO 8601 con zona horaria. |
 | `pinning.evidence` | Declaración del usuario o ruta de una captura pública que confirme el pin. |

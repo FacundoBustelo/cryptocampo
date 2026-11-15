@@ -149,5 +149,27 @@
       "check": "Presentación en billetera y Sepolia",
       "reason": "Fuera del alcance de esta fase."
     }
-  ]
+  ],
+  "image_upload_followup": {
+    "recorded_at": "2026-11-15T04:38:03.471989+00:00",
+    "evidence": "docs/evidence/pinata-image-public-2026-11-15.png",
+    "published_on": "2026-11-15",
+    "published_at": null,
+    "unit_tests": {
+      "command": "python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v",
+      "passed": 15,
+      "failed": 0,
+      "exit_code": 0
+    },
+    "image_verifier": {
+      "command": "python3 tools/verify-metadata.py --image-only --record",
+      "exit_code": 1,
+      "status": "pending",
+      "reason": "Ambos gateways fallaron por DNS; pinning y fecha de día aceptados."
+    },
+    "browser_fetch_attempt": {
+      "status": "pending",
+      "reason": "web.open tampoco pudo acceder a ninguno de los dos enlaces públicos."
+    }
+  }
 }

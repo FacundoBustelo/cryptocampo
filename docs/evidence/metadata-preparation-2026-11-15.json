@@ -1,0 +1,46 @@
+{
+  "recorded_at": "2026-11-15T04:41:14.788430+00:00",
+  "status": "json_prepared_for_manual_publication",
+  "metadata_path": "assets/metadata.json",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tools/verify-metadata.py",
+        "--local-only"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"checked_at\": \"2026-11-15T04:41:14.457436+00:00\",\n  \"status\": \"pending\",\n  \"mode\": \"local\",\n  \"resources\": {\n    \"image\": {\n      \"sha256\": \"6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    },\n    \"metadata\": {\n      \"sha256\": \"e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    }\n  },\n  \"anvil\": {\n    \"status\": \"pending\"\n  },\n  \"pending\": [\n    \"Solo validación local; IPFS, pinning, presentación y Anvil pendientes.\"\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_verify_metadata.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "output": "test_all_four_downloads_and_anvil_are_required (test_verify_metadata.MetadataVerifierTest.test_all_four_downloads_and_anvil_are_required) ... ok\ntest_anvil_failure_is_pending (test_verify_metadata.MetadataVerifierTest.test_anvil_failure_is_pending) ... ok\ntest_cids_must_be_individual_content_identifiers (test_verify_metadata.MetadataVerifierTest.test_cids_must_be_individual_content_identifiers) ... ok\ntest_directory_or_mismatched_content_is_not_accepted (test_verify_metadata.MetadataVerifierTest.test_directory_or_mismatched_content_is_not_accepted) ... ok\ntest_downloads_do_not_prove_pinning_or_visual_review (test_verify_metadata.MetadataVerifierTest.test_downloads_do_not_prove_pinning_or_visual_review) ... ok\ntest_duplicate_keys_and_extra_fields_are_rejected (test_verify_metadata.MetadataVerifierTest.test_duplicate_keys_and_extra_fields_are_rejected) ... ok\ntest_failed_gateway_invalidates_stale_success_and_reports_resource (test_verify_metadata.MetadataVerifierTest.test_failed_gateway_invalidates_stale_success_and_reports_resource) ... ok\ntest_image_stage_never_claims_full_verification (test_verify_metadata.MetadataVerifierTest.test_image_stage_never_claims_full_verification) ... ok\ntest_local_file_change_requires_updating_evidence (test_verify_metadata.MetadataVerifierTest.test_local_file_change_requires_updating_evidence) ... ok\ntest_local_validation_never_uses_network_or_anvil (test_verify_metadata.MetadataVerifierTest.test_local_validation_never_uses_network_or_anvil) ... ok\ntest_missing_cids_do_not_download_or_run_anvil (test_verify_metadata.MetadataVerifierTest.test_missing_cids_do_not_download_or_run_anvil) ... ok\ntest_network_errors_are_not_treated_as_expected_reverts (test_verify_metadata.MetadataVerifierTest.test_network_errors_are_not_treated_as_expected_reverts) ... ok\ntest_publication_accepts_a_visible_date_without_inventing_a_time (test_verify_metadata.MetadataVerifierTest.test_publication_accepts_a_visible_date_without_inventing_a_time) ... ok\ntest_revert_reason_must_be_exact (test_verify_metadata.MetadataVerifierTest.test_revert_reason_must_be_exact) ... ok\ntest_wrong_image_reference_blocks_anvil_even_if_bytes_match (test_verify_metadata.MetadataVerifierTest.test_wrong_image_reference_blocks_anvil_even_if_bytes_match) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.029s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/verify-metadata.py",
+        "--record"
+      ],
+      "exit_code": 1,
+      "output": "{\n  \"checked_at\": \"2026-11-15T04:41:14.747623+00:00\",\n  \"status\": \"pending\",\n  \"mode\": \"full\",\n  \"resources\": {\n    \"image\": {\n      \"sha256\": \"6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f\",\n      \"local\": \"verified\",\n      \"gateways\": [\n        {\n          \"url\": \"https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4\",\n          \"checked_at\": \"2026-11-15T04:41:14.748203+00:00\",\n          \"status\": \"pending\",\n          \"error\": \"<urlopen error [Errno -2] Name or service not known>\"\n        },\n        {\n          \"url\": \"https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4\",\n          \"checked_at\": \"2026-11-15T04:41:14.774956+00:00\",\n          \"status\": \"pending\",\n          \"error\": \"<urlopen error [Errno -2] Name or service not known>\"\n        }\n      ]\n    },\n    \"metadata\": {\n      \"sha256\": \"e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    }\n  },\n  \"anvil\": {\n    \"status\": \"pending\"\n  },\n  \"pending\": [\n    \"image: https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>\",\n    \"image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>\",\n    \"metadata: Falta el CID público del archivo individual.\",\n    \"Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo.\"\n  ]\n}\n"
+    }
+  ],
+  "pending": [
+    "Subida manual de assets/metadata.json a IPFS público y CID real.",
+    "Confirmación de pinning del JSON.",
+    "Comparación automatizada de descargas mediante ambos gateways; DNS local sigue fallando.",
+    "Prueba real de URI definitiva en Anvil y workflows."
+  ]
+}

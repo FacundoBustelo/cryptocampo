@@ -4,19 +4,33 @@
     "image": {
       "path": "assets/certificate.svg",
       "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
-      "cid": null,
-      "uri": null,
+      "cid": "bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+      "uri": "ipfs://bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
       "published_at": null,
       "pinning": {
         "provider": "Pinata",
-        "status": "pending",
-        "confirmed_at": null,
-        "evidence": null
+        "status": "confirmed_by_user",
+        "confirmed_at": "2026-11-15T04:37:31.571316+00:00",
+        "evidence": "docs/evidence/pinata-image-public-2026-11-15.png: captura aportada por el usuario con certificate.svg en Files/Public, tamaño 2.31 KB, CID abreviado compatible y Creation Date 11/15/2026. Evidencia de subida completada; Pinata fija automáticamente los archivos subidos. La captura no muestra una etiqueta explícita Pinned."
+      },
+      "cid_received_at": "2026-11-15T04:31:33.253861+00:00",
+      "published_on": "2026-11-15",
+      "publication_date_evidence": "docs/evidence/pinata-image-public-2026-11-15.png",
+      "cid_integrity_check": {
+        "status": "verified",
+        "method": "CIDv1 raw sha2-256: digest incorporado coincide con SHA-256 del SVG local. Esta comprobación no demuestra disponibilidad pública.",
+        "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f"
+      },
+      "public_access_confirmation": {
+        "status": "confirmed_by_user",
+        "confirmed_at": "2026-11-15T04:41:01.357339+00:00",
+        "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+        "evidence": "El usuario abrió el enlace público y confirmó: «si veo una imagenc ertificado de demostracion». Esta confirmación manual no sustituye las descargas automáticas y la comparación de bytes por ambos gateways."
       }
     },
     "metadata": {
       "path": "assets/metadata.json",
-      "sha256": "79061932b44aa745e0a408d5ad4d1e432b85e4b1eea3990ccaa8a4dd8fcfadbf",
+      "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
       "cid": null,
       "uri": null,
       "published_at": null,
@@ -25,32 +39,46 @@
         "status": "pending",
         "confirmed_at": null,
         "evidence": null
-      }
+      },
+      "prepared_at": "2026-11-15T04:41:01.357339+00:00"
     }
   },
   "visual_review": {
-    "status": "pending",
-    "reviewed_by": null,
-    "reviewed_at": null,
-    "sha256": null,
-    "evidence": null
+    "status": "verified",
+    "reviewed_by": "Usuario",
+    "reviewed_at": "2026-11-15T04:41:01.357339+00:00",
+    "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+    "evidence": "El usuario confirmó que el enlace público de Pinata muestra el certificado de demostración. SHA-256 asociado al CIDv1 raw, previamente contrastado con el SVG local; la comparación automatizada de bytes recuperados sigue pendiente por DNS."
   },
   "wallet_presentation": {
     "status": "pending",
     "evidence": null
   },
   "verification": {
-    "checked_at": "2026-11-15T04:24:34.989503+00:00",
+    "checked_at": "2026-11-15T04:41:14.747623+00:00",
     "status": "pending",
     "mode": "full",
     "resources": {
       "image": {
         "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
         "local": "verified",
-        "gateways": []
+        "gateways": [
+          {
+            "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+            "checked_at": "2026-11-15T04:41:14.748203+00:00",
+            "status": "pending",
+            "error": "<urlopen error [Errno -2] Name or service not known>"
+          },
+          {
+            "url": "https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+            "checked_at": "2026-11-15T04:41:14.774956+00:00",
+            "status": "pending",
+            "error": "<urlopen error [Errno -2] Name or service not known>"
+          }
+        ]
       },
       "metadata": {
-        "sha256": "79061932b44aa745e0a408d5ad4d1e432b85e4b1eea3990ccaa8a4dd8fcfadbf",
+        "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
         "local": "verified",
         "gateways": []
       }
@@ -59,11 +87,10 @@
       "status": "pending"
     },
     "pending": [
-      "image: Falta el CID público del archivo individual.",
+      "image: https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
+      "image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
       "metadata: Falta el CID público del archivo individual.",
-      "metadata: El JSON definitivo espera el CID real de la imagen.",
-      "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo.",
-      "Presentación: Falta revisar visualmente la imagen recuperada."
+      "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo."
     ]
   }
 }
