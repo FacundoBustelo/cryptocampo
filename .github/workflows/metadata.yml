@@ -1,0 +1,30 @@
+name: Verificar publicación IPFS y URI en Anvil
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  metadatos:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Obtener el proyecto
+        uses: actions/checkout@v6
+
+      - name: Preparar el entorno con versiones fijadas
+        run: bash tools/setup.sh
+
+      - name: Verificar publicación y resolución
+        run: python3 tools/verify-metadata.py
+
+      - name: Conservar evidencia incluso si falla la verificación
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: metadata-verification-${{ github.run_id }}
+          path: .tools/metadata-verification/
+          include-hidden-files: true
+          if-no-files-found: warn

@@ -13,6 +13,11 @@ jobs:
       - name: Obtener el proyecto
         uses: actions/checkout@v6
 
+      - name: Validar recursos locales y el verificador sin descargas IPFS
+        run: |
+          python3 tools/verify-metadata.py --local-only
+          python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v
+
       - name: Preparar el entorno con versiones fijadas
         id: setup
         run: bash tools/setup.sh
