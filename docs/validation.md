@@ -1,8 +1,8 @@
 # Validación local — 14/11/2026
 
-**Actualización del 15/11/2026:** el usuario aportó [resultados de CI](ci-validation-2026-11-15.md) con compilación satisfactoria, 48 pruebas aprobadas y 97,53 % de ramas de CCNFT cubiertas, además del reporte agregado de gas de la ejecución anterior. La nueva prueba cubrió las dos guardas de `claim`; las dos ramas restantes de `trade` están justificadas como inalcanzables mediante la interfaz pública actual. Falta ejecutar la [matriz de gas por escenario](gas-scenarios.md) y registrar el detalle del entorno. Las limitaciones de ejecución descritas abajo corresponden a esta sesión local del 14/11/2026.
+**Actualización del 15/11/2026: fases 2 y 3 validadas en CI.** El usuario aportó [resultados](ci-validation-2026-11-15.md) con compilación y formato satisfactorios, 48 pruebas aprobadas y 97,53 % de ramas de CCNFT cubiertas, además del reporte agregado de gas y [35 transacciones de medición exitosas](gas-scenarios.md), con commit, versiones y revisiones identificados. La nueva prueba cubrió las dos guardas de `claim`; las dos ramas restantes de `trade` están justificadas como inalcanzables mediante la interfaz pública actual. El cierre abarca el rango medido y conserva los límites documentados. Las limitaciones de ejecución y controles pendientes descritos abajo corresponden a la revisión histórica local del 14/11/2026; fueron resueltos en CI dentro del alcance registrado.
 
-La fase 3 sigue pendiente de validación. La fase 4 está iniciada: implementación de URI compartida, ocho pruebas adicionales, imagen y JSON preparados. No se publicaron recursos en IPFS ni se desplegó en Sepolia.
+Al 14/11/2026, la fase 3 seguía pendiente de validación local; los resultados de CI del 15/11/2026 permiten su cierre, según la actualización anterior. La fase 4 está iniciada: URI compartida, ocho pruebas de metadatos aprobadas, imagen y JSON preparados. No se publicaron recursos en IPFS ni se desplegó en Sepolia.
 
 ## Entorno y ejecución
 
@@ -29,7 +29,7 @@ La revisión estática inicial no probaba comportamiento ejecutado ni compatibil
 
 La búsqueda es O(publicaciones). Insertar, actualizar y eliminar recorren la lista; la eliminación cambia su orden. Reclamar un lote cuesta hasta O(lote × publicaciones), además de la quema y enumeración. Comprar es O(lote). El límite de lote configurado para la demostración es 10; el tipo admite hasta 65.535 y no establece una cantidad segura para una red. La lista global no tiene límite y puede crecer entre varias compras, aunque cada compra respete el lote máximo.
 
-Quedan pendientes las mediciones con `forge test --gas-report` y escenarios que comparen 1, 10 y 100 publicaciones y lotes de 1 y 10. Deben incluir actualización de una publicación al final, eliminación al principio/medio/final y reclamos publicados y no publicados. Registrar por separado preparación del estado y operación medida, condiciones de almacenamiento frío/caliente y límite de gas de la red de destino. El informe agregado de la suite actual no basta para extrapolar un máximo seguro. No se establece un límite operativo verificado hasta obtener estas mediciones.
+Las mediciones pendientes en la revisión inicial se completaron en CI: reporte agregado y 35 recibos de transacciones con listas de 1, 10 y 100 y lotes de 1 y 10, incluidas actualizaciones al final, eliminaciones en distintas posiciones y reclamos publicados y no publicados. La preparación del estado se separó de cada transacción medida y se documentaron configuración, calentamiento y límite de bloque. Ver [resultados y límites](gas-scenarios.md). No se extrapola un máximo global ni un límite seguro para redes públicas.
 
 ## Recursos de fase 4
 
@@ -37,7 +37,7 @@ Se validó `assets/metadata.json` con el parser JSON de Python y `assets/certifi
 
 La URI de imagen en localhost y las cadenas de la suite son referencias de prueba. Se preparó la resolución local, pero los contratos no descargan el JSON ni la imagen. Accesibilidad IPFS, pinning y presentación en una billetera quedan pendientes. El README indica el orden imagen → JSON final → configuración de URI.
 
-## Reanudación de la validación
+## Reproducción de la validación
 
 Con conectividad, ejecutar desde `cryptocampo/`:
 
@@ -56,4 +56,4 @@ forge coverage
 forge test --gas-report
 ```
 
-Comparar revisiones con la tabla del README y comprobar que las dependencias están limpias. Si falla el formato, ejecutar `forge fmt` y repetir el control. Corregir los demás fallos y repetir los controles afectados; revisar ramas sin cobertura, añadir pruebas de comportamiento relevante y completar las mediciones de listas y lotes. Registrar los resultados antes de cerrar la fase 3. La fase 4 solo se cerrará con publicación, pinning y accesibilidad real comprobados.
+Comparar revisiones con la tabla del README y comprobar que las dependencias están limpias. Si falla el formato en cambios futuros, ejecutar `forge fmt` y repetir el control. La matriz de recibos se reproduce con `forge build --force` y `python3 tools/measure-gas.py`. Las fases 2 y 3 están cerradas con la evidencia de CI registrada, conservando las limitaciones del rango medido. La fase 4 solo se cerrará con publicación, pinning y accesibilidad real comprobados.

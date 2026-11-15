@@ -1,0 +1,235 @@
+{
+  "source": "Transcripción de la salida de GitHub Actions compartida por el usuario el 15/11/2026.",
+  "commit": "ec648936f79c62f9cc2b11bfa0ced3fa477c1e5c",
+  "versions": {
+    "forge": "1.4.4-v1.4.4",
+    "anvil": "1.4.4-v1.4.4",
+    "solidity": "0.8.19"
+  },
+  "revisions": {
+    "openzeppelin-contracts": "a5445b0afb8b350417b6e6ab3160554967bc151f",
+    "forge-std": "77041d2ce690e692d6e03cc812b57d1ddaa4d505"
+  },
+  "compiler": {
+    "evm_version": "paris",
+    "optimizer": true,
+    "optimizer_runs": 200
+  },
+  "chain": {
+    "chain_id": 31337,
+    "hardfork": "paris",
+    "block_gas_limit": 30000000
+  },
+  "measurements": [
+    {
+      "list_size": 1,
+      "operation": "buy",
+      "batch_size": 1,
+      "gas_used": 224063
+    },
+    {
+      "list_size": 1,
+      "operation": "buy",
+      "batch_size": 10,
+      "gas_used": 1475810
+    },
+    {
+      "list_size": 1,
+      "operation": "list_new",
+      "batch_size": 1,
+      "gas_used": 105126
+    },
+    {
+      "list_size": 1,
+      "operation": "list_update_first",
+      "batch_size": 1,
+      "gas_used": 42642
+    },
+    {
+      "list_size": 1,
+      "operation": "list_update_last",
+      "batch_size": 1,
+      "gas_used": 42642
+    },
+    {
+      "list_size": 1,
+      "operation": "trade_first",
+      "batch_size": 1,
+      "gas_used": 132527
+    },
+    {
+      "list_size": 1,
+      "operation": "trade_middle",
+      "batch_size": 1,
+      "gas_used": 132527
+    },
+    {
+      "list_size": 1,
+      "operation": "trade_last",
+      "batch_size": 1,
+      "gas_used": 132527
+    },
+    {
+      "list_size": 1,
+      "operation": "claim_unlisted",
+      "batch_size": 1,
+      "gas_used": 112699
+    },
+    {
+      "list_size": 1,
+      "operation": "claim_listed_last",
+      "batch_size": 1,
+      "gas_used": 142976
+    },
+    {
+      "list_size": 1,
+      "operation": "claim_unlisted",
+      "batch_size": 10,
+      "gas_used": 443772
+    },
+    {
+      "list_size": 10,
+      "operation": "buy",
+      "batch_size": 1,
+      "gas_used": 224063
+    },
+    {
+      "list_size": 10,
+      "operation": "buy",
+      "batch_size": 10,
+      "gas_used": 1475810
+    },
+    {
+      "list_size": 10,
+      "operation": "list_new",
+      "batch_size": 1,
+      "gas_used": 127707
+    },
+    {
+      "list_size": 10,
+      "operation": "list_update_first",
+      "batch_size": 1,
+      "gas_used": 42642
+    },
+    {
+      "list_size": 10,
+      "operation": "list_update_last",
+      "batch_size": 1,
+      "gas_used": 65235
+    },
+    {
+      "list_size": 10,
+      "operation": "trade_first",
+      "batch_size": 1,
+      "gas_used": 157227
+    },
+    {
+      "list_size": 10,
+      "operation": "trade_middle",
+      "batch_size": 1,
+      "gas_used": 158284
+    },
+    {
+      "list_size": 10,
+      "operation": "trade_last",
+      "batch_size": 1,
+      "gas_used": 163520
+    },
+    {
+      "list_size": 10,
+      "operation": "claim_unlisted",
+      "batch_size": 1,
+      "gas_used": 131854
+    },
+    {
+      "list_size": 10,
+      "operation": "claim_listed_last",
+      "batch_size": 1,
+      "gas_used": 140411
+    },
+    {
+      "list_size": 10,
+      "operation": "claim_unlisted",
+      "batch_size": 10,
+      "gas_used": 494820
+    },
+    {
+      "list_size": 10,
+      "operation": "claim_listed_last",
+      "batch_size": 10,
+      "gas_used": 731015
+    },
+    {
+      "list_size": 100,
+      "operation": "buy",
+      "batch_size": 1,
+      "gas_used": 224063
+    },
+    {
+      "list_size": 100,
+      "operation": "buy",
+      "batch_size": 10,
+      "gas_used": 1475810
+    },
+    {
+      "list_size": 100,
+      "operation": "list_new",
+      "batch_size": 1,
+      "gas_used": 353517
+    },
+    {
+      "list_size": 100,
+      "operation": "list_update_first",
+      "batch_size": 1,
+      "gas_used": 42642
+    },
+    {
+      "list_size": 100,
+      "operation": "list_update_last",
+      "batch_size": 1,
+      "gas_used": 291045
+    },
+    {
+      "list_size": 100,
+      "operation": "trade_first",
+      "batch_size": 1,
+      "gas_used": 157227
+    },
+    {
+      "list_size": 100,
+      "operation": "trade_middle",
+      "batch_size": 1,
+      "gas_used": 271189
+    },
+    {
+      "list_size": 100,
+      "operation": "trade_last",
+      "batch_size": 1,
+      "gas_used": 389330
+    },
+    {
+      "list_size": 100,
+      "operation": "claim_unlisted",
+      "batch_size": 1,
+      "gas_used": 357664
+    },
+    {
+      "list_size": 100,
+      "operation": "claim_listed_last",
+      "batch_size": 1,
+      "gas_used": 355323
+    },
+    {
+      "list_size": 100,
+      "operation": "claim_unlisted",
+      "batch_size": 10,
+      "gas_used": 1005300
+    },
+    {
+      "list_size": 100,
+      "operation": "claim_listed_last",
+      "batch_size": 10,
+      "gas_used": 1220864
+    }
+  ]
+}

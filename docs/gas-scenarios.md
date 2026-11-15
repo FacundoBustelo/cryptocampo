@@ -1,6 +1,31 @@
 # Medición de gas por escenario
 
-El script `tools/measure-gas.py` está preparado para ejecutarse en el paso **Medir gas por tamaño de lista y lote** de GitHub Actions. Todavía no se dispone de resultados de su ejecución con Anvil. No modifica los contratos ni requiere claves personales, cuentas externas o Sepolia.
+El paso **Medir gas por tamaño de lista y lote** de GitHub Actions completó las 35 transacciones exitosamente, según el registro compartido por el usuario el 15/11/2026. Se midió el commit `ec648936f79c62f9cc2b11bfa0ced3fa477c1e5c`. Los resultados y la identificación del entorno están transcritos en [gas-results-2026-11-15.json](gas-results-2026-11-15.json). No se modificaron contratos ni se usaron claves personales, cuentas externas o Sepolia.
+
+## Resultados observados
+
+Forge y Anvil informaron versión `1.4.4-v1.4.4`. Las revisiones fueron `a5445b0afb8b350417b6e6ab3160554967bc151f` para OpenZeppelin y `77041d2ce690e692d6e03cc812b57d1ddaa4d505` para forge-std, coincidentes con las fijadas. El script verificó Solidity 0.8.19, optimizador con 200 runs y compilación para Paris antes de medir.
+
+Gas de recibos, agrupado por longitud inicial de la lista:
+
+| Operación | Lote | Lista de 1 | Lista de 10 | Lista de 100 |
+| --- | ---: | ---: | ---: | ---: |
+| Compra | 1 | 224063 | 224063 | 224063 |
+| Compra | 10 | 1475810 | 1475810 | 1475810 |
+| Nueva publicación | 1 | 105126 | 127707 | 353517 |
+| Actualizar primera publicación | 1 | 42642 | 42642 | 42642 |
+| Actualizar última publicación | 1 | 42642 | 65235 | 291045 |
+| Reventa del primero | 1 | 132527 | 157227 | 157227 |
+| Reventa del intermedio | 1 | 132527 | 158284 | 271189 |
+| Reventa del último | 1 | 132527 | 163520 | 389330 |
+| Reclamo sin publicar | 1 | 112699 | 131854 | 357664 |
+| Reclamo del último publicado | 1 | 142976 | 140411 | 355323 |
+| Reclamo sin publicar | 10 | 443772 | 494820 | 1005300 |
+| Reclamo de los últimos publicados | 10 | No aplica | 731015 | 1220864 |
+
+La compra no varió con la longitud de la lista en estos escenarios. En cambio, insertar una publicación, actualizar la última, revender el último o reclamar IDs que obligan a recorrer la lista mostraron costos mayores con listas largas. La primera coincidencia evita recorrer el resto de la lista. Los costos fijos, la enumeración y los reembolsos también influyen: no se asume que todos los casos sean estrictamente crecientes.
+
+El mayor recibo de la matriz fue la compra de diez NFTs: 1.475.810 gas. El mayor reclamo medido fue el de diez publicados al final de una lista de cien: 1.220.864 gas. Todas las transacciones completaron bajo el límite de bloque de 30.000.000 usado en Anvil. Esto valida el rango estudiado, sin establecer una cota global ni un límite seguro para otra red.
 
 ## Método
 

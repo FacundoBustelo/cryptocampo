@@ -1,6 +1,17 @@
 # Evidencia de GitHub Actions — 15/11/2026
 
-Fuente: salidas de `forge coverage` y `forge test --gas-report` compartidas por el usuario, quien también informó que el job completo `contratos` terminó en `succeeded`. No se consultó esa ejecución de GitHub desde esta sesión ni se dispone todavía del enlace de ejecución o del hash del commit de esa ejecución.
+Fuente: salidas de cobertura, reporte agregado de gas y matriz de medición en Anvil compartidas por el usuario, quien también informó un job `contratos` satisfactorio. El registro de la matriz identifica el commit `ec648936f79c62f9cc2b11bfa0ced3fa477c1e5c`. No se consultó esa ejecución de GitHub desde esta sesión ni se dispone de su enlace directo.
+
+**Estado al 15/11/2026: fases 2 y 3 validadas en CI para el alcance académico y el rango medido.** La ejecución local permanece sin herramientas instaladas; no se reintentaron las descargas desde esta sesión. La fase 4 continúa pendiente de publicación IPFS, pinning y accesibilidad real.
+
+## Entorno confirmado y medición final
+
+El registro final muestra Forge y Anvil `1.4.4-v1.4.4`, compilación con Solidity 0.8.19, optimizador habilitado con 200 runs y Paris. Las revisiones descargadas coinciden con las previstas:
+
+- OpenZeppelin: `a5445b0afb8b350417b6e6ab3160554967bc151f`.
+- forge-std: `77041d2ce690e692d6e03cc812b57d1ddaa4d505`.
+
+La matriz completó **35 transacciones exitosas**, con listas de 1, 10 y 100 publicaciones y lotes de 1 y 10. Se registraron recibos independientes y se restauró el estado entre mediciones. Los [resultados completos y sus límites](gas-scenarios.md) y la [transcripción JSON](gas-results-2026-11-15.json) quedan versionados. El máximo medido fue 1.475.810 gas para comprar diez NFTs; el reclamo de diez publicados al final de una lista de cien consumió 1.220.864 gas.
 
 ## Resultados observados en el registro
 
@@ -41,6 +52,8 @@ Forge informó que desactivó el optimizador y `viaIR` para medir cobertura. Las
 
 Solidity indicó que dos pruebas de BUSD podrían declararse `view`. Son advertencias de mutabilidad de funciones de prueba; no impidieron compilar ni aprobar las pruebas.
 
+La compilación final también mostró avisos de retornos ERC20 sin comprobar en archivos de pruebas y notas de estilo en el mock y en la inicialización de `TokenSale`. En `src/CCNFT.sol`, los pagos de las operaciones comprueban el retorno de `transferFrom` mediante `require`. Estos avisos no son resultados de pruebas fallidas; se conserva su existencia en la evidencia y no se declara una compilación libre de advertencias.
+
 ## Reporte de gas recibido
 
 La ejecución de `forge test --gas-report` también finalizó con 47 pruebas aprobadas, cero fallos y cero omisiones, incluidas las cuatro fuzz de 256 casos. Indicó `No files changed, compilation skipped`: reutilizó los artefactos disponibles del runner. Se transcriben las estadísticas relevantes de ese reporte, en unidades de gas:
@@ -62,6 +75,8 @@ Estas estadísticas corresponden a llamadas de la suite y no distinguen en la ta
 
 ## Estado y pendientes
 
-La validación funcional y de metadatos, la revisión de ramas y el reporte agregado de gas ya tienen evidencia de ejecución. La última salida de cobertura confirma las 48 pruebas aprobadas y las dos guardas restantes de `trade`, justificadas arriba. Falta incorporar el detalle del entorno y completar las mediciones de listas y lotes. Se prepararon el [método y matriz de 35 transacciones](gas-scenarios.md) y un paso de CI para ejecutarlos en Anvil; esa medición todavía debe ejecutarse. La fase 3 permanece en revisión hasta completar esos controles.
+La fase 3 se cierra con compilación y formato satisfactorios informados por el workflow, 48 pruebas aprobadas, las cuatro fuzz de 256 casos, cobertura revisada (79/81 ramas de CCNFT, dos rechazos inalcanzables justificados), reporte agregado de gas, entorno identificado y 35 transacciones de medición exitosas. No se cambiaron las reglas económicas ni las plantillas originales.
+
+El cierre corresponde al comportamiento comprobado y al rango estudiado. No establece una cota de gas para listas mayores de cien, otros ERC20 o receptores contrato, ni acredita un despliegue o una auditoría de producción.
 
 La fase 4 tiene las ocho pruebas aprobadas y los recursos locales validados; publicación IPFS, pinning y accesibilidad real siguen pendientes.

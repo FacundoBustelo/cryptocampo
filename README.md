@@ -2,7 +2,7 @@
 
 Contratos para certificados agrícolas de demostración y pagos con un token ERC20 BUSD. Los certificados no acreditan existencias físicas verificadas y el token no tiene respaldo en dólares.
 
-Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **El 15/11/2026 se registraron compilación con Solidity 0.8.19 y 48 pruebas aprobadas en GitHub Actions**, incluidas cuatro fuzz con 256 casos cada una, y se recibió el reporte agregado de gas de la ejecución anterior de 47 pruebas. La nueva prueba cubrió las dos guardas pendientes de `claim`; CCNFT alcanza 97,53 % de ramas, con dos guardas de `trade` justificadas como inalcanzables mediante las funciones públicas actuales. Falta medir listas y lotes por escenario y registrar el detalle del entorno antes de cerrar la fase 3. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
+Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
 
 ## Entorno
 
@@ -55,7 +55,7 @@ Para comprar se configuran token, ambos colectores, nominales, lote y límite de
 
 Las cuatro operaciones tienen `nonReentrant`, incluida la publicación durante callbacks de recepción de NFTs. Cada pago comprueba el booleano de `transferFrom`; si la comisión es cero se omite ese cobro. Un fallo revierte pagos, emisiones, quemas y publicaciones. En reventa, la publicación se elimina y la propiedad se actualiza antes de callbacks y cobros. Las tres transferencias públicas de ERC721 revierten con `Not Allowed`, incluso con aprobación del NFT.
 
-Se conservan las auxiliares `find`, `addToArray` y `removeFromArray`: búsqueda lineal, reemplazo por el último elemento y `pop`. La lista no conserva el orden. Publicar, actualizar o eliminar cuesta O(n) en la cantidad de publicaciones; reclamar un lote puede costar O(lote × publicaciones). `maxBatchCount` no limita la longitud global de la lista. El reporte de CI recibido midió máximos agregados de 1.498.834 gas para `buy`, 119.741 para `putOnSale`, 160.027 para `trade` y 529.664 para `claim`; son valores observados en la suite, no cotas garantizadas. Falta medir por separado tamaños de lista y lote. Ver [tabla y límites de interpretación](docs/ci-validation-2026-11-15.md).
+Se conservan las auxiliares `find`, `addToArray` y `removeFromArray`: búsqueda lineal, reemplazo por el último elemento y `pop`. La lista no conserva el orden. Publicar, actualizar o eliminar cuesta O(n) en la cantidad de publicaciones; reclamar un lote puede costar O(lote × publicaciones). `maxBatchCount` no limita la longitud global de la lista. La matriz de Anvil midió listas de 1, 10 y 100 y lotes de 1 y 10: comprar diez NFTs consumió 1.475.810 gas; reclamar diez publicados al final de una lista de cien, 1.220.864. Son recibos de escenarios específicos, sin cotas garantizadas para listas mayores, otros ERC20 o receptores contrato. Ver [tabla y límites de interpretación](docs/gas-scenarios.md).
 
 Los eventos `Buy`, `PutOnSale`, `Trade` y `Claim` identifican participantes, IDs y nominal o precio. `Trade` incluye la comisión. `BuyPayment` y `ClaimPayment` registran principal y comisión o beneficio de todo el lote, para reflejar correctamente el redondeo agregado.
 
@@ -101,7 +101,7 @@ Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintax
 - `docs/`: evidencia del intento de verificación y revisión estática.
 - `tools/`: instalación reproducible del entorno.
 
-El paso de CI **Medir gas por tamaño de lista y lote** ejecuta `tools/measure-gas.py` en un Anvil temporal. Compara 35 transacciones con listas de 1, 10 y 100 publicaciones y lotes de 1 y 10, usando el gas de los recibos y separando la preparación del estado. El script y el workflow están preparados; sus resultados todavía deben obtenerse. Ver [método, matriz y límites](docs/gas-scenarios.md).
+El paso de CI **Medir gas por tamaño de lista y lote** ejecuta `tools/measure-gas.py` en un Anvil temporal. Las 35 transacciones con listas de 1, 10 y 100 publicaciones y lotes de 1 y 10 completaron exitosamente, usando gas de recibos y separando la preparación del estado. Se registraron commit, versiones y revisiones de dependencias. Ver [método, resultados y límites](docs/gas-scenarios.md).
 
 La configuración fija Solidity 0.8.19, EVM Paris y optimización con 200 ejecuciones. Las pruebas se ejecutan localmente, sin RPC ni cuentas externas.
 
@@ -124,4 +124,4 @@ Hay 48 funciones de prueba: 2 de BUSD y 46 de CCNFT, incluidas las 4 pruebas fuz
 | `.tools/bin/forge coverage` | Bloqueado: ejecutable inexistente (código 127). |
 | `.tools/bin/forge test --gas-report` | Bloqueado: ejecutable inexistente (código 127). |
 
-En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) aporta compilación y 48 pruebas aprobadas, con cobertura revisada y reporte agregado de gas de la ejecución anterior. La ejecución local sigue sin entorno instalado; no se reintentaron las descargas. El cierre de fase 3 requiere completar las mediciones de listas y lotes y registrar el detalle del entorno del runner.
+En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) permite cerrar las fases 2 y 3: compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada, reporte agregado de gas y 35 recibos de medición por escenario, con entorno identificado. La ejecución local sigue sin herramientas instaladas; no se reintentaron las descargas desde esta sesión.
