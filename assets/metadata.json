@@ -1,0 +1,5 @@
+{
+  "name": "CryptoCampo — Certificado agrícola de demostración",
+  "description": "Certificado de demostración del proyecto académico CryptoCampo NFT. Ficha común a todos los NFTs; no acredita existencias físicas verificadas. El nominal y la propiedad se consultan en el contrato. La imagen usa una referencia de prueba local, pendiente de publicación en IPFS.",
+  "image": "http://127.0.0.1:8000/certificate.svg"
+}

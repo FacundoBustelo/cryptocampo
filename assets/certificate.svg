@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title description">
+  <title id="title">CryptoCampo — Certificado de demostración</title>
+  <desc id="description">Certificado agrícola académico con espiga y campos verdes. No acredita existencias físicas verificadas.</desc>
+  <rect width="1200" height="800" fill="#f6f3e8"/>
+  <rect x="28" y="28" width="1144" height="744" rx="12" fill="none" stroke="#245c43" stroke-width="3"/>
+  <rect x="40" y="40" width="1120" height="720" rx="8" fill="none" stroke="#b9ba98"/>
+  <text x="84" y="112" fill="#245c43" font-family="sans-serif" font-size="30" font-weight="700" letter-spacing="3">CRYPTOCAMPO</text>
+  <text x="1116" y="108" text-anchor="end" fill="#53634e" font-family="sans-serif" font-size="17" letter-spacing="2">PROYECTO ACADÉMICO</text>
+  <path d="M84 142 H1116" stroke="#b9ba98"/>
+  <circle cx="600" cy="292" r="104" fill="#e6e9d4"/>
+  <g fill="#c5973e" stroke="#997128" stroke-width="2">
+    <path d="M600 357 V230" fill="none" stroke-width="5"/>
+    <path d="M600 263 Q576 251 578 228 Q601 234 600 263Z"/>
+    <path d="M600 290 Q567 279 568 253 Q595 259 600 290Z"/>
+    <path d="M600 318 Q563 307 562 278 Q592 284 600 318Z"/>
+    <path d="M600 263 Q624 251 622 228 Q599 234 600 263Z"/>
+    <path d="M600 290 Q633 279 632 253 Q605 259 600 290Z"/>
+    <path d="M600 318 Q637 307 638 278 Q608 284 600 318Z"/>
+    <path d="M600 243 Q582 223 600 207 Q618 223 600 243Z"/>
+  </g>
+  <text x="600" y="453" text-anchor="middle" fill="#204e39" font-family="serif" font-size="48">Certificado de demostración</text>
+  <text x="600" y="497" text-anchor="middle" fill="#53634e" font-family="sans-serif" font-size="23">Representación digital de un certificado agrícola</text>
+  <text x="600" y="540" text-anchor="middle" fill="#53634e" font-family="sans-serif" font-size="18">No acredita existencias físicas verificadas</text>
+  <path d="M64 650 Q305 547 594 653 Q847 562 1136 636 V736 H64Z" fill="#b5c59a"/>
+  <path d="M64 690 Q352 586 666 699 Q940 611 1136 675 V736 H64Z" fill="#759666"/>
+  <path d="M64 726 Q360 659 647 735 Q953 661 1136 712 V736 H64Z" fill="#3f7050"/>
+  <path d="M89 702 Q355 628 582 707 M724 707 Q947 646 1108 691" fill="none" stroke="#e6e9d4" stroke-width="3"/>
+</svg>
