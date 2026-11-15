@@ -144,4 +144,29 @@ contract CCNFTAdminTest is CCNFTBase {
         assertEq(fresh.totalSupply(), 0);
         assertEq(fresh.totalValue(), 0);
     }
+
+    function testClaimRequiresCompleteConfiguration() public {
+        CCNFT fresh = new CCNFT();
+        fresh.setCanClaim(true);
+        fresh.setMaxBatchCount(1);
+        uint256[] memory ids = _ids(0);
+
+        // La configuracion se valida antes de comprobar los IDs del lote.
+        vm.expectRevert("Funds token not configured");
+        fresh.claim(ids);
+
+        fresh.setFundsToken(address(busd));
+        vm.expectRevert("Funds collector not configured");
+        fresh.claim(ids);
+
+        fresh.setFundsCollector(funds);
+        vm.expectRevert("Token does not exist");
+        fresh.claim(ids);
+
+        assertEq(fresh.totalSupply(), 0);
+        assertEq(fresh.totalValue(), 0);
+        assertEq(fresh.values(0), 0);
+        assertEq(busd.balanceOf(address(fresh)), 0);
+        assertEq(busd.balanceOf(funds), 0);
+    }
 }

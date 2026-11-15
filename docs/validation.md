@@ -1,6 +1,6 @@
 # Validación local — 14/11/2026
 
-**Actualización del 15/11/2026:** el usuario aportó [resultados de CI](ci-validation-2026-11-15.md) con compilación satisfactoria, 47 pruebas aprobadas, cobertura medida y reporte agregado de gas. Las limitaciones de ejecución descritas abajo corresponden a esta sesión local del 14/11/2026. Quedan por revisar las cuatro ramas sin cobertura de CCNFT y completar las mediciones de listas y lotes por escenario.
+**Actualización del 15/11/2026:** el usuario aportó [resultados de CI](ci-validation-2026-11-15.md) con compilación satisfactoria, 47 pruebas aprobadas, cobertura medida y reporte agregado de gas. Las cuatro ramas sin cubrir ya se identificaron: dos de `trade` son inalcanzables mediante la interfaz pública actual y dos de `claim` motivaron una prueba nueva. Hay 48 pruebas escritas; falta ejecutar la nueva y completar las mediciones de listas y lotes por escenario. Las limitaciones de ejecución descritas abajo corresponden a esta sesión local del 14/11/2026.
 
 La fase 3 sigue pendiente de validación. La fase 4 está iniciada: implementación de URI compartida, ocho pruebas adicionales, imagen y JSON preparados. No se publicaron recursos en IPFS ni se desplegó en Sepolia.
 
@@ -23,7 +23,7 @@ Se contrastaron el PDF conceptual, las indicaciones de entrega, las plantillas y
 | Publicaciones y quema | Repetir publicación actualiza sin duplicar; eliminación con búsqueda y swap/pop; reventa y reclamo limpian precio, indicador y lista. La quema elimina el nominal. |
 | Conservación del nominal | Compra aumenta `totalValue`, reventa lo conserva y reclamo resta únicamente el nominal; las pruebas escritas contrastan la suma de valores y la enumeración. |
 
-Esta revisión no prueba comportamiento ejecutado ni compatibilidad de compilación. La cobertura por ramas sigue pendiente: no se dispone de un informe para identificar y cuantificar las ramas sin cobertura. Las guardas de configuración de `trade` y `claim` requieren especial revisión al interpretar el futuro informe: para obtener un NFT por `buy` ya se requiere configurar token y colectores, y sus setters no permiten volver a cero.
+La revisión estática inicial no probaba comportamiento ejecutado ni compatibilidad de compilación. El registro posterior de CI permite identificar cuatro ramas sin cubrir. Las dos guardas de configuración de `trade` son inalcanzables por la interfaz pública actual porque se comprueba primero la existencia del NFT. En `claim`, en cambio, la configuración se comprueba antes de la existencia de IDs: sus dos rechazos sí son alcanzables sin emitir NFTs, y se añadió una prueba para ellos. Ver el [análisis detallado](ci-validation-2026-11-15.md).
 
 ## Gas y límites de uso
 

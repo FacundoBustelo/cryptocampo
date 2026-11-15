@@ -2,7 +2,7 @@
 
 Contratos para certificados agrícolas de demostración y pagos con un token ERC20 BUSD. Los certificados no acreditan existencias físicas verificadas y el token no tiene respaldo en dólares.
 
-Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **El 15/11/2026 se registraron compilación con Solidity 0.8.19 y 47 pruebas aprobadas en GitHub Actions**, incluidas cuatro fuzz con 256 casos cada una, y se recibió el reporte agregado de gas. El usuario informó que el workflow completo terminó satisfactoriamente. Quedan por revisar las cuatro ramas sin cobertura de CCNFT y medir listas y lotes por escenario antes de cerrar la fase 3. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente. Ver [evidencia recibida de CI](docs/ci-validation-2026-11-15.md).
+Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **El 15/11/2026 se registraron compilación con Solidity 0.8.19 y 47 pruebas aprobadas en GitHub Actions**, incluidas cuatro fuzz con 256 casos cada una, y se recibió el reporte agregado de gas. El usuario informó que el workflow completo terminó satisfactoriamente. Se revisaron las cuatro ramas sin cobertura: dos de `trade` son inalcanzables por el invariante de configuración y dos de `claim` motivaron una prueba nueva, todavía pendiente de ejecución. La suite actual tiene 48 pruebas; faltan ejecutar esa actualización y medir listas y lotes por escenario antes de cerrar la fase 3. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
 
 ## Entorno
 
@@ -103,7 +103,7 @@ Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintax
 
 La configuración fija Solidity 0.8.19, EVM Paris y optimización con 200 ejecuciones. Las pruebas se ejecutan localmente, sin RPC ni cuentas externas.
 
-Hay 47 funciones de prueba: 2 de BUSD y 45 de CCNFT, incluidas las 4 pruebas fuzz. Se conservaron las 39 originales y se añadieron 8 de metadatos; la prueba de permisos administrativos ahora incluye el nuevo setter y la de interfaces comprueba ERC721Metadata. Las 47 pasaron en el registro de CI recibido el 15/11/2026, sin fallos ni omisiones. CCNFT alcanzó 100 % de líneas, sentencias y funciones y 95,06 % de ramas (77/81).
+Hay 48 funciones de prueba: 2 de BUSD y 46 de CCNFT, incluidas las 4 pruebas fuzz. Se conservaron las 39 originales y se añadieron 8 de metadatos y una de configuración incompleta de `claim`; la prueba de permisos administrativos incluye el nuevo setter y la de interfaces comprueba ERC721Metadata. Las 47 anteriores pasaron en el registro de CI recibido el 15/11/2026, sin fallos ni omisiones. En esa ejecución CCNFT alcanzó 100 % de líneas, sentencias y funciones y 95,06 % de ramas (77/81). La prueba nueva aún requiere ejecución en CI. La justificación de las dos guardas de `trade` inalcanzables por la interfaz pública está en la [revisión de cobertura](docs/ci-validation-2026-11-15.md).
 
 ## Estado de verificación al 14/11/2026
 
@@ -122,4 +122,4 @@ Hay 47 funciones de prueba: 2 de BUSD y 45 de CCNFT, incluidas las 4 pruebas fuz
 | `.tools/bin/forge coverage` | Bloqueado: ejecutable inexistente (código 127). |
 | `.tools/bin/forge test --gas-report` | Bloqueado: ejecutable inexistente (código 127). |
 
-En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) aporta compilación y 47 pruebas aprobadas, con cobertura y reporte agregado de gas. La ejecución local sigue sin entorno instalado; no se reintentaron las descargas. El cierre de fase 3 requiere revisar ramas sin cobertura y completar las mediciones de listas y lotes. El detalle del entorno del runner aún debe incorporarse a la evidencia.
+En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) aporta compilación y 47 pruebas aprobadas, con cobertura y reporte agregado de gas. La ejecución local sigue sin entorno instalado; no se reintentaron las descargas. El cierre de fase 3 requiere ejecutar la nueva prueba de configuración de `claim` y completar las mediciones de listas y lotes. El detalle del entorno del runner aún debe incorporarse a la evidencia.
