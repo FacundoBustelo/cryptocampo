@@ -1,0 +1,60 @@
+{
+  "recorded_at": "2026-11-15T04:52:46.105532+00:00",
+  "status": "pending",
+  "unit_tests": {
+    "passed": 20,
+    "failed": 0,
+    "command": "python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v",
+    "exit_code": 0
+  },
+  "workflow_static_check": {
+    "status": "passed",
+    "trigger": "workflow_dispatch only",
+    "independent_gateway_options": [
+      "ipfs.io",
+      "filebase"
+    ],
+    "default": "ipfs.io"
+  },
+  "pinata_download_evidence": "docs/evidence/ipfs-pinata-verified-ipfsio-429-2026-11-15.json",
+  "recovered_image_review": {
+    "status": "verified",
+    "reviewed_by": "Codex",
+    "reviewed_at": "2026-11-15T04:51:54.879923+00:00",
+    "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+    "evidence": "Render a 1200 × 800 del SVG descargado de gateway.pinata.cloud por el usuario y comparado nuevamente byte por byte con assets/certificate.svg. Título, textos de demostración, espiga y campos visibles sin recortes. Captura del render: docs/evidence/ipfs-certificate-preview-2026-11-15.png. Informe HTTP y SHA-256: docs/evidence/ipfs-pinata-verified-ipfsio-429-2026-11-15.json."
+  },
+  "anvil_only_attempt": {
+    "checked_at": "2026-11-15T04:50:33.243822+00:00",
+    "status": "pending",
+    "mode": "anvil",
+    "resources": {
+      "image": {
+        "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+        "local": "verified",
+        "gateways": []
+      },
+      "metadata": {
+        "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+        "local": "verified",
+        "gateways": []
+      }
+    },
+    "anvil": {
+      "status": "pending",
+      "uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "error": "Command '['/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/bin/forge', 'build']' returned non-zero exit status 1."
+    },
+    "pending": [
+      "Anvil: Command '['/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/bin/forge', 'build']' returned non-zero exit status 1.",
+      "Solo prueba de URI en Anvil; no se comprobaron disponibilidad IPFS ni pinning."
+    ]
+  },
+  "compilation_stderr": "Error: Read-only file system (os error 30)",
+  "limitations": [
+    "Anvil no llegó a ejecutarse en esta sesión; la compilación no pudo completar.",
+    "El gateway Filebase está implementado y probado sin red; no hay todavía una descarga real acreditada mediante ese operador.",
+    "La publicación y resolución globales permanecen pendientes."
+  ],
+  "next_command": "python3 tools/verify-metadata.py --independent-gateway filebase --record"
+}

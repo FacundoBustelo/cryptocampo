@@ -1,6 +1,6 @@
 # Publicar y comprobar los metadatos
 
-Estado al 15/11/2026: **CIDs registrados; verificación automática pendiente**. El usuario proporcionó el CID de la imagen `bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4`; su digest SHA-256 raw coincide con el SVG local. Se intentó recuperarlo por los dos gateways, pero ambos fallaron por DNS en esta sesión. La [captura aportada por el usuario](evidence/pinata-image-public-2026-11-15.png) muestra certificate.svg en Files/Public, 2.31 KB y Creation Date 11/15/2026. Se registra como evidencia de subida completada y del pinning automático de Pinata; no muestra una etiqueta explícita Pinned. La fecha se conserva con precisión de día, sin inventar una hora. El usuario confirmó posteriormente que el enlace público de Pinata muestra el certificado de demostración. La comparación automática de bytes por ambos gateways sigue pendiente por DNS. Se revisó el certificado local a 1200 × 800. El [manifiesto](ipfs-publication.json) conserva `null` para los datos todavía desconocidos. El JSON ya se preparó con la URI IPFS real de la imagen y la descripción final; su nuevo hash SHA-256 está registrado. El usuario proporcionó también el CID real del JSON `bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4`, cuyo digest SHA-256 coincide con el archivo preparado, y confirmó su presencia en Files/Public con fecha 15/11/2026. Se registró esa confirmación como evidencia de subida pública y pinning automático. No se conoce la hora exacta de subida ni se recibió captura del JSON. Ambos CIDs y sus URIs definitivas constan en el manifiesto; siguen pendientes las descargas automáticas y el escenario real de Anvil. Ver [evidencia del JSON y bloqueos](evidence/metadata-cid-verification-2026-11-15.json).
+Estado al 15/11/2026: **CIDs registrados; verificación automática pendiente**. El usuario proporcionó el CID de la imagen `bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4`; su digest SHA-256 raw coincide con el SVG local. Se intentó recuperarlo por los dos gateways, pero ambos fallaron por DNS en esta sesión. La [captura aportada por el usuario](evidence/pinata-image-public-2026-11-15.png) muestra certificate.svg en Files/Public, 2.31 KB y Creation Date 11/15/2026. Se registra como evidencia de subida completada y del pinning automático de Pinata; no muestra una etiqueta explícita Pinned. La fecha se conserva con precisión de día, sin inventar una hora. El usuario confirmó posteriormente que el enlace público de Pinata muestra el certificado de demostración. La ejecución posterior del usuario recuperó ambos archivos por Pinata con HTTP 200 y bytes/SHA-256 idénticos a los locales; `ipfs.io` respondió 429. Se conservan [los resultados](evidence/ipfs-pinata-verified-ipfsio-429-2026-11-15.json) y [el render de la imagen recuperada](evidence/ipfs-certificate-preview-2026-11-15.png). La comprobación mediante el segundo operador sigue pendiente. Se revisó el certificado local a 1200 × 800. El [manifiesto](ipfs-publication.json) conserva `null` para los datos todavía desconocidos. El JSON ya se preparó con la URI IPFS real de la imagen y la descripción final; su nuevo hash SHA-256 está registrado. El usuario proporcionó también el CID real del JSON `bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4`, cuyo digest SHA-256 coincide con el archivo preparado, y confirmó su presencia en Files/Public con fecha 15/11/2026. Se registró esa confirmación como evidencia de subida pública y pinning automático. No se conoce la hora exacta de subida ni se recibió captura del JSON. Ambos CIDs y sus URIs definitivas constan en el manifiesto; siguen pendientes la recuperación por un operador independiente y el escenario real de Anvil. Ver [evidencia del JSON y bloqueos](evidence/metadata-cid-verification-2026-11-15.json).
 
 Los contratos y sus reglas económicas se conservan. Esta fase termina con **publicación y resolución verificadas**; la presentación en una billetera y el despliegue en Sepolia corresponden a fases posteriores.
 
@@ -40,7 +40,7 @@ python3 tools/verify-metadata.py --image-only --record
 
 Este paso comprueba la imagen mediante [el gateway público de Pinata](https://knowledge.pinata.cloud/en/articles/6297294-public-gateways-vs-dedicated-gateways) y [`ipfs.io`](https://docs.ipfs.tech/concepts/public-utilities/), que tiene un operador independiente. Ambos deben devolver exactamente el archivo local. Los enlaces efectivamente comprobados, fecha, estado HTTP, URL tras redirecciones y SHA-256 se guardan en `verification.resources.image.gateways`.
 
-Código 0 en este modo acredita solo la recuperación de la imagen y la confirmación registrada de pinning; `image_publication` será `verified` y el estado global continuará `pending`. Código 1 identifica el recurso afectado. No se sustituye un CID ni se omite un gateway si falla.
+Código 0 en este modo acredita solo la recuperación de la imagen y la confirmación registrada de pinning; `image_publication` será `verified` y el estado global continuará `pending`. Código 1 identifica el recurso afectado. No se sustituye un CID ni se omite un gateway si falla. Un HTTP 429 se registra con su código y, si el servidor lo proporciona, `Retry-After`; el script no insiste automáticamente.
 
 ## 3. Revisar la imagen recuperada y finalizar el JSON
 
@@ -75,7 +75,7 @@ bash tools/setup.sh
 python3 tools/verify-metadata.py --record
 ```
 
-El verificador descarga imagen y JSON por ambos gateways, compara los cuatro resultados byte por byte con los archivos locales, comprueba hashes, sintaxis y la referencia `image`. Después compila con Forge e inicia un Anvil temporal vinculado a `127.0.0.1`, en un puerto disponible, chain ID 31337 y Paris. No usa RPC externo ni claves privadas del usuario. El proceso temporal se termina incluso si falla una comprobación.
+El verificador descarga imagen y JSON por ambos gateways, compara los cuatro resultados byte por byte con los archivos locales, comprueba hashes, sintaxis y la referencia `image`. La comprobación de la URI compila con Forge e inicia un Anvil temporal, aunque un gateway haya fallado, vinculado a `127.0.0.1`, en un puerto disponible, chain ID 31337 y Paris. No usa RPC externo ni claves privadas del usuario. El proceso temporal se termina incluso si falla una comprobación.
 
 Despliega BUSD y CCNFT, configura nominales de 100 y 500 BUSD, lote máximo 10, límite 10.000 BUSD, comisiones de 2 % y 1 % y beneficio de 5 %. Distribuye saldo a los dos compradores y configura autorizaciones ERC20 para compradores y colector. El administrador establece exactamente la URI publicada del JSON, y se comprueba:
 
@@ -91,11 +91,27 @@ El modo completo devuelve código 0 y estado `verified` solo si pasan las compro
 
 La falta de una fecha de publicación se registra como pendiente sin impedir descargar un CID válido. Si falta un CID, falla un gateway, cambia un archivo, falta pinning o hay un error en Anvil, devuelve código 1 y estado `pending`, con el recurso o comprobación afectado. No reutiliza un éxito anterior. `--record` actualiza `verification` con el último intento, también cuando falla. No modifica los archivos publicados ni inventa CIDs, fechas o confirmaciones.
 
+Para comprobar explícitamente otro operador cuando `ipfs.io` devuelve 429:
+
+```bash
+python3 tools/verify-metadata.py --independent-gateway filebase --record
+```
+
+Esta opción conserva Pinata como primer gateway y selecciona el [gateway público de Filebase](https://filebase.com/docs/ipfs/concepts/what-is-an-ipfs-gateway) como segundo operador. Mantiene los mismos CIDs y exige dos descargas coincidentes para cada recurso; no realiza fallback automático. La evidencia anterior de `ipfs.io` con HTTP 429 permanece versionada. No sustituir `ipfs.io` por `dweb.link` como solución a ese límite: [comparten infraestructura y límites](https://docs.ipfs.tech/concepts/public-utilities/).
+
+Para completar únicamente la prueba del contrato, sin nuevas solicitudes IPFS:
+
+```bash
+python3 tools/verify-metadata.py --anvil-only --record
+```
+
+Valida los archivos locales y las dos referencias IPFS registradas antes de ejecutar Anvil. Guarda el informe en `.tools/metadata-verification/anvil/result.json` y `anvil_verification` del manifiesto. Conserva `verification` y las descargas anteriores. Código 0 significa que pasó la prueba de Anvil; el estado global continúa `pending` porque este modo no verifica disponibilidad ni pinning. El modo completo también intenta Anvil aunque un gateway falle, y conserva ese fallo como pendiente de publicación.
+
 ## 6. Ejecutar los workflows y conservar evidencia
 
 El workflow habitual **Validar contratos** conserva compilación, formato, pruebas unitarias/fuzz, cobertura, reporte de gas y medición por escenarios. Añade la validación local y las pruebas sin red del verificador. Las pruebas Solidity siguen usando referencias locales.
 
-Con los cambios publicados en GitHub y el manifiesto completo, ejecutar también **Verificar publicación IPFS y URI en Anvil** desde Actions → Run workflow. Este segundo workflow solo tiene `workflow_dispatch`; no descarga recursos IPFS en cada push o PR. Adjunta `metadata-verification-<run_id>` con el informe y los archivos recuperados, incluso si el verificador falla. No escribe al repositorio ni altera la confirmación de pinning. Descargar el artefacto y registrar el enlace del run observado en la evidencia final.
+Con los cambios publicados en GitHub y el manifiesto completo, ejecutar también **Verificar publicación IPFS y URI en Anvil** desde Actions → Run workflow. Este segundo workflow permite elegir explícitamente `ipfs.io` o `filebase` como operador independiente y solo tiene `workflow_dispatch`; no descarga recursos IPFS en cada push o PR. Adjunta `metadata-verification-<run_id>` con el informe y los archivos recuperados, incluso si el verificador falla. No escribe al repositorio ni altera la confirmación de pinning. Descargar el artefacto y registrar el enlace del run observado en la evidencia final.
 
 Para repetir localmente los controles de contratos, una vez instalado el entorno:
 
@@ -109,4 +125,4 @@ Para repetir localmente los controles de contratos, una vez instalado el entorno
 python3 tools/measure-gas.py
 ```
 
-La [evidencia local de esta implementación](metadata-validation-2026-11-15.json) distingue pruebas del verificador de comprobaciones reales pendientes. En esta sesión la instalación falló por DNS de `github.com`; no se declara un nuevo workflow completo aprobado ni ejecución EVM. Actualizar README y plan general con los resultados observados cuando se completen las subidas y los runs.
+La [evidencia local de esta implementación](metadata-validation-2026-11-15.json) distingue pruebas del verificador de comprobaciones reales pendientes. La instalación inicial del agente falló por DNS de `github.com`. El usuario instaló posteriormente Foundry 1.4.4 y las dependencias fijadas desde su terminal. El agente confirmó la presencia de las herramientas, pero su primera compilación devuelve `Read-only file system`; no se declara un nuevo workflow completo aprobado ni ejecución EVM. Actualizar README y plan general con los resultados observados cuando se completen las subidas y los runs.

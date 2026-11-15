@@ -58,17 +58,17 @@
   },
   "visual_review": {
     "status": "verified",
-    "reviewed_by": "Usuario",
-    "reviewed_at": "2026-11-15T04:41:01.357339+00:00",
+    "reviewed_by": "Codex",
+    "reviewed_at": "2026-11-15T04:51:54.879923+00:00",
     "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
-    "evidence": "El usuario confirmó que el enlace público de Pinata muestra el certificado de demostración. SHA-256 asociado al CIDv1 raw, previamente contrastado con el SVG local; la comparación automatizada de bytes recuperados sigue pendiente por DNS."
+    "evidence": "Render a 1200 × 800 del SVG descargado de gateway.pinata.cloud por el usuario y comparado nuevamente byte por byte con assets/certificate.svg. Título, textos de demostración, espiga y campos visibles sin recortes. Captura del render: docs/evidence/ipfs-certificate-preview-2026-11-15.png. Informe HTTP y SHA-256: docs/evidence/ipfs-pinata-verified-ipfsio-429-2026-11-15.json."
   },
   "wallet_presentation": {
     "status": "pending",
     "evidence": null
   },
   "verification": {
-    "checked_at": "2026-11-15T04:46:01.956734+00:00",
+    "checked_at": "2026-11-15T04:47:17.478446+00:00",
     "status": "pending",
     "mode": "full",
     "resources": {
@@ -78,15 +78,18 @@
         "gateways": [
           {
             "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
-            "checked_at": "2026-11-15T04:46:01.957405+00:00",
-            "status": "pending",
-            "error": "<urlopen error [Errno -2] Name or service not known>"
+            "checked_at": "2026-11-15T04:47:17.479026+00:00",
+            "status": "verified",
+            "http_status": 200,
+            "resolved_url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+            "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+            "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/0/certificate.svg"
           },
           {
             "url": "https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
-            "checked_at": "2026-11-15T04:46:01.985210+00:00",
+            "checked_at": "2026-11-15T04:47:21.001252+00:00",
             "status": "pending",
-            "error": "<urlopen error [Errno -2] Name or service not known>"
+            "error": "HTTP Error 429: Too Many Requests"
           }
         ]
       },
@@ -96,15 +99,18 @@
         "gateways": [
           {
             "url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
-            "checked_at": "2026-11-15T04:46:01.985803+00:00",
-            "status": "pending",
-            "error": "<urlopen error [Errno -2] Name or service not known>"
+            "checked_at": "2026-11-15T04:47:21.333504+00:00",
+            "status": "verified",
+            "http_status": 200,
+            "resolved_url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+            "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+            "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/0/metadata.json"
           },
           {
             "url": "https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
-            "checked_at": "2026-11-15T04:46:01.986067+00:00",
+            "checked_at": "2026-11-15T04:47:27.860907+00:00",
             "status": "pending",
-            "error": "<urlopen error [Errno -2] Name or service not known>"
+            "error": "HTTP Error 429: Too Many Requests"
           }
         ]
       }
@@ -113,11 +119,47 @@
       "status": "pending"
     },
     "pending": [
-      "image: https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
-      "image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
-      "metadata: https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: <urlopen error [Errno -2] Name or service not known>",
-      "metadata: https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: <urlopen error [Errno -2] Name or service not known>",
+      "image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: HTTP Error 429: Too Many Requests",
+      "metadata: https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: HTTP Error 429: Too Many Requests",
       "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo."
     ]
+  },
+  "anvil_verification": {
+    "checked_at": "2026-11-15T04:50:33.243822+00:00",
+    "status": "pending",
+    "mode": "anvil",
+    "resources": {
+      "image": {
+        "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+        "local": "verified",
+        "gateways": []
+      },
+      "metadata": {
+        "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+        "local": "verified",
+        "gateways": []
+      }
+    },
+    "anvil": {
+      "status": "pending",
+      "uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "error": "Command '['/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/bin/forge', 'build']' returned non-zero exit status 1."
+    },
+    "pending": [
+      "Anvil: Command '['/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/bin/forge', 'build']' returned non-zero exit status 1.",
+      "Solo prueba de URI en Anvil; no se comprobaron disponibilidad IPFS ni pinning."
+    ]
+  },
+  "execution_evidence": {
+    "public_downloads": "docs/evidence/ipfs-pinata-verified-ipfsio-429-2026-11-15.json",
+    "recovered_image_preview": "docs/evidence/ipfs-certificate-preview-2026-11-15.png",
+    "environment": {
+      "status": "installed_by_user",
+      "foundry_version": "1.4.4-v1.4.4",
+      "foundry_commit": "05794498bf47257b144e2e2789a1d5bf8566be0e",
+      "openzeppelin_revision": "a5445b0afb8b350417b6e6ab3160554967bc151f",
+      "forge_std_revision": "77041d2ce690e692d6e03cc812b57d1ddaa4d505",
+      "source": "Salida de bash tools/setup.sh aportada por el usuario; binarios y bibliotecas presentes en el workspace."
+    }
   }
 }

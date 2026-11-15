@@ -1,0 +1,57 @@
+{
+  "checked_at": "2026-11-15T04:47:17.478446+00:00",
+  "status": "pending",
+  "mode": "full",
+  "resources": {
+    "image": {
+      "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+      "local": "verified",
+      "gateways": [
+        {
+          "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "checked_at": "2026-11-15T04:47:17.479026+00:00",
+          "status": "verified",
+          "http_status": 200,
+          "resolved_url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+          "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/0/certificate.svg"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "checked_at": "2026-11-15T04:47:21.001252+00:00",
+          "status": "pending",
+          "error": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    },
+    "metadata": {
+      "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+      "local": "verified",
+      "gateways": [
+        {
+          "url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "checked_at": "2026-11-15T04:47:21.333504+00:00",
+          "status": "verified",
+          "http_status": 200,
+          "resolved_url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+          "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/0/metadata.json"
+        },
+        {
+          "url": "https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "checked_at": "2026-11-15T04:47:27.860907+00:00",
+          "status": "pending",
+          "error": "HTTP Error 429: Too Many Requests"
+        }
+      ]
+    }
+  },
+  "anvil": {
+    "status": "pending"
+  },
+  "pending": [
+    "image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: HTTP Error 429: Too Many Requests",
+    "metadata: https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: HTTP Error 429: Too Many Requests",
+    "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo."
+  ]
+}
