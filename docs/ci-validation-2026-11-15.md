@@ -33,7 +33,7 @@ En `trade`, la comprobación de existencia del NFT ocurre antes de estas guardas
 
 En `claim`, las guardas de configuración aparecen antes de comprobar la existencia de los IDs. Por eso no se necesita un NFT emitido para alcanzar esos rechazos: basta habilitar reclamos y configurar un tamaño de lote válido. `testClaimRequiresCompleteConfiguration` usa únicamente despliegue y funciones públicas, comprueba ambos errores y confirma que, al completar la configuración, el siguiente rechazo es por ID inexistente. También comprueba que no quedaron suministro, nominales ni fondos en el contrato nuevo.
 
-La suite ahora tiene 48 funciones de prueba. La nueva prueba todavía debe ejecutarse en CI; los 47 resultados aprobados y el 95,06 % de ramas registrados arriba corresponden al estado anterior. Si cubre las dos ramas previstas, se espera 79/81 (97,53 %) de ramas de CCNFT, con las dos restantes justificadas por el invariante anterior. Esto es una expectativa, no una medición nueva. No se modificaron los contratos ni se manipula almacenamiento para alcanzar estados imposibles.
+La suite tiene 48 funciones de prueba. El usuario aportó después la nueva salida de CI: **48 pruebas aprobadas, cero fallos y cero omisiones**. CCNFT mantiene 100 % de líneas (122/122), sentencias (116/116) y funciones (25/25), y alcanza **97,53 % de ramas (79/81)**. El total, incluyendo auxiliares y mocks, es 89,62 % de ramas (95/106). El filtro muestra exclusivamente las dos guardas de `trade` de las líneas 110 y 111 como ramas sin ejecutar. Se confirma así que la prueba nueva cubrió las dos guardas de `claim`; las dos restantes quedan justificadas por el invariante anterior. No se modificaron los contratos ni se manipula almacenamiento para alcanzar estados imposibles.
 
 ## Advertencias y gas
 
@@ -62,6 +62,6 @@ Estas estadísticas corresponden a llamadas de la suite y no distinguen en la ta
 
 ## Estado y pendientes
 
-La validación funcional y de metadatos y el reporte agregado de gas ya tienen evidencia de ejecución. El usuario informó éxito del workflow completo, que también ejecuta instalación, compilación y formato, y luego aportó la salida filtrada de las cuatro ramas pendientes. Ya se identificaron y revisaron las cuatro. Falta ejecutar la nueva prueba de configuración de `claim`, registrar el detalle del entorno y completar las mediciones de listas y lotes descritas en [la revisión de validación](validation.md). La fase 3 permanece en revisión hasta completar esos controles.
+La validación funcional y de metadatos, la revisión de ramas y el reporte agregado de gas ya tienen evidencia de ejecución. La última salida de cobertura confirma las 48 pruebas aprobadas y las dos guardas restantes de `trade`, justificadas arriba. Falta incorporar el detalle del entorno y completar las mediciones de listas y lotes. Se prepararon el [método y matriz de 35 transacciones](gas-scenarios.md) y un paso de CI para ejecutarlos en Anvil; esa medición todavía debe ejecutarse. La fase 3 permanece en revisión hasta completar esos controles.
 
 La fase 4 tiene las ocho pruebas aprobadas y los recursos locales validados; publicación IPFS, pinning y accesibilidad real siguen pendientes.

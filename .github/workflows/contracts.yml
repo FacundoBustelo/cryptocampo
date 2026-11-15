@@ -49,3 +49,9 @@ jobs:
       - name: Informar el consumo de gas
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: .tools/bin/forge test --gas-report
+
+      - name: Medir gas por tamaño de lista y lote
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          .tools/bin/forge build --force
+          python3 tools/measure-gas.py

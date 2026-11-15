@@ -1,6 +1,6 @@
 # Validación local — 14/11/2026
 
-**Actualización del 15/11/2026:** el usuario aportó [resultados de CI](ci-validation-2026-11-15.md) con compilación satisfactoria, 47 pruebas aprobadas, cobertura medida y reporte agregado de gas. Las cuatro ramas sin cubrir ya se identificaron: dos de `trade` son inalcanzables mediante la interfaz pública actual y dos de `claim` motivaron una prueba nueva. Hay 48 pruebas escritas; falta ejecutar la nueva y completar las mediciones de listas y lotes por escenario. Las limitaciones de ejecución descritas abajo corresponden a esta sesión local del 14/11/2026.
+**Actualización del 15/11/2026:** el usuario aportó [resultados de CI](ci-validation-2026-11-15.md) con compilación satisfactoria, 48 pruebas aprobadas y 97,53 % de ramas de CCNFT cubiertas, además del reporte agregado de gas de la ejecución anterior. La nueva prueba cubrió las dos guardas de `claim`; las dos ramas restantes de `trade` están justificadas como inalcanzables mediante la interfaz pública actual. Falta ejecutar la [matriz de gas por escenario](gas-scenarios.md) y registrar el detalle del entorno. Las limitaciones de ejecución descritas abajo corresponden a esta sesión local del 14/11/2026.
 
 La fase 3 sigue pendiente de validación. La fase 4 está iniciada: implementación de URI compartida, ocho pruebas adicionales, imagen y JSON preparados. No se publicaron recursos en IPFS ni se desplegó en Sepolia.
 
