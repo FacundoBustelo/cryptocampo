@@ -68,8 +68,8 @@
     "evidence": null
   },
   "verification": {
-    "checked_at": "2026-11-15T04:47:17.478446+00:00",
-    "status": "pending",
+    "checked_at": "2026-11-15T04:53:43.885681+00:00",
+    "status": "verified",
     "mode": "full",
     "resources": {
       "image": {
@@ -78,7 +78,7 @@
         "gateways": [
           {
             "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
-            "checked_at": "2026-11-15T04:47:17.479026+00:00",
+            "checked_at": "2026-11-15T04:53:43.886292+00:00",
             "status": "verified",
             "http_status": 200,
             "resolved_url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
@@ -86,10 +86,13 @@
             "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/0/certificate.svg"
           },
           {
-            "url": "https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
-            "checked_at": "2026-11-15T04:47:21.001252+00:00",
-            "status": "pending",
-            "error": "HTTP Error 429: Too Many Requests"
+            "url": "https://ipfs.filebase.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+            "checked_at": "2026-11-15T04:53:48.896445+00:00",
+            "status": "verified",
+            "http_status": 200,
+            "resolved_url": "https://ipfs.filebase.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+            "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+            "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/1/certificate.svg"
           }
         ]
       },
@@ -99,7 +102,7 @@
         "gateways": [
           {
             "url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
-            "checked_at": "2026-11-15T04:47:21.333504+00:00",
+            "checked_at": "2026-11-15T04:53:50.227857+00:00",
             "status": "verified",
             "http_status": 200,
             "resolved_url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
@@ -107,22 +110,146 @@
             "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/0/metadata.json"
           },
           {
-            "url": "https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
-            "checked_at": "2026-11-15T04:47:27.860907+00:00",
-            "status": "pending",
-            "error": "HTTP Error 429: Too Many Requests"
+            "url": "https://ipfs.filebase.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+            "checked_at": "2026-11-15T04:53:56.064444+00:00",
+            "status": "verified",
+            "http_status": 200,
+            "resolved_url": "https://ipfs.filebase.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+            "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+            "downloaded_file": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/metadata-verification/1/metadata.json"
           }
         ]
       }
     },
     "anvil": {
-      "status": "pending"
+      "status": "verified",
+      "uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "versions": {
+        "forge": "forge Version: 1.4.4-v1.4.4",
+        "anvil": "anvil Version: 1.4.4-v1.4.4"
+      },
+      "libraries": {
+        "openzeppelin-contracts": "a5445b0afb8b350417b6e6ab3160554967bc151f",
+        "forge-std": "77041d2ce690e692d6e03cc812b57d1ddaa4d505"
+      },
+      "addresses": {
+        "BUSD": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+        "CCNFT": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"
+      },
+      "transactions": [
+        {
+          "operation": "deploy BUSD",
+          "hash": "0x870e92fdbeaaf0571272007fd15231787d984b79b4e157e0d29d9c7e11aebaf0"
+        },
+        {
+          "operation": "deploy CCNFT",
+          "hash": "0x091af2d20ce4f5ee0417f1b2b06ba0b206a4403c40e6d47ec727b0b77c5d91a6"
+        },
+        {
+          "operation": "setFundsToken(address)",
+          "hash": "0x5e57b4ab766590e7b3c47f9985f817fb7fa2ae9680fe75bdfcb021494cfca39f"
+        },
+        {
+          "operation": "setFundsCollector(address)",
+          "hash": "0x6af928e48cfc8246532a5828310b685f4df87134d302029ed01586b21b759fa3"
+        },
+        {
+          "operation": "setFeesCollector(address)",
+          "hash": "0x3e54dca336fca229161f7c4f9ca33c874620d8b4ef6ae366bb5bb969d0e159a1"
+        },
+        {
+          "operation": "addValidValues(uint256)",
+          "hash": "0x6009ee55a7a5ae1687ea53a232a977d79d0622adfa3736e1fac01174145165cc"
+        },
+        {
+          "operation": "addValidValues(uint256)",
+          "hash": "0xe842e1f628fb67e13e09701d7971f50689d1dfeb01542744c9f4514c7827ab4d"
+        },
+        {
+          "operation": "setMaxBatchCount(uint16)",
+          "hash": "0x58be8438c64e498be538473379125140dba88998fe75269bfd60e7ed0db697c6"
+        },
+        {
+          "operation": "setMaxValueToRaise(uint256)",
+          "hash": "0x92452d324d636e5791ee5b7794993252fce4f19a67f0c629576e708ee575b76a"
+        },
+        {
+          "operation": "setBuyFee(uint16)",
+          "hash": "0x939fe9d786183844f2f6ee5085c89ca1ad93de63d3849ff31e5d159a698fb67f"
+        },
+        {
+          "operation": "setTradeFee(uint16)",
+          "hash": "0xfef844642fa5b8718cb2a77e6f0dac1cd3ef78cb43b29e0898fae724391b3e64"
+        },
+        {
+          "operation": "setProfitToPay(uint32)",
+          "hash": "0x754edb3bcf4df5e7ab8b13efe7877aef58db65bee6373bfb726816c50e06aabe"
+        },
+        {
+          "operation": "setCanBuy(bool)",
+          "hash": "0x1dde5411047d777cc28a90979d96e5e8bf4fb74a811f1cb112c03abe1ed7ce63"
+        },
+        {
+          "operation": "setCanTrade(bool)",
+          "hash": "0xb63ce4fe9805bd4a80f0fc9d6770ecb263b5731b5666b9a860104694056549ea"
+        },
+        {
+          "operation": "setCanClaim(bool)",
+          "hash": "0x9c29cef311d2384f551103c676c9c03975f051cc446be92217500c945652b6fa"
+        },
+        {
+          "operation": "transfer(address,uint256)",
+          "hash": "0x966125f5aef9c4bea8329a241fd647d41935d8a0ea5b1258d7e51c3f47c4808d"
+        },
+        {
+          "operation": "transfer(address,uint256)",
+          "hash": "0x26729ffc272befd9382fe163f9108a2e2926bf0845d9fa0b7c69e142aafcc66a"
+        },
+        {
+          "operation": "approve(address,uint256)",
+          "hash": "0xc85c31cd1149b175489aa5031d5702bac6a3d0f7eefe1c122c81f7757e6a6cc5"
+        },
+        {
+          "operation": "approve(address,uint256)",
+          "hash": "0x43c7f912a06c5858c5465d7dec816799d4c1cc08f884d3ccc724e41b2f570e46"
+        },
+        {
+          "operation": "approve(address,uint256)",
+          "hash": "0xec02996dd68f266df313985a5c898c97c9dd9e34f5cab9371f0932d026cb5a69"
+        },
+        {
+          "operation": "setMetadataURI(string)",
+          "hash": "0xb55d1e61f6b59434387e0abe77fe190c7809133bcb0b2af414ccdefb357c190b"
+        },
+        {
+          "operation": "buy(uint256,uint256)",
+          "hash": "0x3845950de301351e29c88a22ba6f7921782e0c8ac630426c1157831eea0d23ea"
+        },
+        {
+          "operation": "putOnSale(uint256,uint256)",
+          "hash": "0x461b903ad67364b8b85713c5c53cd73145f5589179655890212516348f304029"
+        },
+        {
+          "operation": "trade(uint256)",
+          "hash": "0x146fb53ac298ae653443db630152edbc8ca81664a841349dc4f34eab92288565"
+        },
+        {
+          "operation": "claim(uint256[])",
+          "hash": "0x7e52f524838a219f5435d18384b482b88fa8c28cb33564542c3cccda7195d0e2"
+        }
+      ],
+      "checks": [
+        "two_tokens_share_published_uri",
+        "resale_preserves_uri",
+        "burned_token_reverts",
+        "nonexistent_token_reverts",
+        "third_party_cannot_update_uri"
+      ],
+      "checked_at": "2026-11-15T04:54:06.628783+00:00",
+      "chain_id": 31337,
+      "hardfork": "paris"
     },
-    "pending": [
-      "image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: HTTP Error 429: Too Many Requests",
-      "metadata: https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: HTTP Error 429: Too Many Requests",
-      "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo."
-    ]
+    "pending": []
   },
   "anvil_verification": {
     "checked_at": "2026-11-15T04:50:33.243822+00:00",
@@ -160,6 +287,19 @@
       "openzeppelin_revision": "a5445b0afb8b350417b6e6ab3160554967bc151f",
       "forge_std_revision": "77041d2ce690e692d6e03cc812b57d1ddaa4d505",
       "source": "Salida de bash tools/setup.sh aportada por el usuario; binarios y bibliotecas presentes en el workspace."
+    },
+    "verified_publication": "docs/evidence/ipfs-publication-verified-2026-11-15.json",
+    "contracts_checks": "docs/evidence/contracts-checks-2026-11-15.json"
+  },
+  "workflow_runs": {
+    "contracts": {
+      "status": "pending",
+      "url": null
+    },
+    "metadata": {
+      "status": "pending",
+      "independent_gateway": "filebase",
+      "url": null
     }
   }
 }

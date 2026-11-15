@@ -79,4 +79,4 @@ La fase 3 se cierra con compilación y formato satisfactorios informados por el 
 
 El cierre corresponde al comportamiento comprobado y al rango estudiado. No establece una cota de gas para listas mayores de cien, otros ERC20 o receptores contrato, ni acredita un despliegue o una auditoría de producción.
 
-La fase 4 tiene las ocho pruebas aprobadas y los recursos locales validados; publicación IPFS, pinning y accesibilidad real siguen pendientes.
+Actualización posterior de fase 4: [publicación y resolución verificadas](ipfs-verification-2026-11-15.md), con cuatro descargas coincidentes por Pinata y Filebase y cinco comprobaciones aprobadas en Anvil. La repetición remota de los workflows todavía no está registrada; la presentación en billetera y Sepolia siguen pendientes.
