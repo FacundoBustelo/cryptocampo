@@ -37,7 +37,14 @@ jobs:
 
       - name: Medir la cobertura
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: .tools/bin/forge coverage --report summary --report debug
+        run: |
+          coverage_log="$RUNNER_TEMP/cryptocampo-coverage.txt"
+          if .tools/bin/forge coverage --report summary --report debug --color never > "$coverage_log" 2>&1; then
+            python3 tools/summarize-coverage.py "$coverage_log"
+          else
+            cat "$coverage_log"
+            exit 1
+          fi
 
       - name: Informar el consumo de gas
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
