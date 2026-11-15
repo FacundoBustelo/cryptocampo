@@ -1,0 +1,38 @@
+name: Validar contratos
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  contratos:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Obtener el proyecto
+        uses: actions/checkout@v6
+
+      - name: Preparar el entorno con versiones fijadas
+        id: setup
+        run: bash tools/setup.sh
+
+      - name: Compilar
+        id: build
+        run: .tools/bin/forge build
+
+      - name: Comprobar el formato
+        if: ${{ !cancelled() && steps.setup.outcome == 'success' }}
+        run: .tools/bin/forge fmt --check
+
+      - name: Ejecutar las pruebas
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: .tools/bin/forge test -vv
+
+      - name: Medir la cobertura
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: .tools/bin/forge coverage
+
+      - name: Informar el consumo de gas
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: .tools/bin/forge test --gas-report
