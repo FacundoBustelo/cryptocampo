@@ -16,6 +16,8 @@ lib/
 *.log
 .DS_Store
 *.swp
+__pycache__/
+*.pyc
 
 [Mm]odulo*/
 [Cc]onsignas*/

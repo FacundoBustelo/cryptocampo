@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "resources": {
+    "image": {
+      "path": "assets/certificate.svg",
+      "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+      "cid": null,
+      "uri": null,
+      "published_at": null,
+      "pinning": {
+        "provider": "Pinata",
+        "status": "pending",
+        "confirmed_at": null,
+        "evidence": null
+      }
+    },
+    "metadata": {
+      "path": "assets/metadata.json",
+      "sha256": "79061932b44aa745e0a408d5ad4d1e432b85e4b1eea3990ccaa8a4dd8fcfadbf",
+      "cid": null,
+      "uri": null,
+      "published_at": null,
+      "pinning": {
+        "provider": "Pinata",
+        "status": "pending",
+        "confirmed_at": null,
+        "evidence": null
+      }
+    }
+  },
+  "visual_review": {
+    "status": "pending",
+    "reviewed_by": null,
+    "reviewed_at": null,
+    "sha256": null,
+    "evidence": null
+  },
+  "wallet_presentation": {
+    "status": "pending",
+    "evidence": null
+  },
+  "verification": {
+    "checked_at": "2026-11-15T04:24:34.989503+00:00",
+    "status": "pending",
+    "mode": "full",
+    "resources": {
+      "image": {
+        "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+        "local": "verified",
+        "gateways": []
+      },
+      "metadata": {
+        "sha256": "79061932b44aa745e0a408d5ad4d1e432b85e4b1eea3990ccaa8a4dd8fcfadbf",
+        "local": "verified",
+        "gateways": []
+      }
+    },
+    "anvil": {
+      "status": "pending"
+    },
+    "pending": [
+      "image: Falta el CID público del archivo individual.",
+      "metadata: Falta el CID público del archivo individual.",
+      "metadata: El JSON definitivo espera el CID real de la imagen.",
+      "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo.",
+      "Presentación: Falta revisar visualmente la imagen recuperada."
+    ]
+  }
+}
