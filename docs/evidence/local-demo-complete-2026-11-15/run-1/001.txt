@@ -1,0 +1,20 @@
+ M .github/workflows/contracts.yml
+ M README.md
+ M docs/gas-scenarios.md
+ M docs/system-validation.md
+ M tools/validate-system.py
+?? Makefile
+?? docs/evidence/ci-validation-43748041038-1/
+?? docs/evidence/local-demo-getter-fix-2026-11-15/
+?? docs/evidence/local-demo-validation-2026-11-15/
+?? docs/evidence/phase5-recheck-2026-11-15/
+?? docs/local-demo-validation.md
+?? docs/local-demo.md
+?? script/Configure.s.sol
+?? script/DemoBase.sol
+?? script/Deploy.s.sol
+?? script/Operations.s.sol
+?? script/Prepare.s.sol
+?? test/DemoScripts.t.sol
+?? tools/demo.py
+?? tools/test_demo.py

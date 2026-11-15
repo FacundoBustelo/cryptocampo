@@ -1,0 +1,26 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 31337
+
+Estimated gas price: 0.215487951 gwei
+
+Estimated total gas used for script: 63913
+
+Estimated amount required: 0.000013772481412263 ETH
+
+==========================
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/broadcast/Prepare.s.sol/31337/run-latest.json
+
+Sensitive values saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/cache/Prepare.s.sol/31337/run-latest.json
+

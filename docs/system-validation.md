@@ -1,14 +1,32 @@
 # Fase 5 — Requisitos, pruebas y evidencia
 
-**Revisión del 15/11/2026: implementación y controles locales completados; cierre pendiente de repetir la matriz de gas en CI.** Compilación y formato correctos, 48 pruebas Solidity aprobadas sin fallos ni omisiones, cuatro fuzz de 256 casos cada una y 26 pruebas Python aprobadas (20 del verificador y seis de las herramientas de validación). El recorrido termina con nominal de **100 BUSD**. CCNFT conserva 100 % de líneas, sentencias y funciones y 79/81 ramas. El reporte agregado de gas aprobó; la matriz de recibos no pudo iniciarse porque el entorno impide crear sockets.
+**Fase 5 completada el 15/11/2026 con evidencia de CI revisada.** El artefacto de la [ejecución 43748041038, intento 1](https://github.com/FacundoBustelo/cryptocampo/actions/runs/43748041038), sobre `d7a17d9b2019243c8cecddd385574c0eef22f9fb`, acredita los 20 controles aprobados: compilación, formato, 48 pruebas Solidity sin fallos ni omisiones, cuatro fuzz de 256 casos cada una, 26 pruebas Python (20 del verificador y seis de las herramientas de validación), cobertura, reporte agregado de gas y **35 mediciones exitosas en Anvil**. El recorrido termina con nominal de **100 BUSD**. CCNFT conserva 100 % de líneas, sentencias y funciones y 79/81 ramas.
 
-El [informe de esta ejecución](evidence/system-validation-2026-11-15/result.json) registra comandos, códigos, tiempos UTC, plataforma, Python y hashes SHA-256 de fuentes, pruebas, herramientas, configuración, recursos y workflow. Los archivos vecinos contienen las salidas completas. Se midió el árbol de trabajo sobre `e38d9f0967abf869377cb7b3a479322fd175fcce` con los cambios identificados por diff y hashes; no se atribuye la ejecución a un commit nuevo ni a CI.
+El [informe de la ejecución local previa](evidence/system-validation-2026-11-15/result.json) registra comandos, códigos, tiempos UTC, plataforma, Python y hashes SHA-256 de fuentes, pruebas, herramientas, configuración, recursos y workflow. Los archivos vecinos contienen las salidas completas. Se midió el árbol de trabajo sobre `e38d9f0967abf869377cb7b3a479322fd175fcce` con los cambios identificados por diff y hashes; no se atribuye la ejecución a un commit nuevo ni a CI.
+
+## Cierre verificado en CI
+
+Se conservaron sin modificar los 24 archivos del ZIP `contracts-validation-43748041038-1.zip` en [el directorio de evidencia](evidence/ci-validation-43748041038-1/ci/result.json). La [revisión del artefacto](evidence/ci-validation-43748041038-1/review.json) registra el enlace, commit, intento, SHA-256 del ZIP y de cada archivo extraído, comprobaciones y límites. La validación del runner transcurrió entre **18:40:23 y 18:40:45 UTC del 15/11/2026**. El `status` final es `passed`, con los 20 códigos de salida en cero.
+
+Se comprobaron los 23 hashes de archivos del informe contra las versiones guardadas en el commit `d7a17d9`, incluidos contratos, pruebas, herramientas, configuración, recursos y workflow. Los logs de diff, árbol de trabajo y bibliotecas están vacíos. Foundry/Forge/Anvil/Cast son 1.4.4, con revisión `05794498bf47257b144e2e2789a1d5bf8566be0e`; OpenZeppelin y forge-std coinciden con las revisiones fijadas. La compilación y la matriz verifican Solidity 0.8.19, Paris y optimizador con 200 runs.
+
+| Control revisado en el artefacto | Resultado |
+| --- | --- |
+| [Pruebas Solidity](evidence/ci-validation-43748041038-1/ci/solidity-tests.txt) | 48 aprobadas, cero fallos y cero omisiones; incluye aceptación y cuatro fuzz de 256 casos. |
+| [Pruebas Python](evidence/ci-validation-43748041038-1/ci/python-tests.txt) | 26 aprobadas. |
+| [Cobertura y guardas pendientes](evidence/ci-validation-43748041038-1/ci/coverage-summary.txt) | CCNFT: líneas 122/122, sentencias 116/116, funciones 25/25 y ramas 79/81; mismas dos guardas inalcanzables justificadas. |
+| [Reporte agregado de gas](evidence/ci-validation-43748041038-1/ci/gas-report.txt) | Aprobado después de restaurar la compilación optimizada. |
+| [Matriz de gas](evidence/ci-validation-43748041038-1/ci/gas-matrix.txt) y [JSON](evidence/ci-validation-43748041038-1/ci/gas-scenarios.json) | 35 transacciones exitosas, con exactamente los escenarios esperados para listas 1/10/100 y lotes 1/10; las 35 cifras coinciden con las históricas. |
+
+El mayor recibo sigue siendo la compra de diez NFTs, **1.475.810 gas**. El reclamo de diez publicados al final de una lista de cien consume **1.220.864 gas**. El bloqueo local de sockets queda resuelto para el cierre mediante esta ejecución remota; su registro previo permanece intacto.
+
+La procedencia de la verificación es el ZIP aportado por el usuario, que se inspeccionó directamente. La página remota no se pudo recuperar desde esta sesión (`Cache miss`); no se afirma haber inspeccionado sus logs desde GitHub ni el estado global del workflow por API. El ID, intento y SHA proceden del informe del runner y coinciden con el enlace y el repositorio local. Esta ejecución valida metadatos locales y no repite descargas IPFS ni el escenario de URI de fase 4.
 
 ## Matriz de requisitos
 
 Las referencias académicas corresponden al material original conservado fuera de este repositorio: `Consignas-ProyectoFinal/src/CCNFT.sol`, `Consignas-ProyectoFinal/test/CCNFT.t.sol`, `Modulo3`, `Modulo 2` y `Modulo 4`. El resumen de la materia y las reglas del TP se conservan en la carpeta académica superior. Las pruebas entregadas por la cátedra tenían cuerpos vacíos. Los escenarios adicionales se derivan de las reglas adoptadas y de los comentarios de la plantilla; no se presentan como pruebas ya resueltas en clase.
 
-Los nombres de prueba de cada fila aparecen como `PASS` en el [log Solidity](evidence/system-validation-2026-11-15/solidity-tests.txt). Cada prueba recibe contratos y actores nuevos mediante `setUp`; los pasos internos de una prueba no dependen de la ejecución de otra.
+Los nombres de prueba de cada fila aparecen como `PASS` en el [log Solidity](evidence/system-validation-2026-11-15/solidity-tests.txt). Las mismas 48 pruebas se repitieron satisfactoriamente en el [log de CI](evidence/ci-validation-43748041038-1/ci/solidity-tests.txt). Cada prueba recibe contratos y actores nuevos mediante `setUp`; los pasos internos de una prueba no dependen de la ejecución de otra.
 
 | Requisito | Fundamento de la cursada o regla adoptada | Pruebas ejecutadas | Resultado nuevo |
 | --- | --- | --- | --- |
@@ -24,7 +42,7 @@ Los nombres de prueba de cada fila aparecen como `PASS` en el [log Solidity](evi
 | Callbacks y reentrada | Plantilla: `ReentrancyGuard`; ampliación de pruebas para llamadas externas ERC20/ERC721 | Seguridad: `testERC20CallbacksCannotReenterAnyOperation`, `testRejectingReceiverRollsBackMintAndTrade`, `testReceiverCallbacksCannotReenterOrChangeListings`, `testPropagatedReentryFailureRollsBackOuterOperation` | PASS: las cuatro operaciones protegidas; callbacks ven propietario/valor preparados y publicación limpia; errores propagados revierten. |
 | Metadatos y bloqueo de transferencias | Plantilla: tres transferencias bloqueadas; Módulo 3 temas 11 y 16–21 y Módulo 4 temas 7–10: metadatos/IPFS | [CCNFTMetadata.t.sol](../test/CCNFTMetadata.t.sol): ocho pruebas; Operaciones: `testAllPublicTransfersBlockedEvenWithApproval` | PASS: permisos, URI común, eventos, actualización, reventa, IDs quemados/inexistentes y tres variantes bloqueadas incluso con aprobación NFT. Las unitarias no descargan IPFS. |
 | BUSD y financiación del ejercicio | Contrato BUSD entregado; Módulo 4 ERC20 | [BUSD.t.sol](../test/BUSD.t.sol): `testMetadata`, `testInitialSupplyBelongsToDeployer` | PASS: 18 decimales, nombre/símbolo y suministro inicial de 10 millones al desplegador. |
-| Gas y tamaño de listas/lotes | Módulo 3 temas 5 y 5-1/2/3: gas y almacenamiento; plantilla: búsqueda lineal | [Reporte agregado nuevo](evidence/system-validation-2026-11-15/gas-report.txt); `tools/measure-gas.py`: listas 1/10/100 y lotes 1/10 | Reporte PASS. [Matriz nueva bloqueada](evidence/system-validation-2026-11-15/gas-matrix.txt) al crear socket; 35 mediciones históricas conservadas en [gas-scenarios.md](gas-scenarios.md). Pendiente en CI antes del cierre. |
+| Gas y tamaño de listas/lotes | Módulo 3 temas 5 y 5-1/2/3: gas y almacenamiento; plantilla: búsqueda lineal | [Reporte agregado nuevo](evidence/system-validation-2026-11-15/gas-report.txt); `tools/measure-gas.py`: listas 1/10/100 y lotes 1/10 | PASS en CI: [35 mediciones nuevas](evidence/ci-validation-43748041038-1/ci/gas-scenarios.json), coincidentes con las históricas. El [bloqueo local previo](evidence/system-validation-2026-11-15/gas-matrix.txt) se conserva como antecedente; control satisfecho para el cierre. |
 
 `_assertAccounting` compara `totalValue` con la suma de nominales en circulación, comprueba enumeración por propietario y ausencia de custodia en CCNFT. Las pruebas críticas también comprueban saldos y autorizaciones finitas; los eventos se contrastan con emisor, campos indexados y datos.
 
@@ -59,7 +77,7 @@ Se reintentó la recuperación por Pinata y Filebase y la resolución de URI en 
 
 La fase 4 conserva su cierre histórico: [cuatro HTTP 200, bytes coincidentes y cinco comprobaciones en Anvil](evidence/ipfs-publication-verified-2026-11-15.json), más la [confirmación de ambos workflows por el usuario](evidence/ci-runs-received-2026-11-15.json). Esta revisión no inspeccionó sus logs remotos ni acredita disponibilidad IPFS actual. Los fallos nuevos corresponden al entorno y se conservan separados de los resultados históricos.
 
-## Reproducción y cierre pendiente
+## Reproducción y alcance del cierre
 
 Desde la raíz del repositorio, con las dependencias fijadas:
 
@@ -72,6 +90,6 @@ Cada ejecución crea un directorio nuevo bajo `.tools/validation/<fecha-UTC>/` y
 
 El workflow **Validar contratos** conserva `contracts-validation-<run_id>-<run_attempt>` con los logs de instalación y el directorio `ci/`, incluso ante fallos. Incluye pruebas, cobertura debug/resumen, reporte agregado, códigos, commit, diff, revisiones y hashes. Si la matriz termina, adjunta también su JSON. Las seis pruebas nuevas de herramientas verifican que se detecten regresiones, se conserven errores y se rechace sobrescribir evidencia. El workflow IPFS sigue siendo manual y conserva sus propios artefactos.
 
-**Para cerrar fase 5:** ejecutar el workflow actualizado sobre el commit que incluya estos cambios y revisar el artefacto: suite sin fallos/omisiones, cuatro fuzz de 256, umbral de cobertura aprobado y matriz de 35 transacciones exitosa con versiones/revisiones fijadas. Registrar el enlace, SHA y resultados reales. No se ejecutó ni se declaró aprobada una nueva ejecución remota en esta revisión. El gas de búsquedas es O(publicaciones), y el reclamo alcanza O(lote × publicaciones); el lote de demostración sigue en 10. El rango medido no establece cotas para listas mayores a 100, otros ERC20 o receptores contrato.
+**Cierre de fase 5 satisfecho:** se revisó el artefacto del workflow actualizado sobre `d7a17d9`, con suite sin fallos/omisiones, cuatro fuzz de 256, umbral de cobertura aprobado y 35 transacciones exitosas con versiones/revisiones fijadas. Enlace, SHA y resultados quedan registrados arriba. No quedan controles pendientes de fase 5 dentro del alcance académico y del rango medido. El gas de búsquedas es O(publicaciones), y el reclamo alcanza O(lote × publicaciones); el lote de demostración sigue en 10. El rango medido no establece cotas para listas mayores a 100, otros ERC20 o receptores contrato.
 
-Scripts de demostración, Makefile, Sepolia y MetaMask continúan en sus fases previstas.
+La [nueva comprobación de fase 5](evidence/phase5-recheck-2026-11-15/review.json) confirmó los 24 hashes de evidencia, los 20 controles aprobados y las fuentes originales. La fase 6 quedó completada al revisar dos recorridos reales en redes Anvil nuevas: 52 recibos exitosos y 838 comprobaciones aprobadas. Ver [guía de demostración](local-demo.md) y [evidencia del cierre](local-demo-validation.md). Sepolia y MetaMask continúan en fase 7.

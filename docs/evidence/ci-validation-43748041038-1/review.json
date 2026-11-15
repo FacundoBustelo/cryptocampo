@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-11-15T18:45:28.240152+00:00",
+  "phase": 5,
+  "status": "verified",
+  "source": {
+    "kind": "github_actions_artifact_supplied_by_user",
+    "run_url": "https://github.com/FacundoBustelo/cryptocampo/actions/runs/43748041038",
+    "run_id": "43748041038",
+    "run_attempt": 1,
+    "commit": "d7a17d9b2019243c8cecddd385574c0eef22f9fb",
+    "artifact_name": "contracts-validation-43748041038-1",
+    "archive_sha256": "487f3c5dcd7af544f5355ee65f64690cc99a79ba905d6897fc25e438004a2032",
+    "archive_original_path": "/home/fbustelo/Descargas/contracts-validation-43748041038-1.zip",
+    "remote_page_inspected": false,
+    "remote_page_limitation": "La herramienta web no pudo recuperar la página (Cache miss). Se inspeccionaron directamente todos los archivos del ZIP aportado, no los logs mediante la página remota."
+  },
+  "validation_window_utc": {
+    "started_at": "2026-11-15T18:40:23.630471+00:00",
+    "finished_at": "2026-11-15T18:40:45.682904+00:00"
+  },
+  "results": {
+    "all_20_checks_passed": true,
+    "solidity_tests": {
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0
+    },
+    "fuzz_tests": {
+      "testFuzzBuyFormula": 256,
+      "testFuzzClaimFormulaFullUint32Profit": 256,
+      "testFuzzNominalConservationAcrossLifecycle": 256,
+      "testFuzzTradeFormulaPreservesNominal": 256
+    },
+    "python_tests": {
+      "passed": 26,
+      "failed": 0
+    },
+    "ccnft_coverage": {
+      "lines": [
+        122,
+        122
+      ],
+      "statements": [
+        116,
+        116
+      ],
+      "functions": [
+        25,
+        25
+      ],
+      "branches": [
+        79,
+        81
+      ]
+    },
+    "gas_matrix": {
+      "successful_transactions": 35,
+      "list_sizes": [
+        1,
+        10,
+        100
+      ],
+      "batch_sizes": [
+        1,
+        10
+      ],
+      "matches_expected_scenario_keys": true,
+      "all_values_match_historical_measurements": true,
+      "largest_gas_used": 1475810,
+      "claim_batch_10_at_list_size_100_gas_used": 1220864
+    },
+    "acceptance_test_passed": true,
+    "acceptance_final_nominal_busd": "100",
+    "clean_working_tree_and_libraries": true,
+    "source_hashes_match_commit": true,
+    "source_files_checked": 23
+  },
+  "environment": {
+    "foundry_version": "1.4.4",
+    "foundry_commit": "05794498bf47257b144e2e2789a1d5bf8566be0e",
+    "solidity": "0.8.19",
+    "evm_version": "paris",
+    "optimizer_runs": 200,
+    "libraries": {
+      "openzeppelin-contracts": "a5445b0afb8b350417b6e6ab3160554967bc151f",
+      "forge-std": "77041d2ce690e692d6e03cc812b57d1ddaa4d505"
+    }
+  },
+  "extracted_files_sha256": {
+    "ci/anvil-version.txt": "49bdf95341b0cb40c5989674335851bb5b80e303c58495134843d06b472b5c75",
+    "ci/cast-version.txt": "d029b3087c7c7f74cb0a8e572541d122772b52f45a8792a28d87fb117c0f1f3a",
+    "ci/commit.txt": "7dd5a09708a8ae5d04fffc0449938cec1d3e2242502ddf75c073f9b9ef8bfa22",
+    "ci/build.txt": "94a8ee7a348143ac911a1e02c01466c7fb903f5a2c074e1644d7f4a0223607c7",
+    "ci/coverage-summary.txt": "c79c9877717aebc278496f076859014e4404c80e1f83d7c9ad52086f04abdde7",
+    "ci/coverage.txt": "afa4c19f6e732284b5b0e680ab4a0e79b3f9122f48ccb0e85b3325bb7a7fc5f7",
+    "ci/diff.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ci/forge-std-revision.txt": "0090861d0c99aa186357bf646a99ae9f8be23de4f656a82e2a253b2a90a733be",
+    "ci/forge-std-status.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ci/forge-version.txt": "c3c3918962bf862a0fe598d84f5cfdd6b90fb4dd9996db8a1962afb6975ef5ba",
+    "ci/format.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ci/gas-matrix.txt": "43605a265a9a27dd58cab0a7724fab0535e63a8cb691e8a62a4caca7a7c8d6a2",
+    "ci/gas-report.txt": "22da073b90606c5bbe42de5e372ddd8dc5827db467d9a7c3d4fa7994ce858a4c",
+    "ci/gas-scenarios.json": "a953858f24292578028d5d92ff1955edec3d0133e31877a69c0627f52682850b",
+    "ci/metadata-local.txt": "461514b2ddea8316b5f74ecec69050b8154ce2daef11da3d1e9541da3d35720b",
+    "ci/metadata-local/result.json": "461514b2ddea8316b5f74ecec69050b8154ce2daef11da3d1e9541da3d35720b",
+    "ci/openzeppelin-contracts-revision.txt": "5101c594e6ea8253055e111b8067898def8a73d101e76f195354f0fdad6f668f",
+    "ci/openzeppelin-contracts-status.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ci/optimized-build.txt": "98cb949ad1b4ef4bac7e2471a91db0d28346522dc0e9454e34efea323fecaacb",
+    "ci/python-tests.txt": "7f22a272d722d43b38cc455b1c31183eb56ee9260da04d266b34f8a79b63dc8e",
+    "ci/result.json": "68b69b56736c0d6ff773aa15097c8f0f65399687fd74e359465aef3ab301c81a",
+    "ci/solidity-tests.txt": "33d0c39fa5b446a06b716a3ba84d604c2d1959a714a5ffc716d211dc10ad7b8b",
+    "ci/working-tree.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "setup.txt": "2175eee778749050ab606e85e9b441d17b1d98c9968f1e8975e06ff44d602216"
+  },
+  "source_files_sha256_checked_against_commit": {
+    ".github/workflows/contracts.yml": "518f468f39b66a55fe4122d25a576b0c44fcdf029646a9232bc969cff5c547a3",
+    ".github/workflows/metadata.yml": "7ac42154f2f47dbf9719163ec4a5cb892eb832c607245b0779ee0d7d12251e3c",
+    "README.md": "2947dc03cda6058ee326d56bb168faaf7ce440de4586590f509568e5c32bc1ed",
+    "assets/certificate.svg": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+    "assets/metadata.json": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+    "foundry.toml": "459cef235a53b9f0fcabda428c0375094dddad73830bab7f5ec972d9edf5b65e",
+    "src/BUSD.sol": "b1485b693e2aff898eb00e24a3899ce929a2bfbf1ff338e5e99c637509a7c53c",
+    "src/CCNFT.sol": "f6518122b83c2c3081e1df6e74c3f4e30062966214dd03da5c2cc10214e5ed2b",
+    "test/BUSD.t.sol": "f24fc732ad784690e717144e7cb292eb0f243f8fa72d768a627e258075457c4b",
+    "test/CCNFTAdmin.t.sol": "fa0cf6d0aae60124ef5c49085f43ef4dbf404c0da353755c34ac317798598f3e",
+    "test/CCNFTBase.sol": "99ae4d4238bdb4305d599379d1620e73ebacdbb98c593a393dffa0d3c64dba26",
+    "test/CCNFTFuzz.t.sol": "7f951405711efdb865dfc82fdfceeda73cc5601bcbefb5097c4b47f42fd66cfe",
+    "test/CCNFTMetadata.t.sol": "1ee15d4091a0935bd48109bc6e278f306744de50edde7642a116769b5a3a2b45",
+    "test/CCNFTOperations.t.sol": "c43308ff39decb32bceffb8758226b1e3ebc6d9d546fa7e41b703daf15de0845",
+    "test/CCNFTSecurity.t.sol": "40dabfdd214755a54aa74f2144e6ec11d6aae936f2c4727e21fac802771ba6a5",
+    "test/mocks/Adversaries.sol": "a43da6183eb93873916ee6322c7c4adb2cc58ffb8e0aa9eb3b440e45914e1fcd",
+    "tools/measure-gas.py": "24fa24a2b13ddbb92f2b2e82a93380046230a2991543f245895ceb6e3a572bfc",
+    "tools/setup.sh": "81337a7008d4a1c9b88bfebf3f3e8cc11bd95f72ff1c205fb7a3bd66e0f02607",
+    "tools/summarize-coverage.py": "bec00c4f21f5590e90af60c3412c5e958a083355d22652acc128e2db13a21d44",
+    "tools/test_validation_tools.py": "34b75a9859a87fba2af459bdf264fdaa58e522ade071164fd4f20c6522ec67d9",
+    "tools/test_verify_metadata.py": "91a59f8cf1431ef006e7f2a2b8b8a18c16c1f8a5fff3b39a1cfeb8e75912dd11",
+    "tools/validate-system.py": "561feeed87da8d68b07b4913d8afe530d84182d4a7b8ba54617c3cfd8ff7f493",
+    "tools/verify-metadata.py": "389385f5238a68afae2262634faaee317a8b5bad7cfa480d5e4f5aaadcd95ac2"
+  },
+  "limits": [
+    "Se verificó el artefacto aportado; no se consultó el estado global del workflow por API o página.",
+    "Esta ejecución no recupera recursos IPFS ni repite las comprobaciones de URI en Anvil de fase 4.",
+    "El gas corresponde al rango medido con BUSD y receptores EOA; no establece cotas para listas mayores ni otras configuraciones."
+  ]
+}

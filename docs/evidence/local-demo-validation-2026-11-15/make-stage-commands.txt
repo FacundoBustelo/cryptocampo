@@ -1,0 +1,21 @@
+python3 tools/demo.py --stage deploy --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py --stage configure --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py --stage fund --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+make approve-a
+make[1]: Entering directory '/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo'
+python3 tools/demo.py --stage approve-a --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+make[1]: Leaving directory '/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo'
+make approve-b
+make[1]: Entering directory '/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo'
+python3 tools/demo.py --stage approve-b --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+make[1]: Leaving directory '/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo'
+make approve-funds
+make[1]: Entering directory '/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo'
+python3 tools/demo.py --stage approve-funds --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+make[1]: Leaving directory '/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo'
+python3 tools/demo.py --stage enable --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py --stage buy --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py --stage list --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py --stage trade --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py --stage claim --rpc-url 'http://127.0.0.1:8545' --state '.tools/demo-state.json'
+python3 tools/demo.py

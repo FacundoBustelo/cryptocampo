@@ -19,7 +19,7 @@ jobs:
           set -o pipefail
           bash tools/setup.sh 2>&1 | tee .tools/validation/setup.txt
 
-      - name: Validar y conservar informes de pruebas, cobertura y gas
+      - name: Validar y conservar informes de pruebas, cobertura, gas y demostración Anvil (dos redes)
         if: ${{ !cancelled() }}
         run: python3 tools/validate-system.py --output-dir .tools/validation/ci
 

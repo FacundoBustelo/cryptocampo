@@ -1,0 +1,89 @@
+{
+  "reviewed_at": "2026-11-15T19:11:30.842013+00:00",
+  "status": "implemented_pending_anvil_evidence",
+  "checks_passed": 19,
+  "checks_total": 21,
+  "solidity_tests": 49,
+  "python_tests": 38,
+  "script_scenarios_grouped_in_one_test": 15,
+  "fuzz_tests": 4,
+  "fuzz_runs_each": 256,
+  "ccnft_coverage": {
+    "lines": [
+      122,
+      122
+    ],
+    "statements": [
+      116,
+      116
+    ],
+    "functions": [
+      25,
+      25
+    ],
+    "branches": [
+      79,
+      81
+    ]
+  },
+  "blocked_checks": [
+    "gas-matrix",
+    "local-demo"
+  ],
+  "blocker": "PermissionError: [Errno 1] Operation not permitted creating a socket",
+  "demo_attempts": 2,
+  "real_demo_transactions_obtained": 0,
+  "phase6_complete": false,
+  "source_hashes_match_current_files": true,
+  "preserved_files_sha256": {
+    "anvil-version.txt": "49bdf95341b0cb40c5989674335851bb5b80e303c58495134843d06b472b5c75",
+    "build.txt": "e8e1e599e31ff4bea40b7ca6314fbde7ba55fd25c3effb068e808a721b1f9ec6",
+    "cast-version.txt": "d029b3087c7c7f74cb0a8e572541d122772b52f45a8792a28d87fb117c0f1f3a",
+    "commit.txt": "7dd5a09708a8ae5d04fffc0449938cec1d3e2242502ddf75c073f9b9ef8bfa22",
+    "coverage-summary.txt": "37eb8c583875ba668b7f9827768e72c9acf334efc84072c761f1de7117d82857",
+    "coverage.txt": "7fa223acc2dc640215c0f5ef652e5a809fff321f1eff349d8d6c83a914fade0d",
+    "demo/result.json": "3aeaa7f53833c0319fc1308c328514bd38318e6d65b83172402fbd15291d2f23",
+    "demo/run-1/000.txt": "7dd5a09708a8ae5d04fffc0449938cec1d3e2242502ddf75c073f9b9ef8bfa22",
+    "demo/run-1/001.txt": "6ee094af3f95a3af3e094214ae2064fd223770eb4c4b006113d22c0573e44e41",
+    "demo/run-1/002.txt": "cefa1b920e5055473aed7cf4c99ac7981b5aa254e3430af2593954b090610492",
+    "demo/run-1/003.txt": "c3c3918962bf862a0fe598d84f5cfdd6b90fb4dd9996db8a1962afb6975ef5ba",
+    "demo/run-1/004.txt": "d029b3087c7c7f74cb0a8e572541d122772b52f45a8792a28d87fb117c0f1f3a",
+    "demo/run-1/005.txt": "49bdf95341b0cb40c5989674335851bb5b80e303c58495134843d06b472b5c75",
+    "demo/run-1/006.txt": "5101c594e6ea8253055e111b8067898def8a73d101e76f195354f0fdad6f668f",
+    "demo/run-1/007.txt": "0090861d0c99aa186357bf646a99ae9f8be23de4f656a82e2a253b2a90a733be",
+    "demo/run-1/008.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "demo/run-1/009.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "demo/run-1/010.txt": "8c7decda493674c190555dd292700b7faecba0d22185a9447abdf81bf81d9af8",
+    "demo/run-1/result.json": "e06a5de11e48173648b0bb3d63b0783474bf1d60a33fdf9424f8d4bcd1752c0c",
+    "demo/run-2/000.txt": "7dd5a09708a8ae5d04fffc0449938cec1d3e2242502ddf75c073f9b9ef8bfa22",
+    "demo/run-2/001.txt": "6ee094af3f95a3af3e094214ae2064fd223770eb4c4b006113d22c0573e44e41",
+    "demo/run-2/002.txt": "cefa1b920e5055473aed7cf4c99ac7981b5aa254e3430af2593954b090610492",
+    "demo/run-2/003.txt": "c3c3918962bf862a0fe598d84f5cfdd6b90fb4dd9996db8a1962afb6975ef5ba",
+    "demo/run-2/004.txt": "d029b3087c7c7f74cb0a8e572541d122772b52f45a8792a28d87fb117c0f1f3a",
+    "demo/run-2/005.txt": "49bdf95341b0cb40c5989674335851bb5b80e303c58495134843d06b472b5c75",
+    "demo/run-2/006.txt": "5101c594e6ea8253055e111b8067898def8a73d101e76f195354f0fdad6f668f",
+    "demo/run-2/007.txt": "0090861d0c99aa186357bf646a99ae9f8be23de4f656a82e2a253b2a90a733be",
+    "demo/run-2/008.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "demo/run-2/009.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "demo/run-2/010.txt": "fdfb85e6c9f335209886ea1432198d1f66195ecfd3f1cbc31370708a09cd2a33",
+    "demo/run-2/result.json": "efa73f50dc518006d97bc130ea8bfa90f755a02318c110dd0c3b69739f25f87b",
+    "diff.txt": "cefa1b920e5055473aed7cf4c99ac7981b5aa254e3430af2593954b090610492",
+    "forge-std-revision.txt": "0090861d0c99aa186357bf646a99ae9f8be23de4f656a82e2a253b2a90a733be",
+    "forge-std-status.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "forge-version.txt": "c3c3918962bf862a0fe598d84f5cfdd6b90fb4dd9996db8a1962afb6975ef5ba",
+    "format.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gas-matrix.txt": "f1a232c2cc00752244a0ab4b171a3e0bf6aa2f1daf6211993a5dda4f00ae388f",
+    "gas-report.txt": "66626a49b77ea85697ae090dac6316f5e4fc601d60108e2a40d16f0e1230360b",
+    "local-demo.txt": "fd783b44c692a63cda6f6c57e9995fe2e4ccff65d95730aea50d10e035927328",
+    "make-stage-commands.txt": "bce6df6f6f4f597a6821ca6baff4b959e9bb4e69293ffb1e8ed14f253f27ae7f",
+    "metadata-local/result.json": "a40072467cf38c7591e62b90284f0f4fd26e3e7ddf81842d79bbdc891ffe7d7f",
+    "metadata-local.txt": "a40072467cf38c7591e62b90284f0f4fd26e3e7ddf81842d79bbdc891ffe7d7f",
+    "openzeppelin-contracts-revision.txt": "5101c594e6ea8253055e111b8067898def8a73d101e76f195354f0fdad6f668f",
+    "openzeppelin-contracts-status.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "optimized-build.txt": "4199d51aea780e4b743b9f658869d2cf04b847c7c24e42a6deafe99db88e216e",
+    "python-tests.txt": "f3ba5159ee4b2abc6a760ee12275e0d00115708e886058180a8ad546857895f6",
+    "result.json": "a21f9715e643220acdf2226af78be5dc1c4e90a7071f3df0c34d49cdb551b685",
+    "solidity-tests.txt": "683b0dda094f6684be7100fdb6534ee9de1c34def0f65d99ca102dd3dd88aa98",
+    "working-tree.txt": "6ee094af3f95a3af3e094214ae2064fd223770eb4c4b006113d22c0573e44e41"
+  }
+}

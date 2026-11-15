@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-11-15T19:12:47.262053+00:00",
+  "cwd": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "ci": {
+    "GITHUB_SHA": null,
+    "GITHUB_RUN_ID": null,
+    "GITHUB_RUN_ATTEMPT": null
+  },
+  "source_sha256": {
+    ".github/workflows/contracts.yml": "e5cbf94f25447a02f14777d86af3b3bca05bef6f2dd63f1846fd8e67cca3e847",
+    ".github/workflows/metadata.yml": "7ac42154f2f47dbf9719163ec4a5cb892eb832c607245b0779ee0d7d12251e3c",
+    "Makefile": "db6616ca621253efa91e66e493ad1e34b433554eb8580fd06a09ec514329a0ad",
+    "README.md": "d32b7bf2612b0ab7be2f6f1304565b8ef50592c6fa916cacb5c25be71908e188",
+    "assets/certificate.svg": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+    "assets/metadata.json": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+    "foundry.toml": "459cef235a53b9f0fcabda428c0375094dddad73830bab7f5ec972d9edf5b65e",
+    "script/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "script/Configure.s.sol": "d1c38a1f9715218e2db4b10d7d843f57e93f4b0c2e7956ece755af87e5c01166",
+    "script/DemoBase.sol": "58f9cde2360273397a0d04416e8f06d377a770361985dae6e9c46b213469d350",
+    "script/Deploy.s.sol": "e4306ba29b2fa08a53e88c2528a8c8776492e7ae49188610a4553931b7c2963c",
+    "script/Operations.s.sol": "2e55997d3f7a0b3d0f59233cfdbf7553b2e020d6587dafc005f5f8ab49a9faa2",
+    "script/Prepare.s.sol": "83b9707684aec3d4b71b0398ae1ee2c5367625de1f21003d642837193baf7570",
+    "src/BUSD.sol": "b1485b693e2aff898eb00e24a3899ce929a2bfbf1ff338e5e99c637509a7c53c",
+    "src/CCNFT.sol": "f6518122b83c2c3081e1df6e74c3f4e30062966214dd03da5c2cc10214e5ed2b",
+    "test/BUSD.t.sol": "f24fc732ad784690e717144e7cb292eb0f243f8fa72d768a627e258075457c4b",
+    "test/CCNFTAdmin.t.sol": "fa0cf6d0aae60124ef5c49085f43ef4dbf404c0da353755c34ac317798598f3e",
+    "test/CCNFTBase.sol": "99ae4d4238bdb4305d599379d1620e73ebacdbb98c593a393dffa0d3c64dba26",
+    "test/CCNFTFuzz.t.sol": "7f951405711efdb865dfc82fdfceeda73cc5601bcbefb5097c4b47f42fd66cfe",
+    "test/CCNFTMetadata.t.sol": "1ee15d4091a0935bd48109bc6e278f306744de50edde7642a116769b5a3a2b45",
+    "test/CCNFTOperations.t.sol": "c43308ff39decb32bceffb8758226b1e3ebc6d9d546fa7e41b703daf15de0845",
+    "test/CCNFTSecurity.t.sol": "40dabfdd214755a54aa74f2144e6ec11d6aae936f2c4727e21fac802771ba6a5",
+    "test/DemoScripts.t.sol": "c6c35d177edc0912127c7383989b38729943817385f71525e8ab03a84c6d3eb3",
+    "test/mocks/Adversaries.sol": "a43da6183eb93873916ee6322c7c4adb2cc58ffb8e0aa9eb3b440e45914e1fcd",
+    "tools/demo.py": "78ff3d6a252cb05a426bbd0069d52f15d78ee4a85cd4e4fa998a0ca0739322b4",
+    "tools/measure-gas.py": "24fa24a2b13ddbb92f2b2e82a93380046230a2991543f245895ceb6e3a572bfc",
+    "tools/setup.sh": "81337a7008d4a1c9b88bfebf3f3e8cc11bd95f72ff1c205fb7a3bd66e0f02607",
+    "tools/summarize-coverage.py": "bec00c4f21f5590e90af60c3412c5e958a083355d22652acc128e2db13a21d44",
+    "tools/test_demo.py": "96d2b5ad2825a847cbdf029d38ba391685425d0e6bfe6f7f948f34f96b28f338",
+    "tools/test_validation_tools.py": "34b75a9859a87fba2af459bdf264fdaa58e522ade071164fd4f20c6522ec67d9",
+    "tools/test_verify_metadata.py": "91a59f8cf1431ef006e7f2a2b8b8a18c16c1f8a5fff3b39a1cfeb8e75912dd11",
+    "tools/validate-system.py": "3e8aeab153744f3c4fa874fe57fc012d72bf9bb6032720ec0b5f7732c8973110",
+    "tools/verify-metadata.py": "389385f5238a68afae2262634faaee317a8b5bad7cfa480d5e4f5aaadcd95ac2"
+  },
+  "checks": [
+    {
+      "name": "commit",
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "started_at": "2026-11-15T19:12:47.269891+00:00",
+      "finished_at": "2026-11-15T19:12:47.274415+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "commit.txt"
+    },
+    {
+      "name": "working-tree",
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "started_at": "2026-11-15T19:12:47.275170+00:00",
+      "finished_at": "2026-11-15T19:12:47.283801+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "working-tree.txt"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--no-ext-diff",
+        "HEAD"
+      ],
+      "started_at": "2026-11-15T19:12:47.284372+00:00",
+      "finished_at": "2026-11-15T19:12:47.292702+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "diff.txt"
+    },
+    {
+      "name": "openzeppelin-contracts-revision",
+      "command": [
+        "git",
+        "-C",
+        "lib/openzeppelin-contracts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "started_at": "2026-11-15T19:12:47.293250+00:00",
+      "finished_at": "2026-11-15T19:12:47.297278+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "openzeppelin-contracts-revision.txt"
+    },
+    {
+      "name": "openzeppelin-contracts-status",
+      "command": [
+        "git",
+        "-C",
+        "lib/openzeppelin-contracts",
+        "status",
+        "--porcelain"
+      ],
+      "started_at": "2026-11-15T19:12:47.297836+00:00",
+      "finished_at": "2026-11-15T19:12:47.306084+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "openzeppelin-contracts-status.txt"
+    },
+    {
+      "name": "forge-std-revision",
+      "command": [
+        "git",
+        "-C",
+        "lib/forge-std",
+        "rev-parse",
+        "HEAD"
+      ],
+      "started_at": "2026-11-15T19:12:47.306659+00:00",
+      "finished_at": "2026-11-15T19:12:47.310799+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "forge-std-revision.txt"
+    },
+    {
+      "name": "forge-std-status",
+      "command": [
+        "git",
+        "-C",
+        "lib/forge-std",
+        "status",
+        "--porcelain"
+      ],
+      "started_at": "2026-11-15T19:12:47.311447+00:00",
+      "finished_at": "2026-11-15T19:12:47.315664+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "forge-std-status.txt"
+    },
+    {
+      "name": "forge-version",
+      "command": [
+        ".tools/bin/forge",
+        "--version"
+      ],
+      "started_at": "2026-11-15T19:12:47.316229+00:00",
+      "finished_at": "2026-11-15T19:12:47.332555+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "forge-version.txt"
+    },
+    {
+      "name": "anvil-version",
+      "command": [
+        ".tools/bin/anvil",
+        "--version"
+      ],
+      "started_at": "2026-11-15T19:12:47.333502+00:00",
+      "finished_at": "2026-11-15T19:12:47.342169+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "anvil-version.txt"
+    },
+    {
+      "name": "cast-version",
+      "command": [
+        ".tools/bin/cast",
+        "--version"
+      ],
+      "started_at": "2026-11-15T19:12:47.342975+00:00",
+      "finished_at": "2026-11-15T19:12:47.359394+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "cast-version.txt"
+    },
+    {
+      "name": "metadata-local",
+      "command": [
+        "/usr/bin/python3",
+        "tools/verify-metadata.py",
+        "--local-only",
+        "--output-dir",
+        "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T191247261614Z/metadata-local"
+      ],
+      "started_at": "2026-11-15T19:12:47.360154+00:00",
+      "finished_at": "2026-11-15T19:12:47.474955+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "metadata-local.txt"
+    },
+    {
+      "name": "python-tests",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "started_at": "2026-11-15T19:12:47.475590+00:00",
+      "finished_at": "2026-11-15T19:12:48.091867+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "python-tests.txt"
+    },
+    {
+      "name": "format",
+      "command": [
+        ".tools/bin/forge",
+        "fmt",
+        "--check"
+      ],
+      "started_at": "2026-11-15T19:12:48.093198+00:00",
+      "finished_at": "2026-11-15T19:12:48.158417+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "format.txt"
+    },
+    {
+      "name": "build",
+      "command": [
+        ".tools/bin/forge",
+        "build",
+        "--force",
+        "--color",
+        "never"
+      ],
+      "started_at": "2026-11-15T19:12:48.159431+00:00",
+      "finished_at": "2026-11-15T19:12:56.795217+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "build.txt"
+    },
+    {
+      "name": "solidity-tests",
+      "command": [
+        ".tools/bin/forge",
+        "test",
+        "-vv",
+        "--color",
+        "never"
+      ],
+      "started_at": "2026-11-15T19:12:56.795972+00:00",
+      "finished_at": "2026-11-15T19:12:57.812568+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "solidity-tests.txt"
+    },
+    {
+      "name": "coverage",
+      "command": [
+        ".tools/bin/forge",
+        "coverage",
+        "--report",
+        "summary",
+        "--report",
+        "debug",
+        "--color",
+        "never"
+      ],
+      "started_at": "2026-11-15T19:12:57.813112+00:00",
+      "finished_at": "2026-11-15T19:13:02.240161+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "coverage.txt"
+    },
+    {
+      "name": "coverage-summary",
+      "command": [
+        "/usr/bin/python3",
+        "tools/summarize-coverage.py",
+        "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T191247261614Z/coverage.txt",
+        "--check-baseline"
+      ],
+      "started_at": "2026-11-15T19:13:02.241098+00:00",
+      "finished_at": "2026-11-15T19:13:02.356031+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "coverage-summary.txt"
+    },
+    {
+      "name": "optimized-build",
+      "command": [
+        ".tools/bin/forge",
+        "build",
+        "--force",
+        "--color",
+        "never"
+      ],
+      "started_at": "2026-11-15T19:13:02.358011+00:00",
+      "finished_at": "2026-11-15T19:13:10.999863+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "optimized-build.txt"
+    },
+    {
+      "name": "gas-report",
+      "command": [
+        ".tools/bin/forge",
+        "test",
+        "--gas-report",
+        "--color",
+        "never"
+      ],
+      "started_at": "2026-11-15T19:13:11.001734+00:00",
+      "finished_at": "2026-11-15T19:13:12.973061+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "gas-report.txt"
+    },
+    {
+      "name": "gas-matrix",
+      "command": [
+        "/usr/bin/python3",
+        "tools/measure-gas.py"
+      ],
+      "started_at": "2026-11-15T19:13:12.975125+00:00",
+      "finished_at": "2026-11-15T19:13:22.826984+00:00",
+      "exit_code": 0,
+      "status": "passed",
+      "log": "gas-matrix.txt"
+    },
+    {
+      "name": "local-demo",
+      "command": [
+        "/usr/bin/python3",
+        "tools/demo.py",
+        "--output-dir",
+        "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T191247261614Z/demo"
+      ],
+      "started_at": "2026-11-15T19:13:22.829031+00:00",
+      "finished_at": "2026-11-15T19:13:25.602100+00:00",
+      "exit_code": 1,
+      "status": "failed",
+      "log": "local-demo.txt"
+    }
+  ],
+  "status": "failed",
+  "finished_at": "2026-11-15T19:13:25.603583+00:00"
+}

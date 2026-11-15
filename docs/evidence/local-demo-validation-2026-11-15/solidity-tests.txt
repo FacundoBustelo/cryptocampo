@@ -1,0 +1,73 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/BUSD.t.sol:BUSDTest
+[PASS] testInitialSupplyBelongsToDeployer() (gas: 23775)
+[PASS] testMetadata() (gas: 18893)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 1.31ms (499.26µs CPU time)
+
+Ran 7 tests for test/CCNFTAdmin.t.sol:CCNFTAdminTest
+[PASS] testAllSettersAndFullProfitRange() (gas: 105657)
+[PASS] testBuyRequiresCompleteConfiguration() (gas: 3007721)
+[PASS] testClaimRequiresCompleteConfiguration() (gas: 2974962)
+[PASS] testDisabledOperations() (gas: 361079)
+[PASS] testEverySetterRequiresOwner() (gas: 95712)
+[PASS] testInitialStateAndInterfaces() (gas: 2903895)
+[PASS] testInvalidSetterInputs() (gas: 40307)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 7.32ms (4.40ms CPU time)
+
+Ran 8 tests for test/CCNFTMetadata.t.sol:CCNFTMetadataTest
+[PASS] testEmptyURIRejectedBeforeAndAfterConfiguration() (gas: 320975)
+[PASS] testExistingTokensHaveEmptyURIUntilConfigured() (gas: 485431)
+[PASS] testMetadataUpdateDoesNotChangeEconomicStateOrEnableOperations() (gas: 449015)
+[PASS] testNonexistentAndBurnedTokensRevertWithOrWithoutURI() (gas: 479041)
+[PASS] testOwnerConfiguresURIAndEmitsEvent() (gas: 315212)
+[PASS] testResalePreservesSharedURIAndNominal() (gas: 540351)
+[PASS] testTokenOwnerAndThirdPartyCannotConfigureURI() (gas: 329455)
+[PASS] testUpdateAppliesToAllExistingAndFutureTokens() (gas: 701048)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 8.55ms (7.26ms CPU time)
+
+Ran 15 tests for test/CCNFTOperations.t.sol:CCNFTOperationsTest
+[PASS] testAcceptanceBalancesEventsAndFinalNominal() (gas: 558775)
+[PASS] testAllPublicTransfersBlockedEvenWithApproval() (gas: 289563)
+[PASS] testBurnedIdsCannotBeUsedOrReissued() (gas: 412019)
+[PASS] testBuyAndClaimAtExactBatchAndNominalLimits() (gas: 1710912)
+[PASS] testClaimInvalidBatchesThirdPartyAndDuplicatesAreAtomic() (gas: 515846)
+[PASS] testClaimMixedNominalsAndPublishedTokens() (gas: 744725)
+[PASS] testClaimWithAnotherOwnersTokenRestoresEarlierBurn() (gas: 449024)
+[PASS] testInvalidBuyInputsAndZeroCap() (gas: 111764)
+[PASS] testListingUpdatesWithoutDuplicatesAndSwapPopRemovesAllPositions() (gas: 1121863)
+[PASS] testLoweringCapDoesNotPreventClaimOrChangeOutstandingNominal() (gas: 588028)
+[PASS] testOneHundredPercentFeesAndProfitAboveOneHundredPercent() (gas: 347775)
+[PASS] testOverflowRevertsWithoutPartialState() (gas: 75110)
+[PASS] testPublicationAndTradeRejections() (gas: 435809)
+[PASS] testRoundingUsesBatchTotalsInMinimumUnits() (gas: 613264)
+[PASS] testZeroFeesAndProfit() (gas: 330092)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 8.59ms (23.53ms CPU time)
+
+Ran 12 tests for test/CCNFTSecurity.t.sol:CCNFTSecurityTest
+[PASS] testBuyInsufficientAllowanceOrBalanceRevertsAllMints() (gas: 680968)
+[PASS] testBuySecondChargeAllowanceFailureRollsBackPrincipalAndIds() (gas: 769499)
+[PASS] testBuySecondChargeBalanceFailureRollsBackPrincipal() (gas: 383913)
+[PASS] testClaimInsufficientCollectorBalanceOrAllowanceRestoresBurns() (gas: 360194)
+[PASS] testERC20CallbacksCannotReenterAnyOperation() (gas: 2224196)
+[PASS] testFalseERC20OnBothBuyChargesAndClaim() (gas: 1689242)
+[PASS] testFalseERC20OnBothTradeCharges() (gas: 1367945)
+[PASS] testPropagatedReentryFailureRollsBackOuterOperation() (gas: 1423003)
+[PASS] testReceiverCallbacksCannotReenterOrChangeListings() (gas: 1560563)
+[PASS] testRejectingReceiverRollsBackMintAndTrade() (gas: 1429038)
+[PASS] testTradeInsufficientFundsAndSecondChargeBalanceFailure() (gas: 459203)
+[PASS] testTradeSecondChargeAllowanceFailureRestoresOwnerAndListing() (gas: 337614)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 8.62ms (21.29ms CPU time)
+
+Ran 1 test for test/DemoScripts.t.sol:DemoScriptsTest
+[PASS] testScriptsConfigurationAndRejections() (gas: 8607941)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 32.16ms (22.27ms CPU time)
+
+Ran 4 tests for test/CCNFTFuzz.t.sol:CCNFTFuzzTest
+[PASS] testFuzzBuyFormula(uint256,uint256,uint16) (runs: 256, μ: 1112468, ~: 1141106)
+[PASS] testFuzzClaimFormulaFullUint32Profit(uint256,uint256,uint32) (runs: 256, μ: 1062282, ~: 1139017)
+[PASS] testFuzzNominalConservationAcrossLifecycle(uint256,uint256,uint256) (runs: 256, μ: 2001594, ~: 1824217)
+[PASS] testFuzzTradeFormulaPreservesNominal(uint256,uint16) (runs: 256, μ: 334359, ~: 335069)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 906.70ms (1.41s CPU time)
+
+Ran 7 test suites in 908.85ms (973.25ms CPU time): 49 tests passed, 0 failed, 0 skipped (49 total tests)

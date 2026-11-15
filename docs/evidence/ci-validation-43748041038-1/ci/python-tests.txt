@@ -1,0 +1,34 @@
+test_coverage_accepts_baseline_and_improvements (test_validation_tools.ValidationToolsTest.test_coverage_accepts_baseline_and_improvements) ... ok
+test_coverage_rejects_missing_malformed_or_duplicate_rows (test_validation_tools.ValidationToolsTest.test_coverage_rejects_missing_malformed_or_duplicate_rows) ... ok
+test_coverage_rejects_regressions_and_changed_branch_total (test_validation_tools.ValidationToolsTest.test_coverage_rejects_regressions_and_changed_branch_total) ... ok
+test_existing_evidence_directory_is_never_overwritten (test_validation_tools.ValidationToolsTest.test_existing_evidence_directory_is_never_overwritten) ... ok
+test_failed_command_preserves_both_streams_and_allows_next_check (test_validation_tools.ValidationToolsTest.test_failed_command_preserves_both_streams_and_allows_next_check) ... failure: failed (exit 7); /tmp/tmpdge7r8um/failure.txt
+next: passed (exit 0); /tmp/tmpdge7r8um/next.txt
+ok
+test_missing_binary_is_a_recorded_failure (test_validation_tools.ValidationToolsTest.test_missing_binary_is_a_recorded_failure) ... missing: failed (exit 127); /tmp/tmpeabep9al/missing.txt
+ok
+test_all_four_downloads_and_anvil_are_required (test_verify_metadata.MetadataVerifierTest.test_all_four_downloads_and_anvil_are_required) ... ok
+test_anvil_failure_is_pending (test_verify_metadata.MetadataVerifierTest.test_anvil_failure_is_pending) ... ok
+test_anvil_only_never_downloads_or_claims_ipfs_success (test_verify_metadata.MetadataVerifierTest.test_anvil_only_never_downloads_or_claims_ipfs_success) ... ok
+test_anvil_only_record_preserves_existing_publication_evidence (test_verify_metadata.MetadataVerifierTest.test_anvil_only_record_preserves_existing_publication_evidence) ... ok
+test_cids_must_be_individual_content_identifiers (test_verify_metadata.MetadataVerifierTest.test_cids_must_be_individual_content_identifiers) ... ok
+test_directory_or_mismatched_content_is_not_accepted (test_verify_metadata.MetadataVerifierTest.test_directory_or_mismatched_content_is_not_accepted) ... ok
+test_downloads_do_not_prove_pinning_or_visual_review (test_verify_metadata.MetadataVerifierTest.test_downloads_do_not_prove_pinning_or_visual_review) ... ok
+test_duplicate_keys_and_extra_fields_are_rejected (test_verify_metadata.MetadataVerifierTest.test_duplicate_keys_and_extra_fields_are_rejected) ... ok
+test_explicit_independent_gateway_keeps_both_resources_and_cids (test_verify_metadata.MetadataVerifierTest.test_explicit_independent_gateway_keeps_both_resources_and_cids) ... ok
+test_failed_gateway_invalidates_stale_success_and_reports_resource (test_verify_metadata.MetadataVerifierTest.test_failed_gateway_invalidates_stale_success_and_reports_resource) ... ok
+test_image_stage_never_claims_full_verification (test_verify_metadata.MetadataVerifierTest.test_image_stage_never_claims_full_verification) ... ok
+test_local_file_change_requires_updating_evidence (test_verify_metadata.MetadataVerifierTest.test_local_file_change_requires_updating_evidence) ... ok
+test_local_validation_never_uses_network_or_anvil (test_verify_metadata.MetadataVerifierTest.test_local_validation_never_uses_network_or_anvil) ... ok
+test_missing_cids_do_not_download_or_run_anvil (test_verify_metadata.MetadataVerifierTest.test_missing_cids_do_not_download_or_run_anvil) ... ok
+test_missing_publication_date_does_not_skip_downloads_or_claim_success (test_verify_metadata.MetadataVerifierTest.test_missing_publication_date_does_not_skip_downloads_or_claim_success) ... ok
+test_network_errors_are_not_treated_as_expected_reverts (test_verify_metadata.MetadataVerifierTest.test_network_errors_are_not_treated_as_expected_reverts) ... ok
+test_publication_accepts_a_visible_date_without_inventing_a_time (test_verify_metadata.MetadataVerifierTest.test_publication_accepts_a_visible_date_without_inventing_a_time) ... ok
+test_rate_limit_records_retry_after_without_retrying (test_verify_metadata.MetadataVerifierTest.test_rate_limit_records_retry_after_without_retrying) ... ok
+test_revert_reason_must_be_exact (test_verify_metadata.MetadataVerifierTest.test_revert_reason_must_be_exact) ... ok
+test_wrong_image_reference_blocks_anvil_even_if_bytes_match (test_verify_metadata.MetadataVerifierTest.test_wrong_image_reference_blocks_anvil_even_if_bytes_match) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.193s
+
+OK

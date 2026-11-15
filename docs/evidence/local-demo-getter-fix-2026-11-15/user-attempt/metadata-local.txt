@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-15T19:12:47.455245+00:00",
+  "status": "pending",
+  "mode": "local",
+  "resources": {
+    "image": {
+      "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+      "local": "verified",
+      "gateways": []
+    },
+    "metadata": {
+      "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+      "local": "verified",
+      "gateways": []
+    }
+  },
+  "anvil": {
+    "status": "pending"
+  },
+  "pending": [
+    "Solo validación local; IPFS, pinning, presentación y Anvil pendientes."
+  ]
+}

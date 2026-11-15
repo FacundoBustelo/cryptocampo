@@ -1,0 +1,3 @@
+Demostración fallida: reverts: listTokensOnSale(uint256)(uint256) (0,): False != True; evidencia: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T191247261614Z/demo/run-1
+Demostración fallida: reverts: listTokensOnSale(uint256)(uint256) (0,): False != True; evidencia: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T191247261614Z/demo/run-2
+failed: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T191247261614Z/demo

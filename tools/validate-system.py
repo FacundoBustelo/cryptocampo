@@ -40,8 +40,8 @@ def run_check(output, name, command, timeout=300):
 
 
 def source_hashes():
-    paths = [ROOT / "foundry.toml", ROOT / "README.md"]
-    for folder in ("src", "test", "tools", "assets", ".github/workflows"):
+    paths = [ROOT / "foundry.toml", ROOT / "README.md", ROOT / "Makefile"]
+    for folder in ("src", "test", "script", "tools", "assets", ".github/workflows"):
         paths.extend(p for p in (ROOT / folder).rglob("*") if p.is_file()
                      and "__pycache__" not in p.parts)
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
@@ -99,6 +99,7 @@ def main():
     matrix = check("gas-matrix", [sys.executable, "tools/measure-gas.py"], optimized)
     if matrix["status"] == "passed":
         shutil.copyfile(ROOT / ".tools/gas-scenarios.json", output / "gas-scenarios.json")
+    check("local-demo", [sys.executable, "tools/demo.py", "--output-dir", str(output / "demo")], optimized)
     report.update(finished_at=now(), status="passed" if all(c["status"] == "passed" for c in report["checks"])
                   else "failed")
     save()

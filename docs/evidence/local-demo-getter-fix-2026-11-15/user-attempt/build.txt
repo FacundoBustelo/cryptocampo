@@ -1,0 +1,234 @@
+Compiling 53 files with Solc 0.8.19
+Solc 0.8.19 finished in 8.47s
+Compiler run successful!
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/mocks/Adversaries.sol:48:28
+   |
+48 |     CCNFT public immutable nft;
+   |                            ^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> src/CCNFT.sol:98:33
+   |
+98 |         tokensOnSale[tokenId] = TokenSale(true, price);
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> test/mocks/Adversaries.sol:61:29
+   |
+61 |     function configure(bool rejectNFT, bool attemptReentry, bool propagate) external {
+   |                             ^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:106:12
+    |
+106 |         vm.setEnv("DEMO_ADMIN", vm.toString(ADMIN));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:107:12
+    |
+107 |         vm.setEnv("DEMO_A", vm.toString(A));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:108:12
+    |
+108 |         vm.setEnv("DEMO_B", vm.toString(B));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:109:12
+    |
+109 |         vm.setEnv("DEMO_FUNDS", vm.toString(FUNDS));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:110:12
+    |
+110 |         vm.setEnv("DEMO_FEES", vm.toString(FEES));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:111:12
+    |
+111 |         vm.setEnv("DEMO_BUSD", vm.toString(address(busd)));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:112:12
+    |
+112 |         vm.setEnv("DEMO_CCNFT", vm.toString(address(nft)));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:113:12
+    |
+113 |         vm.setEnv("DEMO_APPROVER", vm.toString(A));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[mixed-case-function]: function names should use mixedCase
+   --> test/DemoScripts.t.sol:116:14
+    |
+116 |     function checkScriptSequencePreservesSecondNFTAndReserve() internal {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-function
+
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> script/DemoBase.sol:35:13
+   |
+35 |           p = Actors(
+   |  _____________^
+36 | |             vm.envAddress("DEMO_ADMIN"),
+37 | |             vm.envAddress("DEMO_A"),
+38 | |             vm.envAddress("DEMO_B"),
+39 | |             vm.envAddress("DEMO_FUNDS"),
+40 | |             vm.envAddress("DEMO_FEES")
+41 | |         );
+   | |_________^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:120:12
+    |
+120 |         vm.setEnv("DEMO_APPROVER", vm.toString(B));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:122:12
+    |
+122 |         vm.setEnv("DEMO_APPROVER", vm.toString(FUNDS));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:143:12
+    |
+143 |         vm.setEnv("DEMO_A", vm.toString(address(0)));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:149:12
+    |
+149 |         vm.setEnv("DEMO_A", vm.toString(address(busd)));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:155:12
+    |
+155 |         vm.setEnv("DEMO_FEES", vm.toString(FUNDS));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[mixed-case-function]: function names should use mixedCase
+   --> test/DemoScripts.t.sol:160:14
+    |
+160 |     function checkScriptRejectsIncorrectBUSDIncludingOtherContract() internal {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-function
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:161:12
+    |
+161 |         vm.setEnv("DEMO_BUSD", vm.toString(A));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:164:12
+    |
+164 |         vm.setEnv("DEMO_BUSD", vm.toString(address(nft)));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[mixed-case-function]: function names should use mixedCase
+   --> test/DemoScripts.t.sol:169:14
+    |
+169 |     function checkScriptRejectsIncorrectCCNFTIncludingOtherContract() internal {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-function
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:170:12
+    |
+170 |         vm.setEnv("DEMO_CCNFT", vm.toString(B));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:173:12
+    |
+173 |         vm.setEnv("DEMO_CCNFT", vm.toString(address(busd)));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:224:12
+    |
+224 |         vm.setEnv("DEMO_APPROVER", vm.toString(B));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:228:12
+    |
+228 |         vm.setEnv("DEMO_APPROVER", vm.toString(FUNDS));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:239:12
+    |
+239 |         vm.setEnv("DEMO_APPROVER", vm.toString(ADMIN));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+
+note[unsafe-cheatcode]: usage of unsafe cheatcodes that can perform dangerous operations
+   --> test/DemoScripts.t.sol:242:12
+    |
+242 |         vm.setEnv("DEMO_APPROVER", vm.toString(A));
+    |            ^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-cheatcode
+

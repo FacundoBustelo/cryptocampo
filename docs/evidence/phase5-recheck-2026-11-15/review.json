@@ -1,0 +1,171 @@
+{
+  "checked_at": "2026-11-15T19:05:21.529918+00:00",
+  "historical_review": "docs/evidence/ci-validation-43748041038-1/review.json",
+  "evidence_hashes": {
+    "ci/anvil-version.txt": true,
+    "ci/cast-version.txt": true,
+    "ci/commit.txt": true,
+    "ci/build.txt": true,
+    "ci/coverage-summary.txt": true,
+    "ci/coverage.txt": true,
+    "ci/diff.txt": true,
+    "ci/forge-std-revision.txt": true,
+    "ci/forge-std-status.txt": true,
+    "ci/forge-version.txt": true,
+    "ci/format.txt": true,
+    "ci/gas-matrix.txt": true,
+    "ci/gas-report.txt": true,
+    "ci/gas-scenarios.json": true,
+    "ci/metadata-local.txt": true,
+    "ci/metadata-local/result.json": true,
+    "ci/openzeppelin-contracts-revision.txt": true,
+    "ci/openzeppelin-contracts-status.txt": true,
+    "ci/optimized-build.txt": true,
+    "ci/python-tests.txt": true,
+    "ci/result.json": true,
+    "ci/solidity-tests.txt": true,
+    "ci/working-tree.txt": true,
+    "setup.txt": true
+  },
+  "all_24_evidence_files_match": true,
+  "ci_checks": [
+    {
+      "name": "commit",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "working-tree",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "diff",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "openzeppelin-contracts-revision",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "openzeppelin-contracts-status",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "forge-std-revision",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "forge-std-status",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "forge-version",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "anvil-version",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "cast-version",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "metadata-local",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "python-tests",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "format",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "build",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "solidity-tests",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "coverage",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "coverage-summary",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "optimized-build",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "gas-report",
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "gas-matrix",
+      "status": "passed",
+      "exit_code": 0
+    }
+  ],
+  "historical_source_hashes_match_commit": {
+    ".github/workflows/contracts.yml": true,
+    ".github/workflows/metadata.yml": true,
+    "README.md": true,
+    "assets/certificate.svg": true,
+    "assets/metadata.json": true,
+    "foundry.toml": true,
+    "src/BUSD.sol": true,
+    "src/CCNFT.sol": true,
+    "test/BUSD.t.sol": true,
+    "test/CCNFTAdmin.t.sol": true,
+    "test/CCNFTBase.sol": true,
+    "test/CCNFTFuzz.t.sol": true,
+    "test/CCNFTMetadata.t.sol": true,
+    "test/CCNFTOperations.t.sol": true,
+    "test/CCNFTSecurity.t.sol": true,
+    "test/mocks/Adversaries.sol": true,
+    "tools/measure-gas.py": true,
+    "tools/setup.sh": true,
+    "tools/summarize-coverage.py": true,
+    "tools/test_validation_tools.py": true,
+    "tools/test_verify_metadata.py": true,
+    "tools/validate-system.py": true,
+    "tools/verify-metadata.py": true
+  },
+  "current_original_contract_and_test_hashes_match": {
+    "src/BUSD.sol": true,
+    "src/CCNFT.sol": true,
+    "test/BUSD.t.sol": true,
+    "test/CCNFTAdmin.t.sol": true,
+    "test/CCNFTBase.sol": true,
+    "test/CCNFTFuzz.t.sol": true,
+    "test/CCNFTMetadata.t.sol": true,
+    "test/CCNFTOperations.t.sol": true,
+    "test/CCNFTSecurity.t.sol": true,
+    "test/mocks/Adversaries.sol": true
+  },
+  "status": "passed"
+}

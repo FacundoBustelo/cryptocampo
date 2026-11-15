@@ -1,0 +1,21 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0 70.2M    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 71 70.2M   71 50.0M    0     0  37.8M      0  0:00:01  0:00:01 --:--:-- 48.4M100 70.2M  100 70.2M    0     0  43.8M      0  0:00:01  0:00:01 --:--:-- 53.5M
+From https://github.com/OpenZeppelin/openzeppelin-contracts
+ * branch            a5445b0afb8b350417b6e6ab3160554967bc151f -> FETCH_HEAD
+From https://github.com/foundry-rs/forge-std
+ * branch            77041d2ce690e692d6e03cc812b57d1ddaa4d505 -> FETCH_HEAD
+forge Version: 1.4.4-v1.4.4
+Commit SHA: 05794498bf47257b144e2e2789a1d5bf8566be0e
+Build Timestamp: 2025-10-30T15:50:28.714367747Z (1761839428)
+Build Profile: maxperf
+cast Version: 1.4.4-v1.4.4
+Commit SHA: 05794498bf47257b144e2e2789a1d5bf8566be0e
+Build Timestamp: 2025-10-30T15:50:28.714367747Z (1761839428)
+Build Profile: maxperf
+anvil Version: 1.4.4-v1.4.4
+Commit SHA: 05794498bf47257b144e2e2789a1d5bf8566be0e
+Build Timestamp: 2025-10-30T15:50:28.714367747Z (1761839428)
+Build Profile: maxperf
+Entorno instalado. Ejecutar: export PATH="$PWD/.tools/bin:$PATH"
