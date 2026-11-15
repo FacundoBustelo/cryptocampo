@@ -1,0 +1,153 @@
+{
+  "recorded_at": "2026-11-15T04:24:35.017210+00:00",
+  "status": "pending_publication_and_evm_verification",
+  "source_commit_before_changes": "83e01586638a5cb6741e619f9627778489155fd8",
+  "scope": "Implementación local del verificador; no acredita publicación IPFS, nuevo run de CI ni ejecución EVM.",
+  "setup_observed_earlier_in_this_session": {
+    "command": [
+      "bash",
+      "tools/setup.sh"
+    ],
+    "exit_code": 6,
+    "stderr_excerpt": "curl: (6) Could not resolve host: github.com",
+    "status": "blocked"
+  },
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_verify_metadata.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "output": "test_all_four_downloads_and_anvil_are_required (test_verify_metadata.MetadataVerifierTest.test_all_four_downloads_and_anvil_are_required) ... ok\ntest_anvil_failure_is_pending (test_verify_metadata.MetadataVerifierTest.test_anvil_failure_is_pending) ... ok\ntest_cids_must_be_individual_content_identifiers (test_verify_metadata.MetadataVerifierTest.test_cids_must_be_individual_content_identifiers) ... ok\ntest_directory_or_mismatched_content_is_not_accepted (test_verify_metadata.MetadataVerifierTest.test_directory_or_mismatched_content_is_not_accepted) ... ok\ntest_downloads_do_not_prove_pinning_or_visual_review (test_verify_metadata.MetadataVerifierTest.test_downloads_do_not_prove_pinning_or_visual_review) ... ok\ntest_duplicate_keys_and_extra_fields_are_rejected (test_verify_metadata.MetadataVerifierTest.test_duplicate_keys_and_extra_fields_are_rejected) ... ok\ntest_failed_gateway_invalidates_stale_success_and_reports_resource (test_verify_metadata.MetadataVerifierTest.test_failed_gateway_invalidates_stale_success_and_reports_resource) ... ok\ntest_image_stage_never_claims_full_verification (test_verify_metadata.MetadataVerifierTest.test_image_stage_never_claims_full_verification) ... ok\ntest_local_file_change_requires_updating_evidence (test_verify_metadata.MetadataVerifierTest.test_local_file_change_requires_updating_evidence) ... ok\ntest_local_validation_never_uses_network_or_anvil (test_verify_metadata.MetadataVerifierTest.test_local_validation_never_uses_network_or_anvil) ... ok\ntest_missing_cids_do_not_download_or_run_anvil (test_verify_metadata.MetadataVerifierTest.test_missing_cids_do_not_download_or_run_anvil) ... ok\ntest_network_errors_are_not_treated_as_expected_reverts (test_verify_metadata.MetadataVerifierTest.test_network_errors_are_not_treated_as_expected_reverts) ... ok\ntest_revert_reason_must_be_exact (test_verify_metadata.MetadataVerifierTest.test_revert_reason_must_be_exact) ... ok\ntest_wrong_image_reference_blocks_anvil_even_if_bytes_match (test_verify_metadata.MetadataVerifierTest.test_wrong_image_reference_blocks_anvil_even_if_bytes_match) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.028s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/verify-metadata.py",
+        "--local-only"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "output": "{\n  \"checked_at\": \"2026-11-15T04:24:34.852814+00:00\",\n  \"status\": \"pending\",\n  \"mode\": \"local\",\n  \"resources\": {\n    \"image\": {\n      \"sha256\": \"6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    },\n    \"metadata\": {\n      \"sha256\": \"79061932b44aa745e0a408d5ad4d1e432b85e4b1eea3990ccaa8a4dd8fcfadbf\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    }\n  },\n  \"anvil\": {\n    \"status\": \"pending\"\n  },\n  \"pending\": [\n    \"Solo validación local; IPFS, pinning, presentación y Anvil pendientes.\"\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/verify-metadata.py",
+        "--record"
+      ],
+      "exit_code": 1,
+      "status": "pending",
+      "output": "{\n  \"checked_at\": \"2026-11-15T04:24:34.989503+00:00\",\n  \"status\": \"pending\",\n  \"mode\": \"full\",\n  \"resources\": {\n    \"image\": {\n      \"sha256\": \"6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    },\n    \"metadata\": {\n      \"sha256\": \"79061932b44aa745e0a408d5ad4d1e432b85e4b1eea3990ccaa8a4dd8fcfadbf\",\n      \"local\": \"verified\",\n      \"gateways\": []\n    }\n  },\n  \"anvil\": {\n    \"status\": \"pending\"\n  },\n  \"pending\": [\n    \"image: Falta el CID público del archivo individual.\",\n    \"metadata: Falta el CID público del archivo individual.\",\n    \"metadata: El JSON definitivo espera el CID real de la imagen.\",\n    \"Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo.\",\n    \"Presentación: Falta revisar visualmente la imagen recuperada.\"\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "status": "passed",
+      "output": ""
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "build"
+      ],
+      "exit_code": 127,
+      "status": "blocked",
+      "output": "[Errno 2] No such file or directory: '.tools/bin/forge'"
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "fmt",
+        "--check"
+      ],
+      "exit_code": 127,
+      "status": "blocked",
+      "output": "[Errno 2] No such file or directory: '.tools/bin/forge'"
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "test",
+        "-vv"
+      ],
+      "exit_code": 127,
+      "status": "blocked",
+      "output": "[Errno 2] No such file or directory: '.tools/bin/forge'"
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "coverage",
+        "--report",
+        "summary",
+        "--report",
+        "debug",
+        "--color",
+        "never"
+      ],
+      "exit_code": 127,
+      "status": "blocked",
+      "output": "[Errno 2] No such file or directory: '.tools/bin/forge'"
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "test",
+        "--gas-report"
+      ],
+      "exit_code": 127,
+      "status": "blocked",
+      "output": "[Errno 2] No such file or directory: '.tools/bin/forge'"
+    }
+  ],
+  "workflow_static_validation": {
+    "status": "passed",
+    "manual_ipfs_trigger": "workflow_dispatch only",
+    "push_and_pr_ipfs_downloads": false,
+    "method": "PyYAML BaseLoader; eventos y permisos comprobados"
+  },
+  "local_visual_review": {
+    "status": "verified",
+    "source": "assets/certificate.svg",
+    "rendered_file": ".tools/metadata-local-preview.png",
+    "renderer": "GdkPixbuf SVG loader",
+    "dimensions": [
+      1200,
+      800
+    ],
+    "reviewed_by": "Codex",
+    "observed": "Título, textos de demostración, espiga y campos legibles, sin recortes visibles. Es una revisión local, sin descarga IPFS."
+  },
+  "not_run": [
+    {
+      "check": "Anvil con URI IPFS definitiva",
+      "reason": "Faltan ambos CIDs reales y Foundry no está instalado."
+    },
+    {
+      "check": "Medición de gas por escenarios",
+      "reason": "No hay Forge, Anvil, bibliotecas ni artefactos compilados."
+    },
+    {
+      "check": "Workflows remotos de GitHub Actions",
+      "reason": "No se publicaron estos cambios ni se dispararon runs desde esta sesión."
+    },
+    {
+      "check": "Presentación en billetera y Sepolia",
+      "reason": "Fuera del alcance de esta fase."
+    }
+  ]
+}

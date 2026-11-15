@@ -2,7 +2,7 @@
 
 Contratos para certificados agrícolas de demostración y pagos con un token ERC20 BUSD. Los certificados no acreditan existencias físicas verificadas y el token no tiene respaldo en dólares.
 
-Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
+Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 dispone de recursos locales, un verificador IPFS/Anvil y un workflow manual; faltan los CIDs reales para comprobar la publicación. Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
 
 ## Entorno
 
@@ -61,7 +61,7 @@ Los eventos `Buy`, `PutOnSale`, `Trade` y `Claim` identifican participantes, IDs
 
 El recorrido de aceptación compra dos NFTs de 100 BUSD con 2 % de comisión, revende uno a 120 con 1 % y lo reclama con 5 % de beneficio (105 BUSD). La prueba comprueba eventos, autorizaciones exactas, variaciones de saldo A: −84; B: −16,2; fondos: +95; comisiones: +5,2 BUSD, y nominal final de 100 BUSD. **La prueba pasó en el registro de CI recibido el 15/11/2026.**
 
-## Metadatos compartidos — inicio de fase 4
+## Metadatos compartidos — fase 4 pendiente de publicación
 
 [`assets/certificate.svg`](assets/certificate.svg) es un certificado agrícola sencillo con el texto visible «Certificado de demostración». Se usan formas y texto SVG, siguiendo la separación entre imagen y metadatos tratada en la cursada. [`assets/metadata.json`](assets/metadata.json) contiene solo `name`, `description` e `image`, sin IDs ni nominales individuales. Todos los NFTs usan la misma ficha; la propiedad y el nominal se consultan en el contrato.
 
@@ -77,15 +77,28 @@ python3 -m http.server 8000 --bind 127.0.0.1 --directory assets
 
 Abrir `http://127.0.0.1:8000/certificate.svg` y `http://127.0.0.1:8000/metadata.json`. En una futura demostración local, el propietario podrá llamar a `setMetadataURI("http://127.0.0.1:8000/metadata.json")`. Las pruebas Solidity comparan cadenas; no descargan recursos ni prueban accesibilidad HTTP. `https://metadata.example.invalid/updated.json`, usado al probar actualizaciones, es otro marcador de prueba sin publicación. Estas referencias locales no sirven para billeteras de terceros.
 
-Para completar la publicación, en este orden:
+La publicación se realiza manualmente desde Pinata, eligiendo **IPFS público** y subiendo cada archivo individualmente, sin carpeta contenedora. Primero se sube y fija `certificate.svg`; se comprueba su CID por dos gateways; luego se establece `image` como `ipfs://<CID_REAL_DE_IMAGEN>` y se retira de la descripción la frase sobre pruebas locales. Solo después se sube y fija el JSON definitivo. Ambos archivos deben permanecer fijados. Ver [instrucciones de publicación de Pinata](https://docs.pinata.cloud/files/uploading-files) y [pinning en IPFS](https://docs.ipfs.tech/how-to/pin-files/).
 
-1. Publicar y fijar mediante pinning `certificate.svg` en IPFS; registrar su CID real y comprobar el contenido recuperado.
-2. Sustituir `image` en `metadata.json` por `ipfs://<CID_REAL_DE_IMAGEN>` (añadir `/certificate.svg` únicamente si el CID corresponde a un directorio). Ajustar la descripción para retirar la referencia a una prueba local.
-3. Validar de nuevo el JSON, publicarlo y fijarlo en IPFS. Registrar el CID del JSON final: editarlo después cambia su CID.
-4. Como propietario, ejecutar `setMetadataURI("ipfs://<CID_REAL_DE_JSON>")`, añadiendo `/metadata.json` si corresponde a un directorio. Los textos entre `<...>` son marcadores explicativos, no URIs utilizables.
-5. Recuperar ambos recursos por sus CIDs y un gateway, comprobar la imagen en una billetera compatible y conservar evidencia de pinning y accesibilidad. El contrato guarda la cadena y no comprueba la disponibilidad del contenido.
+El [registro de publicación](docs/ipfs-publication.json) conserva hashes SHA-256, CIDs, URIs, fechas, confirmación manual de pinning y resultados reales. Los CIDs todavía son `null`: el usuario confirmó que aún no dispone del CID de la imagen. El JSON sigue siendo un borrador local. No se precisan credenciales de Pinata.
 
-Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintaxis y se revisó visualmente el SVG renderizado a 1200 × 800; las ocho pruebas de metadatos pasaron en CI según el registro recibido el 15/11/2026. Scripts de demostración y despliegue en Sepolia corresponden a fases posteriores.
+```bash
+# Siempre disponible, sin red ni Foundry:
+python3 tools/verify-metadata.py --local-only
+python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v
+
+# Tras registrar el CID de la imagen y confirmar su pinning:
+python3 tools/verify-metadata.py --image-only --record
+
+# Tras publicar el JSON definitivo y completar el registro:
+bash tools/setup.sh
+python3 tools/verify-metadata.py --record
+```
+
+El verificador compara los bytes de ambos archivos con los locales mediante el gateway público de Pinata y `ipfs.io`, valida JSON/SVG y comprueba la referencia a la imagen. Después inicia un Anvil temporal, despliega BUSD y CCNFT con los parámetros de demostración y verifica la URI compartida antes y después de revender, las reversiones de IDs quemados e inexistentes y el rechazo de cambios por terceros. Los resultados y descargas se guardan en `.tools/metadata-verification/`. Con `--record`, el manifiesto registra el intento, incluso si falla. Un fallo deja el estado `pending` y devuelve código 1.
+
+El workflow **Verificar publicación IPFS y URI en Anvil** se activa solo mediante `workflow_dispatch` y conserva un artefacto con la evidencia, incluso ante fallos del verificador. Los pushes y PRs ejecutan únicamente la validación local y las pruebas del verificador, además de los controles de contratos existentes. Las pruebas unitarias Solidity mantienen sus referencias locales y no dependen de IPFS.
+
+La [guía de publicación y evidencia](docs/ipfs-publication.md) detalla cómo completar el registro y revisar la imagen recuperada. El cierre será **publicación y resolución verificadas** cuando existan las cuatro descargas coincidentes, pinning confirmado, revisión visual y comprobación real en Anvil. La presentación en una billetera permanece pendiente para una fase posterior, junto con Sepolia.
 
 ## Organización y comprobación
 
@@ -97,9 +110,9 @@ Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintax
 - `test/CCNFTFuzz.t.sol`: cuatro pruebas parametrizadas de fórmulas y conservación del nominal, con 256 casos por prueba.
 - `test/CCNFTMetadata.t.sol`: URI inicial, permisos, cadena vacía, eventos, actualización común, reventa, existencia y separación de la lógica económica.
 - `script/`: reservado para scripts de despliegue e interacción.
-- `assets/`: certificado SVG y JSON compartido con referencia de imagen local.
-- `docs/`: evidencia del intento de verificación y revisión estática.
-- `tools/`: instalación reproducible del entorno.
+- `assets/`: certificado SVG y borrador del JSON compartido; referencia local hasta verificar el CID de la imagen.
+- `docs/`: evidencia de contratos, gas y registro de publicación IPFS.
+- `tools/`: instalación reproducible, medición de gas y verificación de metadatos.
 
 El paso de CI **Medir gas por tamaño de lista y lote** ejecuta `tools/measure-gas.py` en un Anvil temporal. Las 35 transacciones con listas de 1, 10 y 100 publicaciones y lotes de 1 y 10 completaron exitosamente, usando gas de recibos y separando la preparación del estado. Se registraron commit, versiones y revisiones de dependencias. Ver [método, resultados y límites](docs/gas-scenarios.md).
 
@@ -124,4 +137,4 @@ Hay 48 funciones de prueba: 2 de BUSD y 46 de CCNFT, incluidas las 4 pruebas fuz
 | `.tools/bin/forge coverage` | Bloqueado: ejecutable inexistente (código 127). |
 | `.tools/bin/forge test --gas-report` | Bloqueado: ejecutable inexistente (código 127). |
 
-En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) permite cerrar las fases 2 y 3: compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada, reporte agregado de gas y 35 recibos de medición por escenario, con entorno identificado. La ejecución local sigue sin herramientas instaladas; no se reintentaron las descargas desde esta sesión.
+En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) permite cerrar las fases 2 y 3: compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada, reporte agregado de gas y 35 recibos de medición por escenario, con entorno identificado. En el avance de fase 4 se reintentó `bash tools/setup.sh`: continúa el error DNS al resolver `github.com`. La nueva validación local y las 14 pruebas del verificador aprobaron; la prueba real en Anvil y una nueva ejecución completa de CI siguen pendientes. Ver [evidencia de fase 4](docs/metadata-validation-2026-11-15.json).
