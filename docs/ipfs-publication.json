@@ -31,16 +31,29 @@
     "metadata": {
       "path": "assets/metadata.json",
       "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
-      "cid": null,
-      "uri": null,
+      "cid": "bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
       "published_at": null,
       "pinning": {
         "provider": "Pinata",
-        "status": "pending",
-        "confirmed_at": null,
-        "evidence": null
+        "status": "confirmed_by_user",
+        "confirmed_at": "2026-11-15T04:45:44.223782+00:00",
+        "evidence": "El usuario respondió «si public, hoy» a la consulta sobre metadata.json en Files/Public y su Creation Date. Evidencia de subida pública completada y pinning automático de Pinata; no se recibió captura con etiqueta explícita Pinned."
       },
-      "prepared_at": "2026-11-15T04:41:01.357339+00:00"
+      "prepared_at": "2026-11-15T04:41:01.357339+00:00",
+      "cid_received_at": "2026-11-15T04:43:54.043561+00:00",
+      "provided_gateway_url": "https://maroon-worldwide-pig-68.mypinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "cid_integrity_check": {
+        "status": "verified",
+        "method": "CIDv1 raw sha2-256: digest incorporado coincide con SHA-256 del JSON local. No acredita disponibilidad ni pinning.",
+        "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f"
+      },
+      "upload_report": {
+        "status": "reported_by_user",
+        "evidence": "El usuario proporcionó el enlace de su gateway Pinata y después el CID, en respuesta a las instrucciones para subir assets/metadata.json como archivo individual a IPFS público. Sin captura ni fecha de creación aportada para este archivo. El usuario confirmó después: «si public, hoy», el 15/11/2026."
+      },
+      "published_on": "2026-11-15",
+      "publication_date_evidence": "El usuario confirmó que metadata.json aparece en Files/Public y que Creation Date corresponde a hoy, 15/11/2026 (America/Argentina/Cordoba). No se conoce la hora exacta de subida."
     }
   },
   "visual_review": {
@@ -55,7 +68,7 @@
     "evidence": null
   },
   "verification": {
-    "checked_at": "2026-11-15T04:41:14.747623+00:00",
+    "checked_at": "2026-11-15T04:46:01.956734+00:00",
     "status": "pending",
     "mode": "full",
     "resources": {
@@ -65,13 +78,13 @@
         "gateways": [
           {
             "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
-            "checked_at": "2026-11-15T04:41:14.748203+00:00",
+            "checked_at": "2026-11-15T04:46:01.957405+00:00",
             "status": "pending",
             "error": "<urlopen error [Errno -2] Name or service not known>"
           },
           {
             "url": "https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
-            "checked_at": "2026-11-15T04:41:14.774956+00:00",
+            "checked_at": "2026-11-15T04:46:01.985210+00:00",
             "status": "pending",
             "error": "<urlopen error [Errno -2] Name or service not known>"
           }
@@ -80,7 +93,20 @@
       "metadata": {
         "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
         "local": "verified",
-        "gateways": []
+        "gateways": [
+          {
+            "url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+            "checked_at": "2026-11-15T04:46:01.985803+00:00",
+            "status": "pending",
+            "error": "<urlopen error [Errno -2] Name or service not known>"
+          },
+          {
+            "url": "https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+            "checked_at": "2026-11-15T04:46:01.986067+00:00",
+            "status": "pending",
+            "error": "<urlopen error [Errno -2] Name or service not known>"
+          }
+        ]
       }
     },
     "anvil": {
@@ -89,7 +115,8 @@
     "pending": [
       "image: https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
       "image: https://ipfs.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
-      "metadata: Falta el CID público del archivo individual.",
+      "metadata: https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: <urlopen error [Errno -2] Name or service not known>",
+      "metadata: https://ipfs.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: <urlopen error [Errno -2] Name or service not known>",
       "Anvil: pendiente de recuperación pública de ambos archivos y JSON definitivo."
     ]
   }
