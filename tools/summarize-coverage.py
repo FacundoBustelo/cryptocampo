@@ -6,6 +6,22 @@ import re
 from pathlib import Path
 
 
+def check_baseline(report: str) -> None:
+    rows = [line for line in report.splitlines() if re.match(r"\|\s*src/CCNFT\.sol\s*\|", line)]
+    if len(rows) != 1:
+        raise ValueError("Falta la fila única de cobertura de src/CCNFT.sol.")
+    counts = [(int(hit), int(total)) for hit, total in re.findall(r"\((\d+)/(\d+)\)", rows[0])]
+    if len(counts) != 4:
+        raise ValueError("Formato de cobertura de CCNFT inesperado.")
+    for index in (0, 1, 3):
+        hit, total = counts[index]
+        if total == 0 or hit != total:
+            raise ValueError("Regresión: CCNFT requiere 100 % de líneas, sentencias y funciones.")
+    hit, total = counts[2]
+    if total != 81 or hit < 79:
+        raise ValueError("Regresión o cambio de ramas: se requiere al menos 79/81; revisar la justificación.")
+
+
 def summarize(report: str, source: list[str]) -> str:
     lines = report.splitlines()
     output = ["Resumen de cobertura:"]
@@ -55,9 +71,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
     parser.add_argument("--source", type=Path, default=Path("src/CCNFT.sol"))
+    parser.add_argument("--check-baseline", action="store_true", help="Exige cobertura completa salvo dos ramas de CCNFT.")
     args = parser.parse_args()
     try:
-        print(summarize(args.report.read_text(), args.source.read_text().splitlines()))
+        report = args.report.read_text()
+        print(summarize(report, args.source.read_text().splitlines()))
+        if args.check_baseline:
+            check_baseline(report)
     except (OSError, ValueError) as error:
         parser.exit(1, f"Error al resumir cobertura: {error}\n")
 

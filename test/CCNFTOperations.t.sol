@@ -8,11 +8,11 @@ contract CCNFTOperationsTest is CCNFTBase {
         uint256 aliceStart = busd.balanceOf(alice);
         uint256 bobStart = busd.balanceOf(bob);
         vm.prank(alice);
-        busd.approve(address(nft), 204 ether);
+        assertTrue(busd.approve(address(nft), 204 ether));
         vm.prank(bob);
-        busd.approve(address(nft), 121.2 ether);
+        assertTrue(busd.approve(address(nft), 121.2 ether));
         vm.prank(funds);
-        busd.approve(address(nft), 105 ether);
+        assertTrue(busd.approve(address(nft), 105 ether));
 
         vm.expectEmit(true, true, false, true, address(nft));
         emit Buy(alice, 0, 100 ether);
@@ -71,7 +71,7 @@ contract CCNFTOperationsTest is CCNFTBase {
         assertEq(nft.totalSupply(), 10);
         vm.expectRevert("Max value exceeded");
         _buy(bob, 100 ether, 1);
-        busd.transfer(funds, 50 ether);
+        assertTrue(busd.transfer(funds, 50 ether));
         uint256[] memory ids = new uint256[](10);
         for (uint256 i; i < ids.length; ++i) {
             ids[i] = i;
@@ -168,7 +168,7 @@ contract CCNFTOperationsTest is CCNFTBase {
         _list(alice, 0, 120 ether);
         _list(alice, 1, 130 ether);
         _list(alice, 2, 600 ether);
-        busd.transfer(funds, 35 ether);
+        assertTrue(busd.transfer(funds, 35 ether));
         uint256 beforeBalance = busd.balanceOf(alice);
         uint256[] memory ids = new uint256[](2);
         ids[0] = 0;
@@ -228,7 +228,7 @@ contract CCNFTOperationsTest is CCNFTBase {
 
     function testBurnedIdsCannotBeUsedOrReissued() public {
         _buy(alice, 100 ether, 1);
-        busd.transfer(funds, 5 ether);
+        assertTrue(busd.transfer(funds, 5 ether));
         _claim(alice, 0);
         vm.expectRevert("Token does not exist");
         _claim(alice, 0);
@@ -275,7 +275,7 @@ contract CCNFTOperationsTest is CCNFTBase {
         assertEq(nft.totalValue(), 100 ether);
         vm.expectRevert("Max value exceeded");
         _buy(bob, 100 ether, 1);
-        busd.transfer(funds, 10 ether);
+        assertTrue(busd.transfer(funds, 10 ether));
         _claim(alice, 1);
         _buy(bob, 100 ether, 1);
         assertEq(nft.ownerOf(2), bob);
@@ -314,11 +314,11 @@ contract CCNFTOperationsTest is CCNFTBase {
         nft.setTradeFee(0);
         nft.setProfitToPay(0);
         vm.prank(alice);
-        busd.approve(address(nft), 100 ether);
+        assertTrue(busd.approve(address(nft), 100 ether));
         _buy(alice, 100 ether, 1);
         _list(alice, 0, 120 ether);
         vm.prank(bob);
-        busd.approve(address(nft), 120 ether);
+        assertTrue(busd.approve(address(nft), 120 ether));
         _trade(bob, 0);
         _claim(bob, 0);
         assertEq(busd.balanceOf(fees), 0);
@@ -335,7 +335,7 @@ contract CCNFTOperationsTest is CCNFTBase {
         _list(alice, 0, 120 ether);
         _trade(bob, 0);
         assertEq(busd.balanceOf(fees), 220 ether);
-        busd.transfer(funds, 150 ether);
+        assertTrue(busd.transfer(funds, 150 ether));
         uint256 beforeBalance = busd.balanceOf(bob);
         _claim(bob, 0);
         assertEq(busd.balanceOf(bob), beforeBalance + 250 ether);
@@ -355,7 +355,7 @@ contract CCNFTOperationsTest is CCNFTBase {
         assertEq(busd.balanceOf(fees), 2);
         _list(bob, 0, 1);
         _trade(alice, 0); // Comision redondeada a cero.
-        busd.transfer(funds, 1);
+        assertTrue(busd.transfer(funds, 1));
         uint256[] memory ids = new uint256[](2);
         ids[0] = 0;
         ids[1] = 1;

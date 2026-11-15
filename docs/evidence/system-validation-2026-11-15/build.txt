@@ -1,0 +1,27 @@
+Compiling 46 files with Solc 0.8.19
+Solc 0.8.19 finished in 6.10s
+Compiler run successful!
+note[named-struct-fields]: prefer initializing structs with named fields
+  --> src/CCNFT.sol:98:33
+   |
+98 |         tokensOnSale[tokenId] = TokenSale(true, price);
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/mocks/Adversaries.sol:48:28
+   |
+48 |     CCNFT public immutable nft;
+   |                            ^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> test/mocks/Adversaries.sol:61:29
+   |
+61 |     function configure(bool rejectNFT, bool attemptReentry, bool propagate) external {
+   |                             ^^^^^^^^^
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+

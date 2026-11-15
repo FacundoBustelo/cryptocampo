@@ -13,13 +13,13 @@ contract BUSDTest is Test {
         busd = new BUSD();
     }
 
-    function testMetadata() public {
+    function testMetadata() public view {
         assertEq(busd.name(), "BUSD");
         assertEq(busd.symbol(), "BUSD");
         assertEq(busd.decimals(), 18);
     }
 
-    function testInitialSupplyBelongsToDeployer() public {
+    function testInitialSupplyBelongsToDeployer() public view {
         assertEq(busd.totalSupply(), 10_000_000 ether);
         assertEq(busd.balanceOf(deployer), busd.totalSupply());
         assertEq(busd.balanceOf(address(this)), 0);

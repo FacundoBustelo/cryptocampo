@@ -13,50 +13,21 @@ jobs:
       - name: Obtener el proyecto
         uses: actions/checkout@v6
 
-      - name: Validar recursos locales y el verificador sin descargas IPFS
-        run: |
-          python3 tools/verify-metadata.py --local-only
-          python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v
-
       - name: Preparar el entorno con versiones fijadas
-        id: setup
-        run: bash tools/setup.sh
-
-      - name: Registrar el commit y las revisiones de bibliotecas
         run: |
-          git rev-parse HEAD
-          git -C lib/openzeppelin-contracts rev-parse HEAD
-          git -C lib/forge-std rev-parse HEAD
+          mkdir -p .tools/validation
+          set -o pipefail
+          bash tools/setup.sh 2>&1 | tee .tools/validation/setup.txt
 
-      - name: Compilar
-        id: build
-        run: .tools/bin/forge build
+      - name: Validar y conservar informes de pruebas, cobertura y gas
+        if: ${{ !cancelled() }}
+        run: python3 tools/validate-system.py --output-dir .tools/validation/ci
 
-      - name: Comprobar el formato
-        if: ${{ !cancelled() && steps.setup.outcome == 'success' }}
-        run: .tools/bin/forge fmt --check
-
-      - name: Ejecutar las pruebas
-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: .tools/bin/forge test -vv
-
-      - name: Medir la cobertura
-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: |
-          coverage_log="$RUNNER_TEMP/cryptocampo-coverage.txt"
-          if .tools/bin/forge coverage --report summary --report debug --color never > "$coverage_log" 2>&1; then
-            python3 tools/summarize-coverage.py "$coverage_log"
-          else
-            cat "$coverage_log"
-            exit 1
-          fi
-
-      - name: Informar el consumo de gas
-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: .tools/bin/forge test --gas-report
-
-      - name: Medir gas por tamaño de lista y lote
-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: |
-          .tools/bin/forge build --force
-          python3 tools/measure-gas.py
+      - name: Conservar evidencia incluso ante fallos
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: contracts-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .tools/validation/
+          include-hidden-files: true
+          if-no-files-found: warn

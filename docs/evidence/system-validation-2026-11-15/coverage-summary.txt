@@ -1,0 +1,15 @@
+Resumen de cobertura:
+Ran 6 test suites in 1.87s (1.95s CPU time): 48 tests passed, 0 failed, 0 skipped (48 total tests)
+| File                       | % Lines           | % Statements      | % Branches      | % Funcs         |
+| src/BUSD.sol               | 100.00% (2/2)     | 100.00% (1/1)     | 100.00% (0/0)   | 100.00% (1/1)   |
+| src/CCNFT.sol              | 100.00% (122/122) | 100.00% (116/116) | 97.53% (79/81)  | 100.00% (25/25) |
+| test/CCNFTBase.sol         | 100.00% (60/60)   | 100.00% (65/65)   | 100.00% (1/1)   | 100.00% (9/9)   |
+| test/mocks/Adversaries.sol | 100.00% (52/52)   | 100.00% (50/50)   | 61.54% (16/26)  | 100.00% (9/9)   |
+| Total                      | 100.00% (236/236) | 100.00% (232/232) | 88.89% (96/108) | 100.00% (44/44) |
+
+Ramas sin cubrir de src/CCNFT.sol:
+-  runtime IC 12061 -> Item 138: Branch (branch: 20, path: 0) (location: (source ID: 37, lines: 110..111, bytes: 4835..4907), hits: 0)
+  110:         require(address(fundsToken) != address(0), "Funds token not configured");
+-  runtime IC 12206 -> Item 142: Branch (branch: 21, path: 0) (location: (source ID: 37, lines: 111..112, bytes: 4917..4986), hits: 0)
+  111:         require(feesCollector != address(0), "Fees collector not configured");
+Ramas sin cubrir: 2 de 81 reportadas para CCNFT.

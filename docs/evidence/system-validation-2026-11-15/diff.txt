@@ -1,0 +1,487 @@
+diff --git a/.github/workflows/contracts.yml b/.github/workflows/contracts.yml
+index 4a92ef1..e2cf841 100644
+--- a/.github/workflows/contracts.yml
++++ b/.github/workflows/contracts.yml
+@@ -13,50 +13,21 @@ jobs:
+       - name: Obtener el proyecto
+         uses: actions/checkout@v6
+ 
+-      - name: Validar recursos locales y el verificador sin descargas IPFS
+-        run: |
+-          python3 tools/verify-metadata.py --local-only
+-          python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v
+-
+       - name: Preparar el entorno con versiones fijadas
+-        id: setup
+-        run: bash tools/setup.sh
+-
+-      - name: Registrar el commit y las revisiones de bibliotecas
+-        run: |
+-          git rev-parse HEAD
+-          git -C lib/openzeppelin-contracts rev-parse HEAD
+-          git -C lib/forge-std rev-parse HEAD
+-
+-      - name: Compilar
+-        id: build
+-        run: .tools/bin/forge build
+-
+-      - name: Comprobar el formato
+-        if: ${{ !cancelled() && steps.setup.outcome == 'success' }}
+-        run: .tools/bin/forge fmt --check
+-
+-      - name: Ejecutar las pruebas
+-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+-        run: .tools/bin/forge test -vv
+-
+-      - name: Medir la cobertura
+-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+-        run: |
+-          coverage_log="$RUNNER_TEMP/cryptocampo-coverage.txt"
+-          if .tools/bin/forge coverage --report summary --report debug --color never > "$coverage_log" 2>&1; then
+-            python3 tools/summarize-coverage.py "$coverage_log"
+-          else
+-            cat "$coverage_log"
+-            exit 1
+-          fi
+-
+-      - name: Informar el consumo de gas
+-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+-        run: .tools/bin/forge test --gas-report
+-
+-      - name: Medir gas por tamaño de lista y lote
+-        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+         run: |
+-          .tools/bin/forge build --force
+-          python3 tools/measure-gas.py
++          mkdir -p .tools/validation
++          set -o pipefail
++          bash tools/setup.sh 2>&1 | tee .tools/validation/setup.txt
++
++      - name: Validar y conservar informes de pruebas, cobertura y gas
++        if: ${{ !cancelled() }}
++        run: python3 tools/validate-system.py --output-dir .tools/validation/ci
++
++      - name: Conservar evidencia incluso ante fallos
++        if: ${{ always() }}
++        uses: actions/upload-artifact@v4
++        with:
++          name: contracts-validation-${{ github.run_id }}-${{ github.run_attempt }}
++          path: .tools/validation/
++          include-hidden-files: true
++          if-no-files-found: warn
+diff --git a/README.md b/README.md
+index bb84423..1b1ddb8 100644
+--- a/README.md
++++ b/README.md
+@@ -4,6 +4,8 @@ Contratos para certificados agrícolas de demostración y pagos con un token ERC
+ 
+ Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 acredita **publicación y resolución verificadas**: imagen y JSON recuperados por Pinata y Filebase, y cinco comprobaciones aprobadas con la URI definitiva en Anvil. La presentación en billetera y Sepolia quedan para fases posteriores; ambos workflows remotos fueron confirmados en verde por el usuario y sus enlaces están registrados. Ver [evidencia IPFS y Anvil](docs/ipfs-verification-2026-11-15.md). Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
+ 
++La fase 5 incorpora una [matriz de requisitos y pruebas](docs/system-validation.md), comprobación automática del umbral de cobertura e informes reproducibles. Su cierre queda pendiente de repetir la matriz de gas en CI: los sockets de Anvil están bloqueados en esta sesión. Las cifras anteriores de IPFS/Anvil y gas conservan su procedencia histórica; la nueva revisión no las sustituye.
++
+ ## Entorno
+ 
+ Se requieren Linux x86_64, Bash, Git, curl, tar e install, además de acceso a GitHub y al servidor de compiladores de Solidity.
+@@ -28,6 +30,8 @@ forge test -vv
+ forge fmt --check
+ forge coverage
+ forge test --gas-report
++# Todos los controles con logs, códigos y hashes en un directorio nuevo:
++python3 tools/validate-system.py
+ ```
+ 
+ La instalación guarda los binarios en `.tools/bin/` y las dependencias en `lib/`, sin modificar la configuración del usuario ni crear commits. Las bibliotecas se descargan por revisión fija y se comprueba que una instalación existente conserve esa revisión sin cambios locales. Ambos directorios se regeneran con el instalador y están excluidos de Git. Forge descarga Solidity 0.8.19 durante la primera compilación.
+@@ -122,9 +126,9 @@ La [guía de publicación y evidencia](docs/ipfs-publication.md) detalla cómo c
+ - `script/`: reservado para scripts de despliegue e interacción.
+ - `assets/`: certificado SVG y JSON compartido preparado para publicar, con la URI IPFS real de la imagen.
+ - `docs/`: evidencia de contratos, gas y registro de publicación IPFS.
+-- `tools/`: instalación reproducible, medición de gas y verificación de metadatos.
++- `tools/`: instalación reproducible, medición de gas, verificación de metadatos y validación con informes persistentes.
+ 
+-El paso de CI **Medir gas por tamaño de lista y lote** ejecuta `tools/measure-gas.py` en un Anvil temporal. Las 35 transacciones con listas de 1, 10 y 100 publicaciones y lotes de 1 y 10 completaron exitosamente, usando gas de recibos y separando la preparación del estado. Se registraron commit, versiones y revisiones de dependencias. Ver [método, resultados y límites](docs/gas-scenarios.md).
++El workflow **Validar contratos** ejecuta `tools/validate-system.py` y conserva el artefacto `contracts-validation-<run_id>-<run_attempt>`, incluso ante fallos. Incluye logs de instalación, pruebas Solidity y Python, cobertura completa y resumida, reporte de gas, códigos de salida, commit, diff y hashes de fuentes. Restaura la compilación optimizada después de medir cobertura y antes de ambos informes de gas. La matriz ejecuta `tools/measure-gas.py` en Anvil y copia su JSON únicamente si termina con éxito. Las 35 transacciones históricas con listas de 1, 10 y 100 y lotes de 1 y 10 se conservan por separado; ver [método, resultados y límites](docs/gas-scenarios.md).
+ 
+ La configuración fija Solidity 0.8.19, EVM Paris y optimización con 200 ejecuciones. Las pruebas se ejecutan localmente, sin RPC ni cuentas externas.
+ 
+diff --git a/test/BUSD.t.sol b/test/BUSD.t.sol
+index 8d560e6..c9630cb 100644
+--- a/test/BUSD.t.sol
++++ b/test/BUSD.t.sol
+@@ -13,13 +13,13 @@ contract BUSDTest is Test {
+         busd = new BUSD();
+     }
+ 
+-    function testMetadata() public {
++    function testMetadata() public view {
+         assertEq(busd.name(), "BUSD");
+         assertEq(busd.symbol(), "BUSD");
+         assertEq(busd.decimals(), 18);
+     }
+ 
+-    function testInitialSupplyBelongsToDeployer() public {
++    function testInitialSupplyBelongsToDeployer() public view {
+         assertEq(busd.totalSupply(), 10_000_000 ether);
+         assertEq(busd.balanceOf(deployer), busd.totalSupply());
+         assertEq(busd.balanceOf(address(this)), 0);
+diff --git a/test/CCNFTBase.sol b/test/CCNFTBase.sol
+index 8a64be1..cb6be3b 100644
+--- a/test/CCNFTBase.sol
++++ b/test/CCNFTBase.sol
+@@ -36,14 +36,14 @@ abstract contract CCNFTBase is Test {
+         nft.setCanBuy(true);
+         nft.setCanTrade(true);
+         nft.setCanClaim(true);
+-        busd.transfer(alice, 100_000 ether);
+-        busd.transfer(bob, 100_000 ether);
++        assertTrue(busd.transfer(alice, 100_000 ether));
++        assertTrue(busd.transfer(bob, 100_000 ether));
+         vm.prank(alice);
+-        busd.approve(address(nft), type(uint256).max);
++        assertTrue(busd.approve(address(nft), type(uint256).max));
+         vm.prank(bob);
+-        busd.approve(address(nft), type(uint256).max);
++        assertTrue(busd.approve(address(nft), type(uint256).max));
+         vm.prank(funds);
+-        busd.approve(address(nft), type(uint256).max);
++        assertTrue(busd.approve(address(nft), type(uint256).max));
+     }
+ 
+     function _buy(address buyer, uint256 value, uint256 amount) internal {
+diff --git a/test/CCNFTFuzz.t.sol b/test/CCNFTFuzz.t.sol
+index c7d58e3..3619a94 100644
+--- a/test/CCNFTFuzz.t.sol
++++ b/test/CCNFTFuzz.t.sol
+@@ -56,7 +56,7 @@ contract CCNFTFuzzTest is CCNFTBase {
+         _buy(alice, value, amount);
+         uint256 principal = value * amount;
+         uint256 benefit = principal * profit / 10_000;
+-        busd.transfer(funds, benefit);
++        assertTrue(busd.transfer(funds, benefit));
+         uint256 beforeBalance = busd.balanceOf(alice);
+         uint256 feesBefore = busd.balanceOf(fees);
+         uint256[] memory ids = new uint256[](amount);
+@@ -96,7 +96,7 @@ contract CCNFTFuzzTest is CCNFTBase {
+             assertEq(nft.values(i), 100 ether);
+             _assertAccounting();
+         }
+-        busd.transfer(funds, claimCount * 5 ether);
++        assertTrue(busd.transfer(funds, claimCount * 5 ether));
+         uint256[] memory ids = new uint256[](claimCount);
+         for (uint256 i; i < claimCount; ++i) {
+             ids[i] = i;
+diff --git a/test/CCNFTMetadata.t.sol b/test/CCNFTMetadata.t.sol
+index 6a22cd8..b64ed75 100644
+--- a/test/CCNFTMetadata.t.sol
++++ b/test/CCNFTMetadata.t.sol
+@@ -101,7 +101,7 @@ contract CCNFTMetadataTest is CCNFTBase {
+         vm.expectRevert("Token does not exist");
+         nft.tokenURI(999);
+         assertEq(nft.tokenURI(1), LOCAL_URI);
+-        busd.transfer(funds, 10 ether);
++        assertTrue(busd.transfer(funds, 10 ether));
+         _claim(alice, 1);
+         vm.expectRevert("Token does not exist");
+         nft.tokenURI(1);
+diff --git a/test/CCNFTOperations.t.sol b/test/CCNFTOperations.t.sol
+index b9e2bfd..4d159ff 100644
+--- a/test/CCNFTOperations.t.sol
++++ b/test/CCNFTOperations.t.sol
+@@ -8,11 +8,11 @@ contract CCNFTOperationsTest is CCNFTBase {
+         uint256 aliceStart = busd.balanceOf(alice);
+         uint256 bobStart = busd.balanceOf(bob);
+         vm.prank(alice);
+-        busd.approve(address(nft), 204 ether);
++        assertTrue(busd.approve(address(nft), 204 ether));
+         vm.prank(bob);
+-        busd.approve(address(nft), 121.2 ether);
++        assertTrue(busd.approve(address(nft), 121.2 ether));
+         vm.prank(funds);
+-        busd.approve(address(nft), 105 ether);
++        assertTrue(busd.approve(address(nft), 105 ether));
+ 
+         vm.expectEmit(true, true, false, true, address(nft));
+         emit Buy(alice, 0, 100 ether);
+@@ -71,7 +71,7 @@ contract CCNFTOperationsTest is CCNFTBase {
+         assertEq(nft.totalSupply(), 10);
+         vm.expectRevert("Max value exceeded");
+         _buy(bob, 100 ether, 1);
+-        busd.transfer(funds, 50 ether);
++        assertTrue(busd.transfer(funds, 50 ether));
+         uint256[] memory ids = new uint256[](10);
+         for (uint256 i; i < ids.length; ++i) {
+             ids[i] = i;
+@@ -168,7 +168,7 @@ contract CCNFTOperationsTest is CCNFTBase {
+         _list(alice, 0, 120 ether);
+         _list(alice, 1, 130 ether);
+         _list(alice, 2, 600 ether);
+-        busd.transfer(funds, 35 ether);
++        assertTrue(busd.transfer(funds, 35 ether));
+         uint256 beforeBalance = busd.balanceOf(alice);
+         uint256[] memory ids = new uint256[](2);
+         ids[0] = 0;
+@@ -228,7 +228,7 @@ contract CCNFTOperationsTest is CCNFTBase {
+ 
+     function testBurnedIdsCannotBeUsedOrReissued() public {
+         _buy(alice, 100 ether, 1);
+-        busd.transfer(funds, 5 ether);
++        assertTrue(busd.transfer(funds, 5 ether));
+         _claim(alice, 0);
+         vm.expectRevert("Token does not exist");
+         _claim(alice, 0);
+@@ -275,7 +275,7 @@ contract CCNFTOperationsTest is CCNFTBase {
+         assertEq(nft.totalValue(), 100 ether);
+         vm.expectRevert("Max value exceeded");
+         _buy(bob, 100 ether, 1);
+-        busd.transfer(funds, 10 ether);
++        assertTrue(busd.transfer(funds, 10 ether));
+         _claim(alice, 1);
+         _buy(bob, 100 ether, 1);
+         assertEq(nft.ownerOf(2), bob);
+@@ -314,11 +314,11 @@ contract CCNFTOperationsTest is CCNFTBase {
+         nft.setTradeFee(0);
+         nft.setProfitToPay(0);
+         vm.prank(alice);
+-        busd.approve(address(nft), 100 ether);
++        assertTrue(busd.approve(address(nft), 100 ether));
+         _buy(alice, 100 ether, 1);
+         _list(alice, 0, 120 ether);
+         vm.prank(bob);
+-        busd.approve(address(nft), 120 ether);
++        assertTrue(busd.approve(address(nft), 120 ether));
+         _trade(bob, 0);
+         _claim(bob, 0);
+         assertEq(busd.balanceOf(fees), 0);
+@@ -335,7 +335,7 @@ contract CCNFTOperationsTest is CCNFTBase {
+         _list(alice, 0, 120 ether);
+         _trade(bob, 0);
+         assertEq(busd.balanceOf(fees), 220 ether);
+-        busd.transfer(funds, 150 ether);
++        assertTrue(busd.transfer(funds, 150 ether));
+         uint256 beforeBalance = busd.balanceOf(bob);
+         _claim(bob, 0);
+         assertEq(busd.balanceOf(bob), beforeBalance + 250 ether);
+@@ -355,7 +355,7 @@ contract CCNFTOperationsTest is CCNFTBase {
+         assertEq(busd.balanceOf(fees), 2);
+         _list(bob, 0, 1);
+         _trade(alice, 0); // Comision redondeada a cero.
+-        busd.transfer(funds, 1);
++        assertTrue(busd.transfer(funds, 1));
+         uint256[] memory ids = new uint256[](2);
+         ids[0] = 0;
+         ids[1] = 1;
+diff --git a/test/CCNFTSecurity.t.sol b/test/CCNFTSecurity.t.sol
+index 3ae5f51..076c2f3 100644
+--- a/test/CCNFTSecurity.t.sol
++++ b/test/CCNFTSecurity.t.sol
+@@ -7,7 +7,7 @@ import {AdversarialToken, AdversarialReceiver} from "./mocks/Adversaries.sol";
+ contract CCNFTSecurityTest is CCNFTBase {
+     function testBuyInsufficientAllowanceOrBalanceRevertsAllMints() public {
+         vm.prank(alice);
+-        busd.approve(address(nft), 199 ether);
++        assertTrue(busd.approve(address(nft), 199 ether));
+         vm.expectRevert("ERC20: insufficient allowance");
+         _buy(alice, 100 ether, 2);
+         assertEq(busd.balanceOf(alice), 100_000 ether);
+@@ -16,8 +16,8 @@ contract CCNFTSecurityTest is CCNFTBase {
+         assertEq(nft.values(1), 0);
+         uint256 excess = busd.balanceOf(alice) - 199 ether;
+         vm.startPrank(alice);
+-        busd.approve(address(nft), type(uint256).max);
+-        busd.transfer(address(this), excess);
++        assertTrue(busd.approve(address(nft), type(uint256).max));
++        assertTrue(busd.transfer(address(this), excess));
+         vm.stopPrank();
+         vm.expectRevert("ERC20: transfer amount exceeds balance");
+         _buy(alice, 100 ether, 2);
+@@ -30,7 +30,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+ 
+     function testBuySecondChargeAllowanceFailureRollsBackPrincipalAndIds() public {
+         vm.prank(alice);
+-        busd.approve(address(nft), 200 ether);
++        assertTrue(busd.approve(address(nft), 200 ether));
+         vm.expectRevert("ERC20: insufficient allowance");
+         _buy(alice, 100 ether, 2);
+         assertEq(busd.balanceOf(funds), 0);
+@@ -40,7 +40,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+         assertEq(nft.values(0), 0);
+         assertEq(nft.values(1), 0);
+         vm.prank(alice);
+-        busd.approve(address(nft), 204 ether);
++        assertTrue(busd.approve(address(nft), 204 ether));
+         _buy(alice, 100 ether, 2);
+         assertEq(nft.ownerOf(0), alice);
+         assertEq(nft.ownerOf(1), alice);
+@@ -50,7 +50,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+     function testBuySecondChargeBalanceFailureRollsBackPrincipal() public {
+         uint256 excess = busd.balanceOf(alice) - 200 ether;
+         vm.prank(alice);
+-        busd.transfer(address(this), excess);
++        assertTrue(busd.transfer(address(this), excess));
+         vm.expectRevert("ERC20: transfer amount exceeds balance");
+         _buy(alice, 100 ether, 2);
+         assertEq(busd.balanceOf(alice), 200 ether);
+@@ -64,7 +64,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+         _buy(alice, 100 ether, 1);
+         _list(alice, 0, 120 ether);
+         vm.prank(bob);
+-        busd.approve(address(nft), 120 ether);
++        assertTrue(busd.approve(address(nft), 120 ether));
+         vm.expectRevert("ERC20: insufficient allowance");
+         _trade(bob, 0);
+         _assertUnchangedTrade();
+@@ -78,19 +78,19 @@ contract CCNFTSecurityTest is CCNFTBase {
+         _buy(alice, 100 ether, 1);
+         _list(alice, 0, 120 ether);
+         vm.prank(bob);
+-        busd.approve(address(nft), 119 ether);
++        assertTrue(busd.approve(address(nft), 119 ether));
+         vm.expectRevert("ERC20: insufficient allowance");
+         _trade(bob, 0);
+         _assertUnchangedTrade();
+         uint256 excess = busd.balanceOf(bob) - 119 ether;
+         vm.startPrank(bob);
+-        busd.approve(address(nft), type(uint256).max);
+-        busd.transfer(address(this), excess);
++        assertTrue(busd.approve(address(nft), type(uint256).max));
++        assertTrue(busd.transfer(address(this), excess));
+         vm.stopPrank();
+         vm.expectRevert("ERC20: transfer amount exceeds balance");
+         _trade(bob, 0);
+         _assertUnchangedTrade();
+-        busd.transfer(bob, 1 ether);
++        assertTrue(busd.transfer(bob, 1 ether));
+         vm.expectRevert("ERC20: transfer amount exceeds balance");
+         _trade(bob, 0);
+         assertEq(busd.balanceOf(bob), 120 ether);
+@@ -104,9 +104,9 @@ contract CCNFTSecurityTest is CCNFTBase {
+         vm.expectRevert("ERC20: transfer amount exceeds balance");
+         _claim(alice, 0);
+         _assertUnchangedTrade();
+-        busd.transfer(funds, 5 ether);
++        assertTrue(busd.transfer(funds, 5 ether));
+         vm.prank(funds);
+-        busd.approve(address(nft), 104 ether);
++        assertTrue(busd.approve(address(nft), 104 ether));
+         vm.expectRevert("ERC20: insufficient allowance");
+         _claim(alice, 0);
+         _assertUnchangedTrade();
+@@ -134,7 +134,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+         token.setFailure(0);
+         _buy(alice, 100 ether, 1);
+         _list(alice, 0, 120 ether);
+-        token.transfer(funds, 5 ether);
++        assertTrue(token.transfer(funds, 5 ether));
+         token.setFailure(3);
+         vm.expectRevert("Cannot send funds tokens");
+         _claim(alice, 0);
+@@ -169,7 +169,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+         callbacks[1] = abi.encodeCall(nft.trade, (0));
+         callbacks[2] = abi.encodeCall(nft.claim, (_ids(0)));
+         callbacks[3] = abi.encodeCall(nft.putOnSale, (0, 1));
+-        token.transfer(funds, 100 ether);
++        assertTrue(token.transfer(funds, 100 ether));
+         for (uint256 i; i < callbacks.length; ++i) {
+             token.setCallback(nft, callbacks[i]);
+             _buy(alice, 100 ether, 1);
+@@ -186,7 +186,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+ 
+     function testRejectingReceiverRollsBackMintAndTrade() public {
+         AdversarialReceiver receiver = new AdversarialReceiver(nft, busd);
+-        busd.transfer(address(receiver), 1_000 ether);
++        assertTrue(busd.transfer(address(receiver), 1_000 ether));
+         receiver.configure(true, false, false);
+         vm.expectRevert("ERC721: transfer to non ERC721Receiver implementer");
+         receiver.execute(abi.encodeCall(nft.buy, (100 ether, 2)));
+@@ -208,7 +208,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+ 
+     function testReceiverCallbacksCannotReenterOrChangeListings() public {
+         AdversarialReceiver receiver = new AdversarialReceiver(nft, busd);
+-        busd.transfer(address(receiver), 1_000 ether);
++        assertTrue(busd.transfer(address(receiver), 1_000 ether));
+         receiver.configure(false, true, false);
+         receiver.execute(abi.encodeCall(nft.buy, (100 ether, 2)));
+         assertEq(receiver.received(), 2);
+@@ -230,7 +230,7 @@ contract CCNFTSecurityTest is CCNFTBase {
+ 
+     function testPropagatedReentryFailureRollsBackOuterOperation() public {
+         AdversarialReceiver receiver = new AdversarialReceiver(nft, busd);
+-        busd.transfer(address(receiver), 1_000 ether);
++        assertTrue(busd.transfer(address(receiver), 1_000 ether));
+         receiver.configure(false, true, true);
+         vm.expectRevert("ReentrancyGuard: reentrant call");
+         receiver.execute(abi.encodeCall(nft.buy, (100 ether, 2)));
+@@ -248,14 +248,14 @@ contract CCNFTSecurityTest is CCNFTBase {
+     function _useAdversarialToken() internal returns (AdversarialToken token) {
+         token = new AdversarialToken();
+         nft.setFundsToken(address(token));
+-        token.transfer(alice, 1_000 ether);
+-        token.transfer(bob, 1_000 ether);
++        assertTrue(token.transfer(alice, 1_000 ether));
++        assertTrue(token.transfer(bob, 1_000 ether));
+         vm.prank(alice);
+-        token.approve(address(nft), type(uint256).max);
++        assertTrue(token.approve(address(nft), type(uint256).max));
+         vm.prank(bob);
+-        token.approve(address(nft), type(uint256).max);
++        assertTrue(token.approve(address(nft), type(uint256).max));
+         vm.prank(funds);
+-        token.approve(address(nft), type(uint256).max);
++        assertTrue(token.approve(address(nft), type(uint256).max));
+     }
+ 
+     function _assertUnchangedTrade() internal view {
+diff --git a/test/mocks/Adversaries.sol b/test/mocks/Adversaries.sol
+index 11bb849..96ec7ef 100644
+--- a/test/mocks/Adversaries.sol
++++ b/test/mocks/Adversaries.sol
+@@ -55,7 +55,7 @@ contract AdversarialReceiver is IERC721Receiver {
+ 
+     constructor(CCNFT target, IERC20 token) {
+         nft = target;
+-        token.approve(address(target), type(uint256).max);
++        require(token.approve(address(target), type(uint256).max), "Receiver approval failed");
+     }
+ 
+     function configure(bool rejectNFT, bool attemptReentry, bool propagate) external {
+diff --git a/tools/summarize-coverage.py b/tools/summarize-coverage.py
+index a0539c8..8b89265 100644
+--- a/tools/summarize-coverage.py
++++ b/tools/summarize-coverage.py
+@@ -6,6 +6,22 @@ import re
+ from pathlib import Path
+ 
+ 
++def check_baseline(report: str) -> None:
++    rows = [line for line in report.splitlines() if re.match(r"\|\s*src/CCNFT\.sol\s*\|", line)]
++    if len(rows) != 1:
++        raise ValueError("Falta la fila única de cobertura de src/CCNFT.sol.")
++    counts = [(int(hit), int(total)) for hit, total in re.findall(r"\((\d+)/(\d+)\)", rows[0])]
++    if len(counts) != 4:
++        raise ValueError("Formato de cobertura de CCNFT inesperado.")
++    for index in (0, 1, 3):
++        hit, total = counts[index]
++        if total == 0 or hit != total:
++            raise ValueError("Regresión: CCNFT requiere 100 % de líneas, sentencias y funciones.")
++    hit, total = counts[2]
++    if total != 81 or hit < 79:
++        raise ValueError("Regresión o cambio de ramas: se requiere al menos 79/81; revisar la justificación.")
++
++
+ def summarize(report: str, source: list[str]) -> str:
+     lines = report.splitlines()
+     output = ["Resumen de cobertura:"]
+@@ -55,9 +71,13 @@ def main() -> None:
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("report", type=Path)
+     parser.add_argument("--source", type=Path, default=Path("src/CCNFT.sol"))
++    parser.add_argument("--check-baseline", action="store_true", help="Exige cobertura completa salvo dos ramas de CCNFT.")
+     args = parser.parse_args()
+     try:
+-        print(summarize(args.report.read_text(), args.source.read_text().splitlines()))
++        report = args.report.read_text()
++        print(summarize(report, args.source.read_text().splitlines()))
++        if args.check_baseline:
++            check_baseline(report)
+     except (OSError, ValueError) as error:
+         parser.exit(1, f"Error al resumir cobertura: {error}\n")
+ 

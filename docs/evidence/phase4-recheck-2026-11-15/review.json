@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-11-15T05:20:09.038072+00:00",
+  "historical_comparison": {
+    "image": {
+      "local_sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+      "manifest_hash_matches": true,
+      "cid": "bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+      "uri": "ipfs://bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+      "historical_copies": [
+        {
+          "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "historical_http_status": 200,
+          "historical_sha256_matches": true,
+          "saved_bytes_match": true
+        },
+        {
+          "url": "https://ipfs.filebase.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "historical_http_status": 200,
+          "historical_sha256_matches": true,
+          "saved_bytes_match": true
+        }
+      ],
+      "cid_integrity_check": {
+        "method": "CIDv1 base32, codec raw (0x55), multihash sha2-256 (0x12, 32 bytes)",
+        "decoded_bytes_hex": "015512206ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+        "embedded_digest_matches_local_sha256": true,
+        "checked_at": "2026-11-15T05:24:15.218744+00:00"
+      }
+    },
+    "metadata": {
+      "local_sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+      "manifest_hash_matches": true,
+      "cid": "bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+      "historical_copies": [
+        {
+          "url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "historical_http_status": 200,
+          "historical_sha256_matches": true,
+          "saved_bytes_match": true
+        },
+        {
+          "url": "https://ipfs.filebase.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "historical_http_status": 200,
+          "historical_sha256_matches": true,
+          "saved_bytes_match": true
+        }
+      ],
+      "cid_integrity_check": {
+        "method": "CIDv1 base32, codec raw (0x55), multihash sha2-256 (0x12, 32 bytes)",
+        "decoded_bytes_hex": "01551220e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+        "embedded_digest_matches_local_sha256": true,
+        "checked_at": "2026-11-15T05:24:15.218783+00:00"
+      }
+    }
+  },
+  "new_attempt": {
+    "name": "ipfs-and-anvil",
+    "command": [
+      "/usr/bin/python3",
+      "tools/verify-metadata.py",
+      "--independent-gateway",
+      "filebase",
+      "--output-dir",
+      "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/docs/evidence/phase4-recheck-2026-11-15/attempt"
+    ],
+    "started_at": "2026-11-15T05:20:02.657883+00:00",
+    "finished_at": "2026-11-15T05:20:09.037951+00:00",
+    "exit_code": 1,
+    "status": "failed",
+    "log": "ipfs-and-anvil.txt"
+  }
+}

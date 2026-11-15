@@ -2,6 +2,8 @@
 
 El paso **Medir gas por tamaño de lista y lote** de GitHub Actions completó las 35 transacciones exitosamente, según el registro compartido por el usuario el 15/11/2026. Se midió el commit `ec648936f79c62f9cc2b11bfa0ced3fa477c1e5c`. Los resultados y la identificación del entorno están transcritos en [gas-results-2026-11-15.json](gas-results-2026-11-15.json). No se modificaron contratos ni se usaron claves personales, cuentas externas o Sepolia.
 
+Actualización de fase 5: la [nueva validación](system-validation.md) aprobó el reporte agregado con compilación optimizada; la repetición de esta matriz quedó bloqueada por permisos de sockets. No se sustituyeron las cifras históricas. El workflow actualizado ejecuta la matriz dentro de `tools/validate-system.py` y conserva logs/JSON como artefactos incluso ante fallos. Su ejecución satisfactoria sobre los cambios nuevos es requisito de cierre de fase 5.
+
 ## Resultados observados
 
 Forge y Anvil informaron versión `1.4.4-v1.4.4`. Las revisiones fueron `a5445b0afb8b350417b6e6ab3160554967bc151f` para OpenZeppelin y `77041d2ce690e692d6e03cc812b57d1ddaa4d505` para forge-std, coincidentes con las fijadas. El script verificó Solidity 0.8.19, optimizador con 200 runs y compilación para Paris antes de medir.

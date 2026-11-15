@@ -1,0 +1,14 @@
+ M .github/workflows/contracts.yml
+ M README.md
+ M test/BUSD.t.sol
+ M test/CCNFTBase.sol
+ M test/CCNFTFuzz.t.sol
+ M test/CCNFTMetadata.t.sol
+ M test/CCNFTOperations.t.sol
+ M test/CCNFTSecurity.t.sol
+ M test/mocks/Adversaries.sol
+ M tools/summarize-coverage.py
+?? docs/evidence/phase4-recheck-2026-11-15/
+?? docs/evidence/system-validation-2026-11-15/
+?? tools/test_validation_tools.py
+?? tools/validate-system.py

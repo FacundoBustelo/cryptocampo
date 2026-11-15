@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-11-15T05:20:02.732536+00:00",
+  "status": "pending",
+  "mode": "full",
+  "resources": {
+    "image": {
+      "sha256": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+      "local": "verified",
+      "gateways": [
+        {
+          "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "checked_at": "2026-11-15T05:20:02.733147+00:00",
+          "status": "pending",
+          "error": "<urlopen error [Errno -2] Name or service not known>"
+        },
+        {
+          "url": "https://ipfs.filebase.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+          "checked_at": "2026-11-15T05:20:02.760400+00:00",
+          "status": "pending",
+          "error": "<urlopen error [Errno -2] Name or service not known>"
+        }
+      ]
+    },
+    "metadata": {
+      "sha256": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+      "local": "verified",
+      "gateways": [
+        {
+          "url": "https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "checked_at": "2026-11-15T05:20:02.760845+00:00",
+          "status": "pending",
+          "error": "<urlopen error [Errno -2] Name or service not known>"
+        },
+        {
+          "url": "https://ipfs.filebase.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+          "checked_at": "2026-11-15T05:20:02.761046+00:00",
+          "status": "pending",
+          "error": "<urlopen error [Errno -2] Name or service not known>"
+        }
+      ]
+    }
+  },
+  "anvil": {
+    "status": "pending",
+    "uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+    "versions": {
+      "forge": "forge Version: 1.4.4-v1.4.4",
+      "anvil": "anvil Version: 1.4.4-v1.4.4"
+    },
+    "libraries": {
+      "openzeppelin-contracts": "a5445b0afb8b350417b6e6ab3160554967bc151f",
+      "forge-std": "77041d2ce690e692d6e03cc812b57d1ddaa4d505"
+    },
+    "error": "[Errno 1] Operation not permitted"
+  },
+  "pending": [
+    "image: https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
+    "image: https://ipfs.filebase.io/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4: <urlopen error [Errno -2] Name or service not known>",
+    "metadata: https://gateway.pinata.cloud/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: <urlopen error [Errno -2] Name or service not known>",
+    "metadata: https://ipfs.filebase.io/ipfs/bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4: <urlopen error [Errno -2] Name or service not known>",
+    "Anvil: [Errno 1] Operation not permitted"
+  ]
+}

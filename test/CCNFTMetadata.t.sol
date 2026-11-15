@@ -101,7 +101,7 @@ contract CCNFTMetadataTest is CCNFTBase {
         vm.expectRevert("Token does not exist");
         nft.tokenURI(999);
         assertEq(nft.tokenURI(1), LOCAL_URI);
-        busd.transfer(funds, 10 ether);
+        assertTrue(busd.transfer(funds, 10 ether));
         _claim(alice, 1);
         vm.expectRevert("Token does not exist");
         nft.tokenURI(1);

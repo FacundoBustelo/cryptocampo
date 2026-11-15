@@ -55,7 +55,7 @@ contract AdversarialReceiver is IERC721Receiver {
 
     constructor(CCNFT target, IERC20 token) {
         nft = target;
-        token.approve(address(target), type(uint256).max);
+        require(token.approve(address(target), type(uint256).max), "Receiver approval failed");
     }
 
     function configure(bool rejectNFT, bool attemptReentry, bool propagate) external {

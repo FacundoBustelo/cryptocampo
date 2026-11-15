@@ -36,14 +36,14 @@ abstract contract CCNFTBase is Test {
         nft.setCanBuy(true);
         nft.setCanTrade(true);
         nft.setCanClaim(true);
-        busd.transfer(alice, 100_000 ether);
-        busd.transfer(bob, 100_000 ether);
+        assertTrue(busd.transfer(alice, 100_000 ether));
+        assertTrue(busd.transfer(bob, 100_000 ether));
         vm.prank(alice);
-        busd.approve(address(nft), type(uint256).max);
+        assertTrue(busd.approve(address(nft), type(uint256).max));
         vm.prank(bob);
-        busd.approve(address(nft), type(uint256).max);
+        assertTrue(busd.approve(address(nft), type(uint256).max));
         vm.prank(funds);
-        busd.approve(address(nft), type(uint256).max);
+        assertTrue(busd.approve(address(nft), type(uint256).max));
     }
 
     function _buy(address buyer, uint256 value, uint256 amount) internal {

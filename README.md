@@ -4,6 +4,8 @@ Contratos para certificados agrícolas de demostración y pagos con un token ERC
 
 Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 acredita **publicación y resolución verificadas**: imagen y JSON recuperados por Pinata y Filebase, y cinco comprobaciones aprobadas con la URI definitiva en Anvil. La presentación en billetera y Sepolia quedan para fases posteriores; ambos workflows remotos fueron confirmados en verde por el usuario y sus enlaces están registrados. Ver [evidencia IPFS y Anvil](docs/ipfs-verification-2026-11-15.md). Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
 
+La fase 5 incorpora una [matriz de requisitos y pruebas](docs/system-validation.md), comprobación automática del umbral de cobertura e informes reproducibles. Su cierre queda pendiente de repetir la matriz de gas en CI: los sockets de Anvil están bloqueados en esta sesión. Las cifras anteriores de IPFS/Anvil y gas conservan su procedencia histórica; la nueva revisión no las sustituye.
+
 ## Entorno
 
 Se requieren Linux x86_64, Bash, Git, curl, tar e install, además de acceso a GitHub y al servidor de compiladores de Solidity.
@@ -28,6 +30,8 @@ forge test -vv
 forge fmt --check
 forge coverage
 forge test --gas-report
+# Todos los controles con logs, códigos y hashes en un directorio nuevo:
+python3 tools/validate-system.py
 ```
 
 La instalación guarda los binarios en `.tools/bin/` y las dependencias en `lib/`, sin modificar la configuración del usuario ni crear commits. Las bibliotecas se descargan por revisión fija y se comprueba que una instalación existente conserve esa revisión sin cambios locales. Ambos directorios se regeneran con el instalador y están excluidos de Git. Forge descarga Solidity 0.8.19 durante la primera compilación.
@@ -122,9 +126,9 @@ La [guía de publicación y evidencia](docs/ipfs-publication.md) detalla cómo c
 - `script/`: reservado para scripts de despliegue e interacción.
 - `assets/`: certificado SVG y JSON compartido preparado para publicar, con la URI IPFS real de la imagen.
 - `docs/`: evidencia de contratos, gas y registro de publicación IPFS.
-- `tools/`: instalación reproducible, medición de gas y verificación de metadatos.
+- `tools/`: instalación reproducible, medición de gas, verificación de metadatos y validación con informes persistentes.
 
-El paso de CI **Medir gas por tamaño de lista y lote** ejecuta `tools/measure-gas.py` en un Anvil temporal. Las 35 transacciones con listas de 1, 10 y 100 publicaciones y lotes de 1 y 10 completaron exitosamente, usando gas de recibos y separando la preparación del estado. Se registraron commit, versiones y revisiones de dependencias. Ver [método, resultados y límites](docs/gas-scenarios.md).
+El workflow **Validar contratos** ejecuta `tools/validate-system.py` y conserva el artefacto `contracts-validation-<run_id>-<run_attempt>`, incluso ante fallos. Incluye logs de instalación, pruebas Solidity y Python, cobertura completa y resumida, reporte de gas, códigos de salida, commit, diff y hashes de fuentes. Restaura la compilación optimizada después de medir cobertura y antes de ambos informes de gas. La matriz ejecuta `tools/measure-gas.py` en Anvil y copia su JSON únicamente si termina con éxito. Las 35 transacciones históricas con listas de 1, 10 y 100 y lotes de 1 y 10 se conservan por separado; ver [método, resultados y límites](docs/gas-scenarios.md).
 
 La configuración fija Solidity 0.8.19, EVM Paris y optimización con 200 ejecuciones. Las pruebas se ejecutan localmente, sin RPC ni cuentas externas.
 

@@ -56,7 +56,7 @@ contract CCNFTFuzzTest is CCNFTBase {
         _buy(alice, value, amount);
         uint256 principal = value * amount;
         uint256 benefit = principal * profit / 10_000;
-        busd.transfer(funds, benefit);
+        assertTrue(busd.transfer(funds, benefit));
         uint256 beforeBalance = busd.balanceOf(alice);
         uint256 feesBefore = busd.balanceOf(fees);
         uint256[] memory ids = new uint256[](amount);
@@ -96,7 +96,7 @@ contract CCNFTFuzzTest is CCNFTBase {
             assertEq(nft.values(i), 100 ether);
             _assertAccounting();
         }
-        busd.transfer(funds, claimCount * 5 ether);
+        assertTrue(busd.transfer(funds, claimCount * 5 ether));
         uint256[] memory ids = new uint256[](claimCount);
         for (uint256 i; i < claimCount; ++i) {
             ids[i] = i;

@@ -7,7 +7,7 @@ import {AdversarialToken, AdversarialReceiver} from "./mocks/Adversaries.sol";
 contract CCNFTSecurityTest is CCNFTBase {
     function testBuyInsufficientAllowanceOrBalanceRevertsAllMints() public {
         vm.prank(alice);
-        busd.approve(address(nft), 199 ether);
+        assertTrue(busd.approve(address(nft), 199 ether));
         vm.expectRevert("ERC20: insufficient allowance");
         _buy(alice, 100 ether, 2);
         assertEq(busd.balanceOf(alice), 100_000 ether);
@@ -16,8 +16,8 @@ contract CCNFTSecurityTest is CCNFTBase {
         assertEq(nft.values(1), 0);
         uint256 excess = busd.balanceOf(alice) - 199 ether;
         vm.startPrank(alice);
-        busd.approve(address(nft), type(uint256).max);
-        busd.transfer(address(this), excess);
+        assertTrue(busd.approve(address(nft), type(uint256).max));
+        assertTrue(busd.transfer(address(this), excess));
         vm.stopPrank();
         vm.expectRevert("ERC20: transfer amount exceeds balance");
         _buy(alice, 100 ether, 2);
@@ -30,7 +30,7 @@ contract CCNFTSecurityTest is CCNFTBase {
 
     function testBuySecondChargeAllowanceFailureRollsBackPrincipalAndIds() public {
         vm.prank(alice);
-        busd.approve(address(nft), 200 ether);
+        assertTrue(busd.approve(address(nft), 200 ether));
         vm.expectRevert("ERC20: insufficient allowance");
         _buy(alice, 100 ether, 2);
         assertEq(busd.balanceOf(funds), 0);
@@ -40,7 +40,7 @@ contract CCNFTSecurityTest is CCNFTBase {
         assertEq(nft.values(0), 0);
         assertEq(nft.values(1), 0);
         vm.prank(alice);
-        busd.approve(address(nft), 204 ether);
+        assertTrue(busd.approve(address(nft), 204 ether));
         _buy(alice, 100 ether, 2);
         assertEq(nft.ownerOf(0), alice);
         assertEq(nft.ownerOf(1), alice);
@@ -50,7 +50,7 @@ contract CCNFTSecurityTest is CCNFTBase {
     function testBuySecondChargeBalanceFailureRollsBackPrincipal() public {
         uint256 excess = busd.balanceOf(alice) - 200 ether;
         vm.prank(alice);
-        busd.transfer(address(this), excess);
+        assertTrue(busd.transfer(address(this), excess));
         vm.expectRevert("ERC20: transfer amount exceeds balance");
         _buy(alice, 100 ether, 2);
         assertEq(busd.balanceOf(alice), 200 ether);
@@ -64,7 +64,7 @@ contract CCNFTSecurityTest is CCNFTBase {
         _buy(alice, 100 ether, 1);
         _list(alice, 0, 120 ether);
         vm.prank(bob);
-        busd.approve(address(nft), 120 ether);
+        assertTrue(busd.approve(address(nft), 120 ether));
         vm.expectRevert("ERC20: insufficient allowance");
         _trade(bob, 0);
         _assertUnchangedTrade();
@@ -78,19 +78,19 @@ contract CCNFTSecurityTest is CCNFTBase {
         _buy(alice, 100 ether, 1);
         _list(alice, 0, 120 ether);
         vm.prank(bob);
-        busd.approve(address(nft), 119 ether);
+        assertTrue(busd.approve(address(nft), 119 ether));
         vm.expectRevert("ERC20: insufficient allowance");
         _trade(bob, 0);
         _assertUnchangedTrade();
         uint256 excess = busd.balanceOf(bob) - 119 ether;
         vm.startPrank(bob);
-        busd.approve(address(nft), type(uint256).max);
-        busd.transfer(address(this), excess);
+        assertTrue(busd.approve(address(nft), type(uint256).max));
+        assertTrue(busd.transfer(address(this), excess));
         vm.stopPrank();
         vm.expectRevert("ERC20: transfer amount exceeds balance");
         _trade(bob, 0);
         _assertUnchangedTrade();
-        busd.transfer(bob, 1 ether);
+        assertTrue(busd.transfer(bob, 1 ether));
         vm.expectRevert("ERC20: transfer amount exceeds balance");
         _trade(bob, 0);
         assertEq(busd.balanceOf(bob), 120 ether);
@@ -104,9 +104,9 @@ contract CCNFTSecurityTest is CCNFTBase {
         vm.expectRevert("ERC20: transfer amount exceeds balance");
         _claim(alice, 0);
         _assertUnchangedTrade();
-        busd.transfer(funds, 5 ether);
+        assertTrue(busd.transfer(funds, 5 ether));
         vm.prank(funds);
-        busd.approve(address(nft), 104 ether);
+        assertTrue(busd.approve(address(nft), 104 ether));
         vm.expectRevert("ERC20: insufficient allowance");
         _claim(alice, 0);
         _assertUnchangedTrade();
@@ -134,7 +134,7 @@ contract CCNFTSecurityTest is CCNFTBase {
         token.setFailure(0);
         _buy(alice, 100 ether, 1);
         _list(alice, 0, 120 ether);
-        token.transfer(funds, 5 ether);
+        assertTrue(token.transfer(funds, 5 ether));
         token.setFailure(3);
         vm.expectRevert("Cannot send funds tokens");
         _claim(alice, 0);
@@ -169,7 +169,7 @@ contract CCNFTSecurityTest is CCNFTBase {
         callbacks[1] = abi.encodeCall(nft.trade, (0));
         callbacks[2] = abi.encodeCall(nft.claim, (_ids(0)));
         callbacks[3] = abi.encodeCall(nft.putOnSale, (0, 1));
-        token.transfer(funds, 100 ether);
+        assertTrue(token.transfer(funds, 100 ether));
         for (uint256 i; i < callbacks.length; ++i) {
             token.setCallback(nft, callbacks[i]);
             _buy(alice, 100 ether, 1);
@@ -186,7 +186,7 @@ contract CCNFTSecurityTest is CCNFTBase {
 
     function testRejectingReceiverRollsBackMintAndTrade() public {
         AdversarialReceiver receiver = new AdversarialReceiver(nft, busd);
-        busd.transfer(address(receiver), 1_000 ether);
+        assertTrue(busd.transfer(address(receiver), 1_000 ether));
         receiver.configure(true, false, false);
         vm.expectRevert("ERC721: transfer to non ERC721Receiver implementer");
         receiver.execute(abi.encodeCall(nft.buy, (100 ether, 2)));
@@ -208,7 +208,7 @@ contract CCNFTSecurityTest is CCNFTBase {
 
     function testReceiverCallbacksCannotReenterOrChangeListings() public {
         AdversarialReceiver receiver = new AdversarialReceiver(nft, busd);
-        busd.transfer(address(receiver), 1_000 ether);
+        assertTrue(busd.transfer(address(receiver), 1_000 ether));
         receiver.configure(false, true, false);
         receiver.execute(abi.encodeCall(nft.buy, (100 ether, 2)));
         assertEq(receiver.received(), 2);
@@ -230,7 +230,7 @@ contract CCNFTSecurityTest is CCNFTBase {
 
     function testPropagatedReentryFailureRollsBackOuterOperation() public {
         AdversarialReceiver receiver = new AdversarialReceiver(nft, busd);
-        busd.transfer(address(receiver), 1_000 ether);
+        assertTrue(busd.transfer(address(receiver), 1_000 ether));
         receiver.configure(false, true, true);
         vm.expectRevert("ReentrancyGuard: reentrant call");
         receiver.execute(abi.encodeCall(nft.buy, (100 ether, 2)));
@@ -248,14 +248,14 @@ contract CCNFTSecurityTest is CCNFTBase {
     function _useAdversarialToken() internal returns (AdversarialToken token) {
         token = new AdversarialToken();
         nft.setFundsToken(address(token));
-        token.transfer(alice, 1_000 ether);
-        token.transfer(bob, 1_000 ether);
+        assertTrue(token.transfer(alice, 1_000 ether));
+        assertTrue(token.transfer(bob, 1_000 ether));
         vm.prank(alice);
-        token.approve(address(nft), type(uint256).max);
+        assertTrue(token.approve(address(nft), type(uint256).max));
         vm.prank(bob);
-        token.approve(address(nft), type(uint256).max);
+        assertTrue(token.approve(address(nft), type(uint256).max));
         vm.prank(funds);
-        token.approve(address(nft), type(uint256).max);
+        assertTrue(token.approve(address(nft), type(uint256).max));
     }
 
     function _assertUnchangedTrade() internal view {
