@@ -34,7 +34,8 @@ contract AdversarialToken is ERC20 {
             (bool ok, bytes memory reason) = address(target).call(callback);
             require(!ok, "Reentry succeeded");
             require(
-                keccak256(reason) == keccak256(abi.encodeWithSignature("Error(string)", "ReentrancyGuard: reentrant call")),
+                keccak256(reason)
+                    == keccak256(abi.encodeWithSignature("Error(string)", "ReentrancyGuard: reentrant call")),
                 "Unexpected callback error"
             );
             callbackBlocked = true;

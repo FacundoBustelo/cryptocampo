@@ -66,7 +66,9 @@ contract CCNFTMetadataTest is CCNFTBase {
         emit MetadataURIUpdated(UPDATED_URI);
         nft.setMetadataURI(UPDATED_URI);
         _buy(alice, 100 ether, 1);
-        for (uint256 i; i < 3; ++i) assertEq(nft.tokenURI(i), UPDATED_URI);
+        for (uint256 i; i < 3; ++i) {
+            assertEq(nft.tokenURI(i), UPDATED_URI);
+        }
         assertEq(nft.values(0), 100 ether);
         assertEq(nft.values(1), 500 ether);
         assertEq(nft.totalValue(), 700 ether);

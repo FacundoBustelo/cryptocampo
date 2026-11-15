@@ -98,7 +98,9 @@ contract CCNFTFuzzTest is CCNFTBase {
         }
         busd.transfer(funds, claimCount * 5 ether);
         uint256[] memory ids = new uint256[](claimCount);
-        for (uint256 i; i < claimCount; ++i) ids[i] = i;
+        for (uint256 i; i < claimCount; ++i) {
+            ids[i] = i;
+        }
         vm.prank(bob);
         nft.claim(ids);
         assertEq(nft.totalValue(), (amount - claimCount) * 100 ether);

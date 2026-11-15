@@ -73,7 +73,9 @@ contract CCNFTOperationsTest is CCNFTBase {
         _buy(bob, 100 ether, 1);
         busd.transfer(funds, 50 ether);
         uint256[] memory ids = new uint256[](10);
-        for (uint256 i; i < ids.length; ++i) ids[i] = i;
+        for (uint256 i; i < ids.length; ++i) {
+            ids[i] = i;
+        }
         vm.prank(alice);
         nft.claim(ids);
         assertEq(nft.totalValue(), 0);
@@ -106,7 +108,9 @@ contract CCNFTOperationsTest is CCNFTBase {
 
     function testListingUpdatesWithoutDuplicatesAndSwapPopRemovesAllPositions() public {
         _buy(alice, 100 ether, 4);
-        for (uint256 i; i < 4; ++i) _list(alice, i, 120 ether);
+        for (uint256 i; i < 4; ++i) {
+            _list(alice, i, 120 ether);
+        }
         _list(alice, 0, 130 ether);
         (bool onSale, uint256 price) = nft.tokensOnSale(0);
         assertTrue(onSale);

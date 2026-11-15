@@ -79,7 +79,9 @@ abstract contract CCNFTBase is Test {
 
     function _assertListLength(uint256 length) internal view {
         // El getter de un array publico revierte al acceder fuera de rango.
-        for (uint256 i; i < length; ++i) nft.listTokensOnSale(i);
+        for (uint256 i; i < length; ++i) {
+            nft.listTokensOnSale(i);
+        }
         (bool ok,) = address(nft).staticcall(abi.encodeCall(nft.listTokensOnSale, (length)));
         assertFalse(ok);
     }
