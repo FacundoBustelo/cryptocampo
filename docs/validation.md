@@ -1,5 +1,7 @@
 # Validación local — 14/11/2026
 
+**Actualización del 15/11/2026:** el usuario aportó [resultados de CI](ci-validation-2026-11-15.md) con compilación satisfactoria, 47 pruebas aprobadas, cobertura medida y reporte agregado de gas. Las limitaciones de ejecución descritas abajo corresponden a esta sesión local del 14/11/2026. Quedan por revisar las cuatro ramas sin cobertura de CCNFT y completar las mediciones de listas y lotes por escenario.
+
 La fase 3 sigue pendiente de validación. La fase 4 está iniciada: implementación de URI compartida, ocho pruebas adicionales, imagen y JSON preparados. No se publicaron recursos en IPFS ni se desplegó en Sepolia.
 
 ## Entorno y ejecución

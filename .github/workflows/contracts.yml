@@ -17,6 +17,12 @@ jobs:
         id: setup
         run: bash tools/setup.sh
 
+      - name: Registrar el commit y las revisiones de bibliotecas
+        run: |
+          git rev-parse HEAD
+          git -C lib/openzeppelin-contracts rev-parse HEAD
+          git -C lib/forge-std rev-parse HEAD
+
       - name: Compilar
         id: build
         run: .tools/bin/forge build
@@ -31,7 +37,7 @@ jobs:
 
       - name: Medir la cobertura
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: .tools/bin/forge coverage
+        run: .tools/bin/forge coverage --report summary --report debug
 
       - name: Informar el consumo de gas
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}

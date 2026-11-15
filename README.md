@@ -2,7 +2,7 @@
 
 Contratos para certificados agrícolas de demostración y pagos con un token ERC20 BUSD. Los certificados no acreditan existencias físicas verificadas y el token no tiene respaldo en dólares.
 
-Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. Los contratos y sus pruebas están escritos; **su compilación y ejecución siguen pendientes** por el bloqueo de descarga del entorno descrito al final. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente.
+Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **El 15/11/2026 se registraron compilación con Solidity 0.8.19 y 47 pruebas aprobadas en GitHub Actions**, incluidas cuatro fuzz con 256 casos cada una, y se recibió el reporte agregado de gas. El usuario informó que el workflow completo terminó satisfactoriamente. Quedan por revisar las cuatro ramas sin cobertura de CCNFT y medir listas y lotes por escenario antes de cerrar la fase 3. La fase 4 está iniciada con un certificado SVG y un JSON local; la publicación real en IPFS sigue pendiente. Ver [evidencia recibida de CI](docs/ci-validation-2026-11-15.md).
 
 ## Entorno
 
@@ -55,11 +55,11 @@ Para comprar se configuran token, ambos colectores, nominales, lote y límite de
 
 Las cuatro operaciones tienen `nonReentrant`, incluida la publicación durante callbacks de recepción de NFTs. Cada pago comprueba el booleano de `transferFrom`; si la comisión es cero se omite ese cobro. Un fallo revierte pagos, emisiones, quemas y publicaciones. En reventa, la publicación se elimina y la propiedad se actualiza antes de callbacks y cobros. Las tres transferencias públicas de ERC721 revierten con `Not Allowed`, incluso con aprobación del NFT.
 
-Se conservan las auxiliares `find`, `addToArray` y `removeFromArray`: búsqueda lineal, reemplazo por el último elemento y `pop`. La lista no conserva el orden. Publicar, actualizar o eliminar cuesta O(n) en la cantidad de publicaciones; reclamar un lote puede costar O(lote × publicaciones). `maxBatchCount` no limita la longitud global de la lista. La medición de gas sigue pendiente de Foundry.
+Se conservan las auxiliares `find`, `addToArray` y `removeFromArray`: búsqueda lineal, reemplazo por el último elemento y `pop`. La lista no conserva el orden. Publicar, actualizar o eliminar cuesta O(n) en la cantidad de publicaciones; reclamar un lote puede costar O(lote × publicaciones). `maxBatchCount` no limita la longitud global de la lista. El reporte de CI recibido midió máximos agregados de 1.498.834 gas para `buy`, 119.741 para `putOnSale`, 160.027 para `trade` y 529.664 para `claim`; son valores observados en la suite, no cotas garantizadas. Falta medir por separado tamaños de lista y lote. Ver [tabla y límites de interpretación](docs/ci-validation-2026-11-15.md).
 
 Los eventos `Buy`, `PutOnSale`, `Trade` y `Claim` identifican participantes, IDs y nominal o precio. `Trade` incluye la comisión. `BuyPayment` y `ClaimPayment` registran principal y comisión o beneficio de todo el lote, para reflejar correctamente el redondeo agregado.
 
-El recorrido de aceptación compra dos NFTs de 100 BUSD con 2 % de comisión, revende uno a 120 con 1 % y lo reclama con 5 % de beneficio (105 BUSD). La prueba comprueba eventos, autorizaciones exactas, variaciones de saldo A: −84; B: −16,2; fondos: +95; comisiones: +5,2 BUSD, y nominal final de 100 BUSD. **Es un escenario escrito en la suite, todavía no ejecutado.**
+El recorrido de aceptación compra dos NFTs de 100 BUSD con 2 % de comisión, revende uno a 120 con 1 % y lo reclama con 5 % de beneficio (105 BUSD). La prueba comprueba eventos, autorizaciones exactas, variaciones de saldo A: −84; B: −16,2; fondos: +95; comisiones: +5,2 BUSD, y nominal final de 100 BUSD. **La prueba pasó en el registro de CI recibido el 15/11/2026.**
 
 ## Metadatos compartidos — inicio de fase 4
 
@@ -85,7 +85,7 @@ Para completar la publicación, en este orden:
 4. Como propietario, ejecutar `setMetadataURI("ipfs://<CID_REAL_DE_JSON>")`, añadiendo `/metadata.json` si corresponde a un directorio. Los textos entre `<...>` son marcadores explicativos, no URIs utilizables.
 5. Recuperar ambos recursos por sus CIDs y un gateway, comprobar la imagen en una billetera compatible y conservar evidencia de pinning y accesibilidad. El contrato guarda la cadena y no comprueba la disponibilidad del contenido.
 
-Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintaxis y se revisó visualmente el SVG renderizado a 1200 × 800; las pruebas de contrato permanecen pendientes. Scripts de demostración y despliegue en Sepolia corresponden a fases posteriores.
+Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintaxis y se revisó visualmente el SVG renderizado a 1200 × 800; las ocho pruebas de metadatos pasaron en CI según el registro recibido el 15/11/2026. Scripts de demostración y despliegue en Sepolia corresponden a fases posteriores.
 
 ## Organización y comprobación
 
@@ -103,7 +103,7 @@ Los archivos **no están publicados ni fijados en IPFS**. Se comprobó su sintax
 
 La configuración fija Solidity 0.8.19, EVM Paris y optimización con 200 ejecuciones. Las pruebas se ejecutan localmente, sin RPC ni cuentas externas.
 
-Hay 47 funciones de prueba escritas: 2 de BUSD y 45 de CCNFT, incluidas las 4 pruebas fuzz. Se conservaron las 39 originales y se añadieron 8 de metadatos; la prueba de permisos administrativos ahora incluye el nuevo setter y la de interfaces comprueba ERC721Metadata. Este recuento no representa pruebas ejecutadas ni aprobadas.
+Hay 47 funciones de prueba: 2 de BUSD y 45 de CCNFT, incluidas las 4 pruebas fuzz. Se conservaron las 39 originales y se añadieron 8 de metadatos; la prueba de permisos administrativos ahora incluye el nuevo setter y la de interfaces comprueba ERC721Metadata. Las 47 pasaron en el registro de CI recibido el 15/11/2026, sin fallos ni omisiones. CCNFT alcanzó 100 % de líneas, sentencias y funciones y 95,06 % de ramas (77/81).
 
 ## Estado de verificación al 14/11/2026
 
@@ -122,4 +122,4 @@ Hay 47 funciones de prueba escritas: 2 de BUSD y 45 de CCNFT, incluidas las 4 pr
 | `.tools/bin/forge coverage` | Bloqueado: ejecutable inexistente (código 127). |
 | `.tools/bin/forge test --gas-report` | Bloqueado: ejecutable inexistente (código 127). |
 
-No hay resultados de pruebas aprobadas, cobertura ni gas. Las fases 2 y 3 permanecen pendientes de validación. Con conectividad, ejecutar la secuencia de instalación y verificación, comprobar las revisiones con `git -C lib/<biblioteca> rev-parse HEAD`, resolver cualquier fallo y registrar los resultados antes de cerrar las fases. Si el chequeo de formato encuentra diferencias, ejecutar `forge fmt` y repetir `forge fmt --check`.
+En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) aporta compilación y 47 pruebas aprobadas, con cobertura y reporte agregado de gas. La ejecución local sigue sin entorno instalado; no se reintentaron las descargas. El cierre de fase 3 requiere revisar ramas sin cobertura y completar las mediciones de listas y lotes. El detalle del entorno del runner aún debe incorporarse a la evidencia.
