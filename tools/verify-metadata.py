@@ -13,7 +13,7 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -94,7 +94,14 @@ def check_date(value, label):
 def publication(resource):
     cid = validate_cid(resource.get("cid"))
     require(resource.get("uri") == f"ipfs://{cid}", "URI distinta del CID registrado.")
-    check_date(resource.get("published_at"), "publicación")
+    if resource.get("published_at") is not None:
+        check_date(resource["published_at"], "publicación")
+    else:
+        published_on = resource.get("published_on")
+        require(isinstance(published_on, str), "Falta fecha de publicación.")
+        parsed = date.fromisoformat(published_on)
+        require(parsed.isoformat() == published_on and parsed <= datetime.now(timezone.utc).date(),
+                "Fecha de publicación inválida.")
     return cid
 
 

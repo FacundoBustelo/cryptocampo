@@ -182,6 +182,16 @@ class MetadataVerifierTest(unittest.TestCase):
             with self.subTest(cid=bad), self.assertRaises(ValueError):
                 verifier.validate_cid(bad)
 
+    def test_publication_accepts_a_visible_date_without_inventing_a_time(self):
+        resource = copy.deepcopy(self.manifest["resources"]["image"])
+        resource.update(published_at=None, published_on="2026-01-01")
+        self.assertEqual(verifier.publication(resource), resource["cid"])
+        self.assertIsNone(resource["published_at"])
+        for bad in (None, "2026-99-99", "9999-01-01"):
+            resource["published_on"] = bad
+            with self.subTest(date=bad), self.assertRaises(ValueError):
+                verifier.publication(resource)
+
     def test_duplicate_keys_and_extra_fields_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "duplicada"):
             verifier.validate_metadata(b'{"image":"a","image":"b"}')
