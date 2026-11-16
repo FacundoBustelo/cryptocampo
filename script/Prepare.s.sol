@@ -11,7 +11,7 @@ contract Fund is DemoBase {
         fresh(nft);
         require(busd.balanceOf(p.a) == 0 && busd.balanceOf(p.b) == 0 && busd.balanceOf(p.funds) == 0, "Demo: funded");
         require(busd.balanceOf(p.admin) >= 2 * START_BALANCE + RESERVE, "Demo: admin balance");
-        vm.startBroadcast(p.admin);
+        begin(p.admin);
         require(busd.transfer(p.a, START_BALANCE), "Demo: fund A");
         require(busd.transfer(p.b, START_BALANCE), "Demo: fund B");
         require(busd.transfer(p.funds, RESERVE), "Demo: fund collector");
@@ -32,7 +32,7 @@ contract Approve is DemoBase {
         uint256 balance = sender == p.funds ? RESERVE : START_BALANCE;
         require(busd.balanceOf(sender) == balance, "Demo: funding prerequisite");
         require(busd.allowance(sender, address(nft)) == 0, "Demo: already approved");
-        vm.startBroadcast(sender);
+        begin(sender);
         require(busd.approve(address(nft), amount), "Demo: approval");
         vm.stopBroadcast();
     }
@@ -54,7 +54,7 @@ contract Enable is DemoBase {
                 && busd.allowance(p.funds, address(nft)) == CLAIM_PAYMENT,
             "Demo: approval prerequisite"
         );
-        vm.startBroadcast(p.admin);
+        begin(p.admin);
         nft.setCanBuy(true);
         nft.setCanTrade(true);
         nft.setCanClaim(true);

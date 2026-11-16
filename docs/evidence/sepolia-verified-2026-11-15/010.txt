@@ -1,0 +1,18 @@
+Start verifying contract `0xbD6c1C5f5690d92021BfF186597C2b71DAF97a34` deployed on sepolia
+EVM version: paris
+Compiler version: v0.8.19+commit.7dd6d404
+Optimizations:    200
+
+Submitting verification for [src/CCNFT.sol:CCNFT] 0xbD6c1C5f5690d92021BfF186597C2b71DAF97a34.
+Submitted contract for verification:
+	Response: `OK`
+	GUID: `aix1raurz5xeri1hhsm6fbqz9skhaxywfsupdztjplfbhe8mbr`
+	URL: https://sepolia.etherscan.io/address/0xbd6c1c5f5690d92021bff186597c2b71daf97a34
+Contract verification status:
+Response: `NOTOK`
+Details: `Pending in queue`
+Contract verification status:
+Response: `OK`
+Details: `Pass - Verified`
+Contract successfully verified
+Warning: Verification is still pending...; waiting 15 seconds before trying again (7 tries remaining)

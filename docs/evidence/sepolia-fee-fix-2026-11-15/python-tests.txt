@@ -1,0 +1,12 @@
+...Demostración fallida: same RPC URL: 'http://127.0.0.1:9999' != 'http://127.0.0.1:8545'; evidencia: /tmp/tmpb90lkpvx/attempt
+......Demostración fallida: bad state; evidencia: /tmp/tmp3u26tgor/attempt
+...Demostración fallida: socket denied; evidencia: /tmp/tmphuq8e8dj/attempt
+...................deploy: confirmado y verificado
+...........failure: failed (exit 7); /tmp/tmpkebyloi4/failure.txt
+next: passed (exit 0); /tmp/tmpkebyloi4/next.txt
+.missing: failed (exit 127); /tmp/tmpfvqglcmt/missing.txt
+.....................
+----------------------------------------------------------------------
+Ran 64 tests in 0.650s
+
+OK

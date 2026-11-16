@@ -8,7 +8,7 @@ contract Configure is DemoBase {
         Actors memory p = actors();
         (BUSD busd, CCNFT nft) = deployed(p);
         fresh(nft);
-        vm.startBroadcast(p.admin);
+        begin(p.admin);
         nft.setFundsToken(address(busd));
         nft.setFundsCollector(p.funds);
         nft.setFeesCollector(p.fees);

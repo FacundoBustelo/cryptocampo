@@ -1,0 +1,23 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 11155111
+
+Estimated gas price: 0.01000003 gwei
+
+Estimated total gas used for script: 121761
+
+Estimated amount required: 0.00000121761365283 ETH
+
+==========================
+
+SIMULATION COMPLETE. To broadcast these transactions, add --broadcast and wallet configuration(s) to the previous command. See forge script --help for more.
+
+Transactions saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/sepolia-private/20261115T224013594174Z/Prepare.s.sol/11155111/dry-run/run-latest.json
+
+Sensitive values saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/cache/Prepare.s.sol/11155111/dry-run/run-latest.json
+

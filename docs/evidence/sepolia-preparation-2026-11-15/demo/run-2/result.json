@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-11-15T19:46:11.898321+00:00",
+  "status": "failed",
+  "source_sha256": {
+    ".github/workflows/contracts.yml": "e5cbf94f25447a02f14777d86af3b3bca05bef6f2dd63f1846fd8e67cca3e847",
+    ".github/workflows/metadata.yml": "7ac42154f2f47dbf9719163ec4a5cb892eb832c607245b0779ee0d7d12251e3c",
+    "Makefile": "7acfa2731e29ec1972f6a9818379dd619e362e3af79037438299ee4888fb681b",
+    "README.md": "e39deb86ab90010e58f98f169ee1aa2f44cbff256e242a0fbb56f3ac8ed780ab",
+    "assets/certificate.svg": "6ac2a31e928affec3dca27b0264cf8258aa24ea6bfff58931b3eb5fd241e271f",
+    "assets/metadata.json": "e965940afe67aebb83c9d2011905d5bd69046c0caa7140af8d7dc917bcd2dd9f",
+    "foundry.toml": "c894da4292dd774baf093084e7f1a661a74431048c5c92075851479032f50f8c",
+    "script/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "script/Configure.s.sol": "af6bb6f8626002130939caf494e678ed1af467f38f7acf144458ea28c52e78b7",
+    "script/DemoBase.sol": "8984402e20a0f7353f85f1571f317b60e01ad4bf58c4f03fe27efadac4e8200b",
+    "script/Deploy.s.sol": "ceebdfcb21cb2c832275cef18fa8e7cf25cdeb9846acdabb414dd8db1816cc81",
+    "script/Identity.s.sol": "5655c3fa2657386afbfc8682314c04685aa527a835d09e288ba97d3eb62998d6",
+    "script/Operations.s.sol": "e02ac837d14f8b92e1f8273c6473989717f32588481dac1ce335f81eb327a89f",
+    "script/Prepare.s.sol": "41a4040284dd729c8da8eccecddb59608169989efd680d4455e3616a4f684db1",
+    "script/Publish.s.sol": "4361cb636a33e1abb36e550dc42cea5acf482b8492a930168f5efdff456f70d6",
+    "src/BUSD.sol": "b1485b693e2aff898eb00e24a3899ce929a2bfbf1ff338e5e99c637509a7c53c",
+    "src/CCNFT.sol": "f6518122b83c2c3081e1df6e74c3f4e30062966214dd03da5c2cc10214e5ed2b",
+    "test/BUSD.t.sol": "f24fc732ad784690e717144e7cb292eb0f243f8fa72d768a627e258075457c4b",
+    "test/CCNFTAdmin.t.sol": "fa0cf6d0aae60124ef5c49085f43ef4dbf404c0da353755c34ac317798598f3e",
+    "test/CCNFTBase.sol": "99ae4d4238bdb4305d599379d1620e73ebacdbb98c593a393dffa0d3c64dba26",
+    "test/CCNFTFuzz.t.sol": "7f951405711efdb865dfc82fdfceeda73cc5601bcbefb5097c4b47f42fd66cfe",
+    "test/CCNFTMetadata.t.sol": "1ee15d4091a0935bd48109bc6e278f306744de50edde7642a116769b5a3a2b45",
+    "test/CCNFTOperations.t.sol": "c43308ff39decb32bceffb8758226b1e3ebc6d9d546fa7e41b703daf15de0845",
+    "test/CCNFTSecurity.t.sol": "40dabfdd214755a54aa74f2144e6ec11d6aae936f2c4727e21fac802771ba6a5",
+    "test/DemoScripts.t.sol": "4a5e3fb352ba8b260f71381179e01543f80e90a6b11f4a888f7d758e5d4c235b",
+    "test/mocks/Adversaries.sol": "a43da6183eb93873916ee6322c7c4adb2cc58ffb8e0aa9eb3b440e45914e1fcd",
+    "tools/demo.py": "9ab4a8d9e6526baa24939b3cb2b03caa5d9b118372188ec04932e7962b1b2521",
+    "tools/measure-gas.py": "24fa24a2b13ddbb92f2b2e82a93380046230a2991543f245895ceb6e3a572bfc",
+    "tools/sepolia.py": "d0a20fc3659cfb63c6629048fadf5f983748799ecb9d8756a658d1cba033ec85",
+    "tools/setup.sh": "81337a7008d4a1c9b88bfebf3f3e8cc11bd95f72ff1c205fb7a3bd66e0f02607",
+    "tools/summarize-coverage.py": "bec00c4f21f5590e90af60c3412c5e958a083355d22652acc128e2db13a21d44",
+    "tools/test_demo.py": "3edae18334020a0a47450890c3ada7a1d549232db439126c897d65fab36beaae",
+    "tools/test_sepolia.py": "747674fbe3e351dd04112ad5a2119584190f2b18427054ceade0010809dedc68",
+    "tools/test_validation_tools.py": "34b75a9859a87fba2af459bdf264fdaa58e522ade071164fd4f20c6522ec67d9",
+    "tools/test_verify_metadata.py": "91a59f8cf1431ef006e7f2a2b8b8a18c16c1f8a5fff3b39a1cfeb8e75912dd11",
+    "tools/validate-system.py": "3e8aeab153744f3c4fa874fe57fc012d72bf9bb6032720ec0b5f7732c8973110",
+    "tools/verify-metadata.py": "389385f5238a68afae2262634faaee317a8b5bad7cfa480d5e4f5aaadcd95ac2"
+  },
+  "commands": [
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "log": "000.txt",
+      "started_at": "2026-11-15T19:46:11.904451+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.909071+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "log": "001.txt",
+      "started_at": "2026-11-15T19:46:11.909987+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.927179+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "HEAD"
+      ],
+      "log": "002.txt",
+      "started_at": "2026-11-15T19:46:11.927784+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.945523+00:00"
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "--version"
+      ],
+      "log": "003.txt",
+      "started_at": "2026-11-15T19:46:11.945980+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.955093+00:00"
+    },
+    {
+      "command": [
+        ".tools/bin/cast",
+        "--version"
+      ],
+      "log": "004.txt",
+      "started_at": "2026-11-15T19:46:11.955502+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.963675+00:00"
+    },
+    {
+      "command": [
+        ".tools/bin/anvil",
+        "--version"
+      ],
+      "log": "005.txt",
+      "started_at": "2026-11-15T19:46:11.964291+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.972911+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "lib/openzeppelin-contracts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "log": "006.txt",
+      "started_at": "2026-11-15T19:46:11.973548+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.978059+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "lib/forge-std",
+        "rev-parse",
+        "HEAD"
+      ],
+      "log": "007.txt",
+      "started_at": "2026-11-15T19:46:11.978661+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.983142+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "lib/openzeppelin-contracts",
+        "status",
+        "--porcelain"
+      ],
+      "log": "008.txt",
+      "started_at": "2026-11-15T19:46:11.983755+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.992216+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "lib/forge-std",
+        "status",
+        "--porcelain"
+      ],
+      "log": "009.txt",
+      "started_at": "2026-11-15T19:46:11.992893+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:11.997135+00:00"
+    },
+    {
+      "command": [
+        ".tools/bin/forge",
+        "build",
+        "--color",
+        "never"
+      ],
+      "log": "010.txt",
+      "started_at": "2026-11-15T19:46:11.997619+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-15T19:46:12.162604+00:00"
+    }
+  ],
+  "checks": [],
+  "stages": [],
+  "ci": {
+    "GITHUB_SHA": null,
+    "GITHUB_RUN_ID": null,
+    "GITHUB_RUN_ATTEMPT": null
+  },
+  "context": {},
+  "error": "PermissionError: [Errno 1] Operation not permitted",
+  "finished_at": "2026-11-15T19:46:12.165107+00:00"
+}

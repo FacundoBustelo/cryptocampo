@@ -1,0 +1,17 @@
+ M .env.example
+ M Makefile
+ M README.md
+ M foundry.toml
+ M script/Configure.s.sol
+ M script/DemoBase.sol
+ M script/Deploy.s.sol
+ M script/Operations.s.sol
+ M script/Prepare.s.sol
+ M test/DemoScripts.t.sol
+ M tools/demo.py
+?? docs/evidence/sepolia-preparation-2026-11-15/
+?? docs/sepolia.md
+?? script/Identity.s.sol
+?? script/Publish.s.sol
+?? tools/sepolia.py
+?? tools/test_sepolia.py

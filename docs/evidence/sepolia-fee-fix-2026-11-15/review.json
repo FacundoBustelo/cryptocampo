@@ -1,0 +1,43 @@
+{
+  "reviewed_at": "2026-11-15T21:20:51.739386+00:00",
+  "status": "fee_calculation_fixed_live_reconciliation_pending",
+  "failed_attempt": "20261115T211530087585Z",
+  "error": "max priority fee per gas higher than max fee per gas",
+  "original_broadcast_receipts": 0,
+  "original_broadcast_pending_hashes": 0,
+  "original_deploy_nonces": [
+    4,
+    5
+  ],
+  "state_not_modified_by_agent": true,
+  "contracts_unchanged": true,
+  "solidity_scripts_unchanged": true,
+  "python_tests_passed": 64,
+  "format": "passed",
+  "live_rpc_check": "blocked: RPC eth_chainId connection failed in restricted agent session",
+  "recovery": "User runs make sepolia-reconcile; exact previous source hashes and free on-chain nonces required before migration",
+  "old_source_sha256": {
+    "tools/sepolia.py": "7c4ae849cc9e7fdf8bbfe18d0b134acd01f4f208da60c1a2b0783b4dc6c2150a",
+    "tools/test_sepolia.py": "db7d8bbb1c9b41cc2d41d13c2f7a3bc7573e6d54265664072df23cd0f448ed58"
+  },
+  "new_source_sha256": {
+    "tools/sepolia.py": "0a0dfb2d2e720b19acdc6c2aa58c400e5b42d1b4042a430a4c1e8540ed31c51b",
+    "tools/test_sepolia.py": "369757972d298c47726d60aa724ff2e0ecb8502a379a419f7464ddc76d6d506e"
+  },
+  "files_sha256": {
+    "python-tests.txt": "e55789954ae18453c20dd310aba44b92fd4793aac1b94ad24f740165b88d29ad",
+    "009.txt": "e27ca5466869c4b361328edba92d6c935df25c99abc8d21c0c1dae355e10d89e",
+    "005.txt": "0090861d0c99aa186357bf646a99ae9f8be23de4f656a82e2a253b2a90a733be",
+    "002.txt": "49bdf95341b0cb40c5989674335851bb5b80e303c58495134843d06b472b5c75",
+    "result.json": "1b53d40d1fe64184dd9bff924106aca67c5653e5a33f9fd834e319f355edb223",
+    "007.txt": "c7e393d9b9f3a1715f04728cee813bfbb354642272e87d33c9b55ba9e7c70f29",
+    "agent-reconcile.txt": "8d13ecd07937f443c928a3a7970d6613acde5fa65a8815fbe90188e4e4e98091",
+    "010.txt": "87ac13e8dcb97edfc85912d40148812985870f6658406846f8069e6e2b97e536",
+    "004.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "003.txt": "5101c594e6ea8253055e111b8067898def8a73d101e76f195354f0fdad6f668f",
+    "006.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "000.txt": "c3c3918962bf862a0fe598d84f5cfdd6b90fb4dd9996db8a1962afb6975ef5ba",
+    "008.txt": "2ba23e279dd82ead406a1cea65ffb96f0f03ec2eed74f8b981dc7350ba9ae399",
+    "001.txt": "d029b3087c7c7f74cb0a8e572541d122772b52f45a8792a28d87fb117c0f1f3a"
+  }
+}

@@ -7,6 +7,7 @@ import {Deploy} from "../script/Deploy.s.sol";
 import {Configure} from "../script/Configure.s.sol";
 import {Fund, Approve, Enable} from "../script/Prepare.s.sol";
 import {Buy, List, Trade, Claim} from "../script/Operations.s.sol";
+import {Publish} from "../script/Publish.s.sol";
 
 contract DemoGuard is DemoBase {
     function validate() external view {
@@ -82,6 +83,9 @@ contract DemoScriptsTest is Test {
         assertTrue(vm.revertToState(snapshot));
         resetEnvironment();
         checkScriptSequencePreservesSecondNFTAndReserve();
+        assertTrue(vm.revertToState(snapshot));
+        resetEnvironment();
+        checkPublicProfileAndSignerGuards();
     }
 
     function setUp() public {
@@ -103,6 +107,7 @@ contract DemoScriptsTest is Test {
 
     function resetEnvironment() internal {
         vm.chainId(31337);
+        vm.setEnv("DEMO_PROFILE", "anvil");
         vm.setEnv("DEMO_ADMIN", vm.toString(ADMIN));
         vm.setEnv("DEMO_A", vm.toString(A));
         vm.setEnv("DEMO_B", vm.toString(B));
@@ -130,6 +135,67 @@ contract DemoScriptsTest is Test {
         assertEq(nft.tokenOfOwnerByIndex(A, 0), keptId);
         assertEq(nft.tokenURI(keptId), configure.URI());
         assertEq(busd.balanceOf(FUNDS), configure.CLAIM_PAYMENT());
+    }
+
+    function checkPublicProfileAndSignerGuards() internal {
+        vm.setEnv("DEMO_PROFILE", "invalid");
+        vm.expectRevert("Demo: invalid profile");
+        guard.validate();
+        vm.setEnv("DEMO_PROFILE", "sepolia");
+        vm.expectRevert("Demo: chain must be Sepolia");
+        guard.validate();
+        vm.chainId(11155111);
+        string[5] memory names = ["ADMIN", "A", "B", "FUNDS", "FEES"];
+        for (uint256 i; i < names.length; ++i) {
+            uint256 key = 101 + i;
+            vm.setEnv(string.concat("DEMO_", names[i]), vm.toString(vm.addr(key)));
+            vm.setEnv(string.concat("SEPOLIA_", names[i], "_PRIVATE_KEY"), vm.toString(key));
+        }
+        vm.setEnv("SEPOLIA_A_PRIVATE_KEY", "999");
+        vm.expectRevert("Demo: incorrect signer");
+        guard.validate();
+        vm.setEnv("SEPOLIA_A_PRIVATE_KEY", "102");
+        // Llegar al control de propietario demuestra que actors aceptó las cinco claves correctas.
+        vm.expectRevert("Demo: incorrect owner");
+        guard.validate();
+        Publish publisher = new Publish();
+        vm.setEnv("DEMO_APPROVER", vm.toString(vm.addr(101)));
+        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101)) + 1));
+        vm.expectRevert("Demo: nonce changed");
+        publisher.run();
+        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101))));
+        vm.setEnv("DEMO_TX_KIND", "1");
+        vm.setEnv("DEMO_TX_DATA", "0x1234");
+        vm.expectRevert("Demo: creation code changed");
+        publisher.run();
+        vm.setEnv("DEMO_TX_DATA", vm.toString(type(BUSD).creationCode));
+        vm.setEnv("DEMO_SIGNING_KEY", "102");
+        vm.expectRevert("Demo: incorrect signer");
+        publisher.run();
+        vm.setEnv("DEMO_SIGNING_KEY", "101");
+        address publicBusd = vm.computeCreateAddress(vm.addr(101), vm.getNonce(vm.addr(101)));
+        publisher.run();
+        assertEq(BUSD(publicBusd).balanceOf(vm.addr(101)), 10_000_000 ether);
+        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101))));
+        vm.setEnv("DEMO_TX_KIND", "2");
+        vm.setEnv("DEMO_TX_DATA", vm.toString(type(CCNFT).creationCode));
+        address publicNft = vm.computeCreateAddress(vm.addr(101), vm.getNonce(vm.addr(101)));
+        publisher.run();
+        assertEq(CCNFT(publicNft).owner(), vm.addr(101));
+        vm.setEnv("DEMO_BUSD", vm.toString(publicBusd));
+        vm.setEnv("DEMO_CCNFT", vm.toString(publicNft));
+        vm.setEnv("DEMO_TX_KIND", "0");
+        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101))));
+        vm.setEnv("DEMO_TX_TO", vm.toString(vm.addr(102)));
+        vm.setEnv(
+            "DEMO_TX_DATA", vm.toString(abi.encodeWithSignature("transfer(address,uint256)", vm.addr(102), 1000 ether))
+        );
+        vm.expectRevert("Demo: unexpected target");
+        publisher.run();
+        vm.setEnv("DEMO_TX_TO", vm.toString(publicBusd));
+        publisher.run();
+        assertEq(BUSD(publicBusd).balanceOf(vm.addr(102)), 1000 ether);
+        resetEnvironment();
     }
 
     function checkScriptRejectsWrongChainBeforeDeploy() internal {

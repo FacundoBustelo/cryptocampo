@@ -12,7 +12,7 @@ contract Buy is DemoBase {
         empty(nft);
         require(busd.allowance(p.a, address(nft)) == BUY_PAYMENT, "Demo: buy approval");
         require(busd.balanceOf(p.a) >= BUY_PAYMENT, "Demo: buy balance");
-        vm.startBroadcast(p.a);
+        begin(p.a);
         nft.buy(NOMINAL, 2);
         vm.stopBroadcast();
     }
@@ -28,7 +28,7 @@ contract List is DemoBase {
         uint256 id = nft.tokenOfOwnerByIndex(p.a, 0);
         (bool onSale,) = nft.tokensOnSale(id);
         require(!onSale && nft.values(id) == NOMINAL, "Demo: listing prerequisite");
-        vm.startBroadcast(p.a);
+        begin(p.a);
         nft.putOnSale(id, PRICE);
         vm.stopBroadcast();
     }
@@ -46,7 +46,7 @@ contract Trade is DemoBase {
         require(onSale && price == PRICE && nft.ownerOf(id) == p.a, "Demo: sale prerequisite");
         require(busd.allowance(p.b, address(nft)) == TRADE_PAYMENT, "Demo: trade approval");
         require(busd.balanceOf(p.b) >= TRADE_PAYMENT, "Demo: trade balance");
-        vm.startBroadcast(p.b);
+        begin(p.b);
         nft.trade(id);
         vm.stopBroadcast();
     }
@@ -64,7 +64,7 @@ contract Claim is DemoBase {
         require(nft.values(ids[0]) == NOMINAL, "Demo: claim nominal");
         require(busd.allowance(p.funds, address(nft)) == CLAIM_PAYMENT, "Demo: claim approval");
         require(busd.balanceOf(p.funds) >= 2 * CLAIM_PAYMENT, "Demo: collector reserve");
-        vm.startBroadcast(p.b);
+        begin(p.b);
         nft.claim(ids);
         vm.stopBroadcast();
     }

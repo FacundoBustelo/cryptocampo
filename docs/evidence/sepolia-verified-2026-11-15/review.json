@@ -1,0 +1,51 @@
+{
+  "reviewed_at": "2026-11-15T21:42:37.444228+00:00",
+  "origin": "User executed make sepolia-verify; result, logs and saved Etherscan API responses directly inspected",
+  "status": "both_contract_sources_verified",
+  "chain_id": 11155111,
+  "contracts": {
+    "BUSD": {
+      "address": "0x2a37e9ac75569eea1537bdb7ba6beb5b6cd8f710",
+      "settings": {
+        "ContractName": "BUSD",
+        "CompilerVersion": "v0.8.19+commit.7dd6d404",
+        "OptimizationUsed": "1",
+        "Runs": "200",
+        "EVMVersion": "paris",
+        "ConstructorArguments": ""
+      },
+      "url": "https://sepolia.etherscan.io/address/0x2a37e9ac75569eea1537bdb7ba6beb5b6cd8f710#code"
+    },
+    "CCNFT": {
+      "address": "0xbd6c1c5f5690d92021bff186597c2b71daf97a34",
+      "settings": {
+        "ContractName": "CCNFT",
+        "CompilerVersion": "v0.8.19+commit.7dd6d404",
+        "OptimizationUsed": "1",
+        "Runs": "200",
+        "EVMVersion": "paris",
+        "ConstructorArguments": ""
+      },
+      "url": "https://sepolia.etherscan.io/address/0xbd6c1c5f5690d92021bff186597c2b71daf97a34#code"
+    }
+  },
+  "configuration_and_public_journey": "pending",
+  "metamask_screenshots": "pending",
+  "source_manifest_matches_current": true,
+  "preserved_files_sha256": {
+    "000.txt": "c3c3918962bf862a0fe598d84f5cfdd6b90fb4dd9996db8a1962afb6975ef5ba",
+    "001.txt": "d029b3087c7c7f74cb0a8e572541d122772b52f45a8792a28d87fb117c0f1f3a",
+    "002.txt": "49bdf95341b0cb40c5989674335851bb5b80e303c58495134843d06b472b5c75",
+    "003.txt": "5101c594e6ea8253055e111b8067898def8a73d101e76f195354f0fdad6f668f",
+    "004.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "005.txt": "0090861d0c99aa186357bf646a99ae9f8be23de4f656a82e2a253b2a90a733be",
+    "006.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "007.txt": "dc807a50f868efd50bfade0be6c5961ad0dbecb63bc76ae8d28dbefc45b30f06",
+    "008.txt": "2ba23e279dd82ead406a1cea65ffb96f0f03ec2eed74f8b981dc7350ba9ae399",
+    "009.txt": "c46ddae8c01452373bc418ffae5e1760bbd2d9b381269c08fa964f0d659cac6a",
+    "010.txt": "22111ae33ad08846b466064479ba6735e00b65c63b9803c40fedf60abd3270f9",
+    "BUSD-etherscan.json": "85a63e7bc9698ec85a17da7fe2c56c3cc003f9cdd6793e3ead0b732f49ffd38a",
+    "CCNFT-etherscan.json": "3d7f4f1ef6c413af765a90713e228af3f7e681b6b4ea26618f3ed06b810b8e75",
+    "result.json": "e1579e8a1f6b420c6b7de08448c4cd0324c2bd63ba92e1fcb9269c94e0ca72b2"
+  }
+}

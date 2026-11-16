@@ -1,0 +1,18 @@
+Start verifying contract `0x2A37e9ac75569eEa1537bdB7bA6bEb5b6cD8F710` deployed on sepolia
+EVM version: paris
+Compiler version: v0.8.19+commit.7dd6d404
+Optimizations:    200
+
+Submitting verification for [src/BUSD.sol:BUSD] 0x2A37e9ac75569eEa1537bdB7bA6bEb5b6cD8F710.
+Submitted contract for verification:
+	Response: `OK`
+	GUID: `apahidjqm8rfcephpgn2sruije6vye7azkticegpsz5czdhcqy`
+	URL: https://sepolia.etherscan.io/address/0x2a37e9ac75569eea1537bdb7ba6beb5b6cd8f710
+Contract verification status:
+Response: `NOTOK`
+Details: `Pending in queue`
+Contract verification status:
+Response: `OK`
+Details: `Pass - Verified`
+Contract successfully verified
+Warning: Verification is still pending...; waiting 15 seconds before trying again (7 tries remaining)

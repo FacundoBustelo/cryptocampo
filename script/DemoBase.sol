@@ -5,7 +5,7 @@ import {Script} from "forge-std/Script.sol";
 import {BUSD} from "../src/BUSD.sol";
 import {CCNFT} from "../src/CCNFT.sol";
 
-/// @notice Parámetros de la demostración local; no contiene claves privadas.
+/// @notice Parámetros compartidos por Anvil y Sepolia; no contiene claves privadas.
 abstract contract DemoBase is Script {
     uint256 public constant START_BALANCE = 1000 ether;
     uint256 public constant RESERVE = 10 ether;
@@ -31,7 +31,16 @@ abstract contract DemoBase is Script {
     }
 
     function actors() internal view returns (Actors memory p) {
-        require(block.chainid == 31337, "Demo: chain must be 31337");
+        bool sepolia = keccak256(bytes(vm.envOr("DEMO_PROFILE", string("anvil")))) == keccak256("sepolia");
+        if (sepolia) {
+            require(block.chainid == 11155111, "Demo: chain must be Sepolia");
+        } else {
+            require(
+                keccak256(bytes(vm.envOr("DEMO_PROFILE", string("anvil")))) == keccak256("anvil"),
+                "Demo: invalid profile"
+            );
+            require(block.chainid == 31337, "Demo: chain must be 31337");
+        }
         p = Actors(
             vm.envAddress("DEMO_ADMIN"),
             vm.envAddress("DEMO_A"),
@@ -45,6 +54,28 @@ abstract contract DemoBase is Script {
             for (uint256 j; j < i; ++j) {
                 require(accounts[i] != accounts[j], "Demo: duplicate actors");
             }
+        }
+        if (sepolia) {
+            string[5] memory keys = [
+                "SEPOLIA_ADMIN_PRIVATE_KEY",
+                "SEPOLIA_A_PRIVATE_KEY",
+                "SEPOLIA_B_PRIVATE_KEY",
+                "SEPOLIA_FUNDS_PRIVATE_KEY",
+                "SEPOLIA_FEES_PRIVATE_KEY"
+            ];
+            for (uint256 i; i < accounts.length; ++i) {
+                require(vm.addr(vm.envUint(keys[i])) == accounts[i], "Demo: incorrect signer");
+            }
+        }
+    }
+
+    function begin(address sender) internal {
+        if (block.chainid == 11155111) {
+            uint256 key = vm.envUint("DEMO_SIGNING_KEY");
+            require(vm.addr(key) == sender, "Demo: incorrect signer");
+            vm.startBroadcast(key);
+        } else {
+            vm.startBroadcast(sender);
         }
     }
 

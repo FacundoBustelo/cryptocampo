@@ -1,0 +1,23 @@
+deploy: recibos y estado verificados
+configure: recibos y estado verificados
+fund: recibos y estado verificados
+approve-a: recibos y estado verificados
+approve-b: recibos y estado verificados
+approve-funds: recibos y estado verificados
+enable: recibos y estado verificados
+buy: recibos y estado verificados
+list: recibos y estado verificados
+trade: recibos y estado verificados
+claim: recibos y estado verificados
+deploy: recibos y estado verificados
+configure: recibos y estado verificados
+fund: recibos y estado verificados
+approve-a: recibos y estado verificados
+approve-b: recibos y estado verificados
+approve-funds: recibos y estado verificados
+enable: recibos y estado verificados
+buy: recibos y estado verificados
+list: recibos y estado verificados
+trade: recibos y estado verificados
+claim: recibos y estado verificados
+passed: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/20261115T195559010106Z/demo

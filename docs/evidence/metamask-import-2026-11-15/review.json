@@ -1,0 +1,129 @@
+{
+  "reviewed_at": "2026-11-16T00:20:12.455726+00:00",
+  "status": "required_import_screenshots_reviewed_and_archived_media_limitation_documented",
+  "origin": "Original PNG files provided by user, opened directly, visually inspected and copied byte for byte",
+  "reported_capture_filename": "Captura de pantalla de 2026-11-15 20-50-54.png",
+  "binary_copy_status": "Both original PNG files are now available and preserved without editing",
+  "observed": {
+    "token_id": 1,
+    "token_standard": "ERC721",
+    "contract_display": "0xbD6c1...97a34",
+    "contract_abbreviation_matches_expected": true,
+    "image": "generic placeholder, certificate not displayed"
+  },
+  "expected_contract": "0xbd6c1c5f5690d92021bff186597c2b71daf97a34",
+  "expected_metadata_uri": "ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4",
+  "expected_image_uri": "ipfs://bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+  "busd_capture": {
+    "file": "metamask-busd-a.png",
+    "account_label": "TP Comprador A",
+    "account_address_display": "0x2564D...362F8",
+    "address_abbreviation_matches_actor_a": true,
+    "network_label": "Red: Sepolia",
+    "token_symbol": "BUSD",
+    "displayed_token_balance": "916 BUSD",
+    "matches_final_onchain_state": true
+  },
+  "live_gateway_check": "Web fetches from this session were inaccessible; historical HTTP 200 evidence is preserved separately",
+  "cause": "Exact cause of missing wallet image not established; image and JSON accessible in user browser",
+  "phase7_closure": "complete for documented academic scope, with unresolved wallet image rendering limitation",
+  "browser_image_access": {
+    "status": "confirmed_by_user",
+    "reported_at": "2026-11-15T23:55:10.648517+00:00",
+    "url": "https://gateway.pinata.cloud/ipfs/bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4",
+    "confirmation": "veo un certificado de demostracion",
+    "scope": "User browser displays certificate; no new automated HTTP or hash verification claimed"
+  },
+  "next_check": "Phase 8: final README, delivery review and GitHub publication; image rendering remains a documented optional improvement",
+  "media_settings_reported_by_user": {
+    "reported_at": "2026-11-15T23:58:50.463772+00:00",
+    "basic_functionality": "enabled",
+    "separate_display_nft_media_option": "not present in user version"
+  },
+  "source_observation": {
+    "url": "https://raw.githubusercontent.com/MetaMask/core/main/packages/assets-controllers/src/NftController.ts",
+    "detail": "NFT metadata fetch formats ipfs tokenURI through configured gateway; failed fetch returns null name/image. This does not establish the installed version or observed root cause."
+  },
+  "metadata_browser_access": {
+    "status": "confirmed_by_user",
+    "reported_at": "2026-11-16T00:03:12.201113+00:00",
+    "gateway": "gateway.pinata.cloud",
+    "fields_match_local_metadata": true,
+    "scope": "User pasted name, description and image; no automated byte/hash comparison claimed"
+  },
+  "installed_extension_public_code_review": {
+    "version": "13.56.0.0",
+    "scope": "Only extension program files inspected; no wallet storage, state, keys or configured preferences accessed",
+    "findings": [
+      "Privacy settings include a separate IPFS gateway toggle and editable host next to Basic Functionality",
+      "Extension default gateway host in program constants is dweb.link; actual configured value is unknown",
+      "NFT metadata uses CID subdomains when retrieving ipfs URIs; a path-only gateway may not be suitable"
+    ],
+    "sha256": {
+      "manifest.json": "80373a29ae9c14506171d5fbc2992889cef57281c32f4143215b5af2f8586bbc",
+      "_locales/en/messages.json": "4d57cbfe9ec0b98a181273616ae7a1e081ad20a9be415d7f7a16014a63149658",
+      "670.1416907554157c823adb.js": "71f2875707ae01f4f15133ac1c3447544ca02b74510ac31375b87afb28f21e90",
+      "5671.a811ab89546ddfe17708.js": "26d11968d4a255dc0feebb8fae6a1e0e3d05ffee66e9777061c9ba1eaf2a08e3",
+      "3208.93c3a7dbb97e804da426.js": "0933f231874ad2660ed0fdb084a3d07f2463ef8493867c9df57446fb1f9a7dae"
+    }
+  },
+  "wallet_gateway_reported_by_user": {
+    "reported_at": "2026-11-16T00:09:04.022474+00:00",
+    "enabled": true,
+    "host": "dweb.link"
+  },
+  "actual_metadata_gateway_url": "https://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4.ipfs.dweb.link/",
+  "dweb_metadata_browser_access": {
+    "status": "confirmed_by_user",
+    "reported_at": "2026-11-16T00:12:01.411360+00:00",
+    "requested_url": "https://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4.ipfs.dweb.link/",
+    "fields_match_expected": true,
+    "final_browser_url": "not reported",
+    "scope": "User pasted expected JSON; no extension fetch or CORS result established"
+  },
+  "latest_media_result": {
+    "reported_at": "2026-11-16T00:15:40.563635+00:00",
+    "wallet_image": "still placeholder after suggested refresh",
+    "status": "unresolved visual limitation; no assertion of root cause"
+  },
+  "academic_requirement_review": {
+    "source": "Consignas-ProyectoFinal/README.md, final delivery instructions",
+    "requirement": "Screenshot of CCNFT and BUSD imported into MetaMask",
+    "image_rendering_explicitly_required": false,
+    "handling": "Preserve actual import screenshot, link valid metadata and certificate separately, disclose the missing image in MetaMask"
+  },
+  "previous_visual_review_at": "2026-11-15T23:53:54.839564+00:00",
+  "captures": {
+    "metamask-ccnft-1.png": {
+      "original_path": "/home/fbustelo/Captura de pantalla de 2026-11-15 20-50-54.png",
+      "sha256": "25669fd61f0b94cc47c693d25989d68f62c816244864f641e185b993ec4ef5d9",
+      "bytes": 26069,
+      "dimensions_px": [
+        833,
+        438
+      ],
+      "copied_without_alteration": true
+    },
+    "metamask-busd-a.png": {
+      "original_path": "/home/fbustelo/Captura de pantalla de 2026-11-15 20-49-15.png",
+      "sha256": "e37d21b9f72a67b6c5b8674ef200c3bd26e4a9c0a21d2526cda3ed209a0a1a1e",
+      "bytes": 63324,
+      "dimensions_px": [
+        828,
+        825
+      ],
+      "copied_without_alteration": true
+    }
+  },
+  "nft_capture": {
+    "file": "metamask-ccnft-1.png",
+    "token_id": 1,
+    "standard": "ERC721",
+    "contract_address_display": "0xbD6c1...97a34",
+    "address_abbreviation_matches_ccnft": true,
+    "certificate_image": "not rendered; generic placeholder visible",
+    "account_name_not_visible_in_this_detail_capture": true,
+    "ownership_evidence": "Final Sepolia check verifies NFT 1 belongs to actor A"
+  },
+  "closure_basis": "Original assignment asks for CCNFT and BUSD imported into MetaMask; both real screenshots reviewed. No claim that MetaMask rendered the certificate."
+}

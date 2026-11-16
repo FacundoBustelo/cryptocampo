@@ -64,8 +64,18 @@
     "evidence": "Render a 1200 × 800 del SVG descargado de gateway.pinata.cloud por el usuario y comparado nuevamente byte por byte con assets/certificate.svg. Título, textos de demostración, espiga y campos visibles sin recortes. Captura del render: docs/evidence/ipfs-certificate-preview-2026-11-15.png. Informe HTTP y SHA-256: docs/evidence/ipfs-pinata-verified-ipfsio-429-2026-11-15.json."
   },
   "wallet_presentation": {
-    "status": "pending",
-    "evidence": null
+    "status": "imported_with_media_rendering_limitation",
+    "reviewed_at": "2026-11-16T00:20:12.455726+00:00",
+    "network": "Sepolia",
+    "chain_id": 11155111,
+    "nft_contract": "0xbd6c1c5f5690d92021bff186597c2b71daf97a34",
+    "token_id": 1,
+    "evidence": "docs/evidence/metamask-import-2026-11-15/review.json",
+    "captures": [
+      "docs/evidence/metamask-import-2026-11-15/metamask-busd-a.png",
+      "docs/evidence/metamask-import-2026-11-15/metamask-ccnft-1.png"
+    ],
+    "limitation": "NFT imported, but certificate image is not displayed in MetaMask. Browser access to certificate and metadata confirmed by user."
   },
   "verification": {
     "checked_at": "2026-11-15T04:53:43.885681+00:00",

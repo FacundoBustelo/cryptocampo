@@ -8,6 +8,8 @@ Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegado
 
 **Fase 6 completada en Anvil:** se revisó directamente la ejecución local `20261115T191712781157Z`, con dos redes nuevas, 52 recibos exitosos y 838 comprobaciones aprobadas. Ambos recorridos conservan un NFT de A, nominal vigente de 100 BUSD, saldo del colector de 105 BUSD y las variaciones acordadas. Scripts, Makefile y consultas Cast quedan documentados e integrados en CI; no se afirma una nueva ejecución remota. Ver [evidencia y cierre](docs/local-demo-validation.md) y [comandos y fundamento académico](docs/local-demo.md).
 
+**Fase 7 iniciada:** perfiles explícitos Anvil/Sepolia, claves de entorno, diagnóstico, simulación de gas, publicación por transacción, recuperación por nonce y verificación Etherscan. Ver [guía de Sepolia y MetaMask](docs/sepolia.md) y [validación de la preparación](docs/sepolia-validation.md). El despliegue público y las capturas siguen pendientes de RPC, API y cinco cuentas de prueba financiadas.
+
 ## Entorno
 
 Se requieren Linux x86_64, Bash, Git, curl, tar e install, además de acceso a GitHub y al servidor de compiladores de Solidity.
@@ -38,7 +40,7 @@ python3 tools/validate-system.py
 
 La instalación guarda los binarios en `.tools/bin/` y las dependencias en `lib/`, sin modificar la configuración del usuario ni crear commits. Las bibliotecas se descargan por revisión fija y se comprueba que una instalación existente conserve esa revisión sin cambios locales. Ambos directorios se regeneran con el instalador y están excluidos de Git. Forge descarga Solidity 0.8.19 durante la primera compilación.
 
-Las variables del ejemplo se reservan para futuras interacciones con Sepolia; no son necesarias para compilar o probar. Los archivos de entorno locales quedan excluidos de Git.
+Las variables del ejemplo se utilizan en los comandos `sepolia-`; no son necesarias para compilar, probar o ejecutar Anvil. Los archivos de entorno locales quedan excluidos de Git.
 
 ## Contratos y operaciones
 

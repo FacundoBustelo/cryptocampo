@@ -1,0 +1,349 @@
+diff --git a/.env.example b/.env.example
+index 05575f9..1ec9bc6 100644
+--- a/.env.example
++++ b/.env.example
+@@ -1,2 +1,13 @@
++# Solo nombres de variables; completar valores únicamente en .env local (chmod 600).
+ SEPOLIA_RPC_URL=
+ ETHERSCAN_API_KEY=
++SEPOLIA_ADMIN_ADDRESS=
++SEPOLIA_ADMIN_PRIVATE_KEY=
++SEPOLIA_A_ADDRESS=
++SEPOLIA_A_PRIVATE_KEY=
++SEPOLIA_B_ADDRESS=
++SEPOLIA_B_PRIVATE_KEY=
++SEPOLIA_FUNDS_ADDRESS=
++SEPOLIA_FUNDS_PRIVATE_KEY=
++SEPOLIA_FEES_ADDRESS=
++SEPOLIA_FEES_PRIVATE_KEY=
+diff --git a/Makefile b/Makefile
+index d8e6bd8..fa2204e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,11 +4,13 @@ FORGE := .tools/bin/forge
+ PYTHON ?= python3
+ RPC_URL ?= http://127.0.0.1:8545
+ STATE ?= .tools/demo-state.json
++SEPOLIA_STATE ?= .tools/sepolia/state.json
+ 
+ .PHONY: help install build fmt fmt-check test test-python coverage gas gas-matrix validate anvil deploy configure fund approve-a approve-b approve-funds approvals enable buy list trade claim demo
+ help:
+ 	@echo 'install build fmt fmt-check test test-python coverage gas gas-matrix validate anvil'
+ 	@echo 'deploy configure fund approvals enable buy list trade claim (RPC_URL y STATE opcionales)'
++	@echo 'sepolia-doctor / sepolia-demo / sepolia-reconcile / sepolia-check (ver docs/sepolia.md)'
+ 	@echo 'demo: dos recorridos completos en redes nuevas con evidencia en .tools/demo/'
+ install:
+ 	bash tools/setup.sh
+@@ -42,3 +44,12 @@ approvals:
+ 	$(MAKE) approve-funds
+ demo:
+ 	$(PYTHON) tools/demo.py
++
++SEPOLIA_STAGES := doctor deploy verify configure fund approve-a approve-b approve-funds enable buy list trade claim reconcile check demo
++.PHONY: $(addprefix sepolia-,$(SEPOLIA_STAGES)) sepolia-approvals
++$(addprefix sepolia-,$(SEPOLIA_STAGES)):
++	$(PYTHON) tools/sepolia.py --stage $(patsubst sepolia-%,%,$@) --state '$(SEPOLIA_STATE)'
++sepolia-approvals:
++	$(MAKE) sepolia-approve-a
++	$(MAKE) sepolia-approve-b
++	$(MAKE) sepolia-approve-funds
+diff --git a/README.md b/README.md
+index 3001e58..9652822 100644
+--- a/README.md
++++ b/README.md
+@@ -8,6 +8,8 @@ Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegado
+ 
+ **Fase 6 completada en Anvil:** se revisó directamente la ejecución local `20261115T191712781157Z`, con dos redes nuevas, 52 recibos exitosos y 838 comprobaciones aprobadas. Ambos recorridos conservan un NFT de A, nominal vigente de 100 BUSD, saldo del colector de 105 BUSD y las variaciones acordadas. Scripts, Makefile y consultas Cast quedan documentados e integrados en CI; no se afirma una nueva ejecución remota. Ver [evidencia y cierre](docs/local-demo-validation.md) y [comandos y fundamento académico](docs/local-demo.md).
+ 
++**Fase 7 iniciada:** perfiles explícitos Anvil/Sepolia, claves de entorno, diagnóstico, simulación de gas, publicación por transacción, recuperación por nonce y verificación Etherscan. Ver [guía de Sepolia y MetaMask](docs/sepolia.md) y [validación de la preparación](docs/sepolia-validation.md). El despliegue público y las capturas siguen pendientes de RPC, API y cinco cuentas de prueba financiadas.
++
+ ## Entorno
+ 
+ Se requieren Linux x86_64, Bash, Git, curl, tar e install, además de acceso a GitHub y al servidor de compiladores de Solidity.
+@@ -38,7 +40,7 @@ python3 tools/validate-system.py
+ 
+ La instalación guarda los binarios en `.tools/bin/` y las dependencias en `lib/`, sin modificar la configuración del usuario ni crear commits. Las bibliotecas se descargan por revisión fija y se comprueba que una instalación existente conserve esa revisión sin cambios locales. Ambos directorios se regeneran con el instalador y están excluidos de Git. Forge descarga Solidity 0.8.19 durante la primera compilación.
+ 
+-Las variables del ejemplo se reservan para futuras interacciones con Sepolia; no son necesarias para compilar o probar. Los archivos de entorno locales quedan excluidos de Git.
++Las variables del ejemplo se utilizan en los comandos `sepolia-`; no son necesarias para compilar, probar o ejecutar Anvil. Los archivos de entorno locales quedan excluidos de Git.
+ 
+ ## Contratos y operaciones
+ 
+diff --git a/foundry.toml b/foundry.toml
+index e7cd98c..53fb6ec 100644
+--- a/foundry.toml
++++ b/foundry.toml
+@@ -17,3 +17,6 @@ remappings = [
+ 
+ [profile.default.fuzz]
+ runs = 256
++
++[rpc_endpoints]
++sepolia = "${SEPOLIA_RPC_URL}"
+diff --git a/script/Configure.s.sol b/script/Configure.s.sol
+index 028f6b3..de1bae5 100644
+--- a/script/Configure.s.sol
++++ b/script/Configure.s.sol
+@@ -8,7 +8,7 @@ contract Configure is DemoBase {
+         Actors memory p = actors();
+         (BUSD busd, CCNFT nft) = deployed(p);
+         fresh(nft);
+-        vm.startBroadcast(p.admin);
++        begin(p.admin);
+         nft.setFundsToken(address(busd));
+         nft.setFundsCollector(p.funds);
+         nft.setFeesCollector(p.fees);
+diff --git a/script/DemoBase.sol b/script/DemoBase.sol
+index 044ecbb..947926c 100644
+--- a/script/DemoBase.sol
++++ b/script/DemoBase.sol
+@@ -5,7 +5,7 @@ import {Script} from "forge-std/Script.sol";
+ import {BUSD} from "../src/BUSD.sol";
+ import {CCNFT} from "../src/CCNFT.sol";
+ 
+-/// @notice Parámetros de la demostración local; no contiene claves privadas.
++/// @notice Parámetros compartidos por Anvil y Sepolia; no contiene claves privadas.
+ abstract contract DemoBase is Script {
+     uint256 public constant START_BALANCE = 1000 ether;
+     uint256 public constant RESERVE = 10 ether;
+@@ -31,7 +31,16 @@ abstract contract DemoBase is Script {
+     }
+ 
+     function actors() internal view returns (Actors memory p) {
+-        require(block.chainid == 31337, "Demo: chain must be 31337");
++        bool sepolia = keccak256(bytes(vm.envOr("DEMO_PROFILE", string("anvil")))) == keccak256("sepolia");
++        if (sepolia) {
++            require(block.chainid == 11155111, "Demo: chain must be Sepolia");
++        } else {
++            require(
++                keccak256(bytes(vm.envOr("DEMO_PROFILE", string("anvil")))) == keccak256("anvil"),
++                "Demo: invalid profile"
++            );
++            require(block.chainid == 31337, "Demo: chain must be 31337");
++        }
+         p = Actors(
+             vm.envAddress("DEMO_ADMIN"),
+             vm.envAddress("DEMO_A"),
+@@ -46,6 +55,28 @@ abstract contract DemoBase is Script {
+                 require(accounts[i] != accounts[j], "Demo: duplicate actors");
+             }
+         }
++        if (sepolia) {
++            string[5] memory keys = [
++                "SEPOLIA_ADMIN_PRIVATE_KEY",
++                "SEPOLIA_A_PRIVATE_KEY",
++                "SEPOLIA_B_PRIVATE_KEY",
++                "SEPOLIA_FUNDS_PRIVATE_KEY",
++                "SEPOLIA_FEES_PRIVATE_KEY"
++            ];
++            for (uint256 i; i < accounts.length; ++i) {
++                require(vm.addr(vm.envUint(keys[i])) == accounts[i], "Demo: incorrect signer");
++            }
++        }
++    }
++
++    function begin(address sender) internal {
++        if (block.chainid == 11155111) {
++            uint256 key = vm.envUint("DEMO_SIGNING_KEY");
++            require(vm.addr(key) == sender, "Demo: incorrect signer");
++            vm.startBroadcast(key);
++        } else {
++            vm.startBroadcast(sender);
++        }
+     }
+ 
+     function deployed(Actors memory p) internal view returns (BUSD busd, CCNFT nft) {
+diff --git a/script/Deploy.s.sol b/script/Deploy.s.sol
+index 47465ec..37a68ff 100644
+--- a/script/Deploy.s.sol
++++ b/script/Deploy.s.sol
+@@ -6,7 +6,7 @@ import {DemoBase, BUSD, CCNFT} from "./DemoBase.sol";
+ contract Deploy is DemoBase {
+     function run() external {
+         Actors memory p = actors();
+-        vm.startBroadcast(p.admin);
++        begin(p.admin);
+         new BUSD();
+         new CCNFT();
+         vm.stopBroadcast();
+diff --git a/script/Operations.s.sol b/script/Operations.s.sol
+index 5d67b17..370eb7a 100644
+--- a/script/Operations.s.sol
++++ b/script/Operations.s.sol
+@@ -12,7 +12,7 @@ contract Buy is DemoBase {
+         empty(nft);
+         require(busd.allowance(p.a, address(nft)) == BUY_PAYMENT, "Demo: buy approval");
+         require(busd.balanceOf(p.a) >= BUY_PAYMENT, "Demo: buy balance");
+-        vm.startBroadcast(p.a);
++        begin(p.a);
+         nft.buy(NOMINAL, 2);
+         vm.stopBroadcast();
+     }
+@@ -28,7 +28,7 @@ contract List is DemoBase {
+         uint256 id = nft.tokenOfOwnerByIndex(p.a, 0);
+         (bool onSale,) = nft.tokensOnSale(id);
+         require(!onSale && nft.values(id) == NOMINAL, "Demo: listing prerequisite");
+-        vm.startBroadcast(p.a);
++        begin(p.a);
+         nft.putOnSale(id, PRICE);
+         vm.stopBroadcast();
+     }
+@@ -46,7 +46,7 @@ contract Trade is DemoBase {
+         require(onSale && price == PRICE && nft.ownerOf(id) == p.a, "Demo: sale prerequisite");
+         require(busd.allowance(p.b, address(nft)) == TRADE_PAYMENT, "Demo: trade approval");
+         require(busd.balanceOf(p.b) >= TRADE_PAYMENT, "Demo: trade balance");
+-        vm.startBroadcast(p.b);
++        begin(p.b);
+         nft.trade(id);
+         vm.stopBroadcast();
+     }
+@@ -64,7 +64,7 @@ contract Claim is DemoBase {
+         require(nft.values(ids[0]) == NOMINAL, "Demo: claim nominal");
+         require(busd.allowance(p.funds, address(nft)) == CLAIM_PAYMENT, "Demo: claim approval");
+         require(busd.balanceOf(p.funds) >= 2 * CLAIM_PAYMENT, "Demo: collector reserve");
+-        vm.startBroadcast(p.b);
++        begin(p.b);
+         nft.claim(ids);
+         vm.stopBroadcast();
+     }
+diff --git a/script/Prepare.s.sol b/script/Prepare.s.sol
+index f8aa395..6a4bd60 100644
+--- a/script/Prepare.s.sol
++++ b/script/Prepare.s.sol
+@@ -11,7 +11,7 @@ contract Fund is DemoBase {
+         fresh(nft);
+         require(busd.balanceOf(p.a) == 0 && busd.balanceOf(p.b) == 0 && busd.balanceOf(p.funds) == 0, "Demo: funded");
+         require(busd.balanceOf(p.admin) >= 2 * START_BALANCE + RESERVE, "Demo: admin balance");
+-        vm.startBroadcast(p.admin);
++        begin(p.admin);
+         require(busd.transfer(p.a, START_BALANCE), "Demo: fund A");
+         require(busd.transfer(p.b, START_BALANCE), "Demo: fund B");
+         require(busd.transfer(p.funds, RESERVE), "Demo: fund collector");
+@@ -32,7 +32,7 @@ contract Approve is DemoBase {
+         uint256 balance = sender == p.funds ? RESERVE : START_BALANCE;
+         require(busd.balanceOf(sender) == balance, "Demo: funding prerequisite");
+         require(busd.allowance(sender, address(nft)) == 0, "Demo: already approved");
+-        vm.startBroadcast(sender);
++        begin(sender);
+         require(busd.approve(address(nft), amount), "Demo: approval");
+         vm.stopBroadcast();
+     }
+@@ -54,7 +54,7 @@ contract Enable is DemoBase {
+                 && busd.allowance(p.funds, address(nft)) == CLAIM_PAYMENT,
+             "Demo: approval prerequisite"
+         );
+-        vm.startBroadcast(p.admin);
++        begin(p.admin);
+         nft.setCanBuy(true);
+         nft.setCanTrade(true);
+         nft.setCanClaim(true);
+diff --git a/test/DemoScripts.t.sol b/test/DemoScripts.t.sol
+index f6abd6e..84ff434 100644
+--- a/test/DemoScripts.t.sol
++++ b/test/DemoScripts.t.sol
+@@ -7,6 +7,7 @@ import {Deploy} from "../script/Deploy.s.sol";
+ import {Configure} from "../script/Configure.s.sol";
+ import {Fund, Approve, Enable} from "../script/Prepare.s.sol";
+ import {Buy, List, Trade, Claim} from "../script/Operations.s.sol";
++import {Publish} from "../script/Publish.s.sol";
+ 
+ contract DemoGuard is DemoBase {
+     function validate() external view {
+@@ -82,6 +83,9 @@ contract DemoScriptsTest is Test {
+         assertTrue(vm.revertToState(snapshot));
+         resetEnvironment();
+         checkScriptSequencePreservesSecondNFTAndReserve();
++        assertTrue(vm.revertToState(snapshot));
++        resetEnvironment();
++        checkPublicProfileAndSignerGuards();
+     }
+ 
+     function setUp() public {
+@@ -103,6 +107,7 @@ contract DemoScriptsTest is Test {
+ 
+     function resetEnvironment() internal {
+         vm.chainId(31337);
++        vm.setEnv("DEMO_PROFILE", "anvil");
+         vm.setEnv("DEMO_ADMIN", vm.toString(ADMIN));
+         vm.setEnv("DEMO_A", vm.toString(A));
+         vm.setEnv("DEMO_B", vm.toString(B));
+@@ -132,6 +137,67 @@ contract DemoScriptsTest is Test {
+         assertEq(busd.balanceOf(FUNDS), configure.CLAIM_PAYMENT());
+     }
+ 
++    function checkPublicProfileAndSignerGuards() internal {
++        vm.setEnv("DEMO_PROFILE", "invalid");
++        vm.expectRevert("Demo: invalid profile");
++        guard.validate();
++        vm.setEnv("DEMO_PROFILE", "sepolia");
++        vm.expectRevert("Demo: chain must be Sepolia");
++        guard.validate();
++        vm.chainId(11155111);
++        string[5] memory names = ["ADMIN", "A", "B", "FUNDS", "FEES"];
++        for (uint256 i; i < names.length; ++i) {
++            uint256 key = 101 + i;
++            vm.setEnv(string.concat("DEMO_", names[i]), vm.toString(vm.addr(key)));
++            vm.setEnv(string.concat("SEPOLIA_", names[i], "_PRIVATE_KEY"), vm.toString(key));
++        }
++        vm.setEnv("SEPOLIA_A_PRIVATE_KEY", "999");
++        vm.expectRevert("Demo: incorrect signer");
++        guard.validate();
++        vm.setEnv("SEPOLIA_A_PRIVATE_KEY", "102");
++        // Llegar al control de propietario demuestra que actors aceptó las cinco claves correctas.
++        vm.expectRevert("Demo: incorrect owner");
++        guard.validate();
++        Publish publisher = new Publish();
++        vm.setEnv("DEMO_APPROVER", vm.toString(vm.addr(101)));
++        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101)) + 1));
++        vm.expectRevert("Demo: nonce changed");
++        publisher.run();
++        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101))));
++        vm.setEnv("DEMO_TX_KIND", "1");
++        vm.setEnv("DEMO_TX_DATA", "0x1234");
++        vm.expectRevert("Demo: creation code changed");
++        publisher.run();
++        vm.setEnv("DEMO_TX_DATA", vm.toString(type(BUSD).creationCode));
++        vm.setEnv("DEMO_SIGNING_KEY", "102");
++        vm.expectRevert("Demo: incorrect signer");
++        publisher.run();
++        vm.setEnv("DEMO_SIGNING_KEY", "101");
++        address publicBusd = vm.computeCreateAddress(vm.addr(101), vm.getNonce(vm.addr(101)));
++        publisher.run();
++        assertEq(BUSD(publicBusd).balanceOf(vm.addr(101)), 10_000_000 ether);
++        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101))));
++        vm.setEnv("DEMO_TX_KIND", "2");
++        vm.setEnv("DEMO_TX_DATA", vm.toString(type(CCNFT).creationCode));
++        address publicNft = vm.computeCreateAddress(vm.addr(101), vm.getNonce(vm.addr(101)));
++        publisher.run();
++        assertEq(CCNFT(publicNft).owner(), vm.addr(101));
++        vm.setEnv("DEMO_BUSD", vm.toString(publicBusd));
++        vm.setEnv("DEMO_CCNFT", vm.toString(publicNft));
++        vm.setEnv("DEMO_TX_KIND", "0");
++        vm.setEnv("DEMO_TX_NONCE", vm.toString(vm.getNonce(vm.addr(101))));
++        vm.setEnv("DEMO_TX_TO", vm.toString(vm.addr(102)));
++        vm.setEnv(
++            "DEMO_TX_DATA", vm.toString(abi.encodeWithSignature("transfer(address,uint256)", vm.addr(102), 1000 ether))
++        );
++        vm.expectRevert("Demo: unexpected target");
++        publisher.run();
++        vm.setEnv("DEMO_TX_TO", vm.toString(publicBusd));
++        publisher.run();
++        assertEq(BUSD(publicBusd).balanceOf(vm.addr(102)), 1000 ether);
++        resetEnvironment();
++    }
++
+     function checkScriptRejectsWrongChainBeforeDeploy() internal {
+         Deploy deploy = new Deploy();
+         vm.chainId(1);
+diff --git a/tools/demo.py b/tools/demo.py
+index be7ce40..4936952 100644
+--- a/tools/demo.py
++++ b/tools/demo.py
+@@ -164,6 +164,7 @@ class Demo:
+         env = os.environ.copy()
+         # Estas variables explícitas prevalecen sobre cualquier .env que lea Forge.
+         env["FOUNDRY_DISABLE_NIGHTLY_WARNING"] = "1"
++        env["DEMO_PROFILE"] = "anvil"
+         for key, address in self.context["actors"].items():
+             env[f"DEMO_{key.upper()}"] = address
+         for key, address in self.context["addresses"].items():

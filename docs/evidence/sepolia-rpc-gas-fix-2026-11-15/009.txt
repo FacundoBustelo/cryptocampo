@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 11155111
+
+Estimated gas price: 0.000000054 gwei
+
+Estimated total gas used for script: 832904
+
+Estimated amount required: 0.000000000044976816 ETH
+
+==========================
+
+Transactions saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/sepolia-private/20261115T212235415398Z/Publish.s.sol/11155111/run-latest.json
+
+Sensitive values saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/cache/Publish.s.sol/11155111/run-latest.json
+
+Error: Transaction Failure: 0xaea382d25998854741a517145c8911a9ef8870710b19afbe4677e104f0b6c523

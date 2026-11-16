@@ -164,6 +164,7 @@ class Demo:
         env = os.environ.copy()
         # Estas variables explícitas prevalecen sobre cualquier .env que lea Forge.
         env["FOUNDRY_DISABLE_NIGHTLY_WARNING"] = "1"
+        env["DEMO_PROFILE"] = "anvil"
         for key, address in self.context["actors"].items():
             env[f"DEMO_{key.upper()}"] = address
         for key, address in self.context["addresses"].items():

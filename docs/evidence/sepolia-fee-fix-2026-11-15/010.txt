@@ -1,0 +1,25 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 11155111
+
+Estimated gas price: 0.00000005 gwei
+
+Estimated total gas used for script: 832904
+
+Estimated amount required: 0.0000000000416452 ETH
+
+==========================
+
+Transactions saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/sepolia-private/20261115T211530087585Z/Publish.s.sol/11155111/run-latest.json
+
+Sensitive values saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/cache/Publish.s.sol/11155111/run-latest.json
+
+Error: Failed to send transaction
+
+Context:
+- server returned an error response: error code -32003: max priority fee per gas higher than max fee per gas

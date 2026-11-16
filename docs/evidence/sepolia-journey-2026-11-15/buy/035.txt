@@ -1,0 +1,14 @@
+No files changed, compilation skipped
+Script ran successfully.
+
+SKIPPING ON CHAIN SIMULATION.
+
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/sepolia-private/20261115T225036185252Z/Publish.s.sol/11155111/run-latest.json
+
+Sensitive values saved to: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/cache/Publish.s.sol/11155111/run-latest.json
+

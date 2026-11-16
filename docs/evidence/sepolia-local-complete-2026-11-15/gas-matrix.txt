@@ -1,0 +1,44 @@
+Commit: b6b1ccca802be1ab6ee1f17aeb3a04c7e4cb8271
+openzeppelin-contracts: a5445b0afb8b350417b6e6ab3160554967bc151f
+forge-std: 77041d2ce690e692d6e03cc812b57d1ddaa4d505
+forge Version: 1.4.4-v1.4.4
+anvil Version: 1.4.4-v1.4.4
+Solidity 0.8.19; optimizador: 200 runs; compilación y red: Paris.
+| Publicaciones | Operación | Lote | Gas del recibo |
+| ---: | --- | ---: | ---: |
+| 1 | buy | 1 | 224063 |
+| 1 | buy | 10 | 1475810 |
+| 1 | list_new | 1 | 105126 |
+| 1 | list_update_first | 1 | 42642 |
+| 1 | list_update_last | 1 | 42642 |
+| 1 | trade_first | 1 | 132527 |
+| 1 | trade_middle | 1 | 132527 |
+| 1 | trade_last | 1 | 132527 |
+| 1 | claim_unlisted | 1 | 112699 |
+| 1 | claim_listed_last | 1 | 142976 |
+| 1 | claim_unlisted | 10 | 443772 |
+| 10 | buy | 1 | 224063 |
+| 10 | buy | 10 | 1475810 |
+| 10 | list_new | 1 | 127707 |
+| 10 | list_update_first | 1 | 42642 |
+| 10 | list_update_last | 1 | 65235 |
+| 10 | trade_first | 1 | 157227 |
+| 10 | trade_middle | 1 | 158284 |
+| 10 | trade_last | 1 | 163520 |
+| 10 | claim_unlisted | 1 | 131854 |
+| 10 | claim_listed_last | 1 | 140411 |
+| 10 | claim_unlisted | 10 | 494820 |
+| 10 | claim_listed_last | 10 | 731015 |
+| 100 | buy | 1 | 224063 |
+| 100 | buy | 10 | 1475810 |
+| 100 | list_new | 1 | 353517 |
+| 100 | list_update_first | 1 | 42642 |
+| 100 | list_update_last | 1 | 291045 |
+| 100 | trade_first | 1 | 157227 |
+| 100 | trade_middle | 1 | 271189 |
+| 100 | trade_last | 1 | 389330 |
+| 100 | claim_unlisted | 1 | 357664 |
+| 100 | claim_listed_last | 1 | 355323 |
+| 100 | claim_unlisted | 10 | 1005300 |
+| 100 | claim_listed_last | 10 | 1220864 |
+Medición completa: 35 transacciones exitosas; resultado en .tools/gas-scenarios.json.
