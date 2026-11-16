@@ -456,7 +456,10 @@ class PublicTest(unittest.TestCase):
             self.assertEqual(runner.context['balances']['a'], 1000)
 
     def test_reverts_require_rpc_revert_data_and_reject_transport_errors(self):
-        with tempfile.TemporaryDirectory() as directory:
+        # La prueba de errores RPC no necesita artefactos ignorados de una compilación.
+        artifact = {'methodIdentifiers': {'listTokensOnSale(uint256)': '505546e7'}}
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(public.local.gas, 'load_artifact', return_value=artifact):
             root = Path(directory)
             runner = public.Sepolia(root, root / 'state.json', environment())
             runner.context['addresses']['CCNFT'] = '0xnft'
