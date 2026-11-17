@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-11-16T13:38:41.991785+00:00",
+  "commands": [
+    {
+      "command": [
+        "bash",
+        "-n",
+        "tools/setup.sh"
+      ],
+      "exit_code": 0,
+      "log": "environment-check-0.txt"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "environment-check-1.txt"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "py_compile",
+        "tools/check-delivery.py",
+        "tools/test_sepolia.py"
+      ],
+      "exit_code": 0,
+      "log": "environment-check-2.txt"
+    },
+    {
+      "command": [
+        "make",
+        "-n",
+        "install",
+        "build",
+        "fmt-check",
+        "test",
+        "test-python",
+        "coverage",
+        "gas",
+        "gas-matrix",
+        "validate",
+        "demo",
+        "sepolia-doctor",
+        "sepolia-deploy",
+        "sepolia-verify"
+      ],
+      "exit_code": 0,
+      "log": "environment-check-3.txt"
+    }
+  ],
+  "requirements": {
+    "bash": "/usr/bin/bash",
+    "git": "/usr/bin/git",
+    "curl": "/usr/bin/curl",
+    "tar": "/usr/bin/tar",
+    "gzip": "/usr/bin/gzip",
+    "install": "/usr/bin/install",
+    "uname": "/usr/bin/uname",
+    "mktemp": "/usr/bin/mktemp",
+    "mkdir": "/usr/bin/mkdir",
+    "rm": "/usr/bin/rm",
+    "mv": "/usr/bin/mv",
+    "head": "/usr/bin/head",
+    "grep": "/usr/bin/grep",
+    "python3": "/usr/bin/python3",
+    "make": "/usr/bin/make"
+  },
+  "status": "passed"
+}

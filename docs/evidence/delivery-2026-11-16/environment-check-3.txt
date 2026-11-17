@@ -1,0 +1,15 @@
+bash tools/setup.sh
+.tools/bin/forge build
+.tools/bin/forge fmt --check
+.tools/bin/forge test -vv
+python3 -m unittest discover -s tools -p 'test_*.py' -v
+.tools/bin/forge coverage --report summary --report debug
+.tools/bin/forge build --force
+.tools/bin/forge test --gas-report
+.tools/bin/forge build --force
+python3 tools/measure-gas.py
+python3 tools/validate-system.py
+python3 tools/demo.py
+python3 tools/sepolia.py --stage doctor --state '.tools/sepolia/state.json'
+python3 tools/sepolia.py --stage deploy --state '.tools/sepolia/state.json'
+python3 tools/sepolia.py --stage verify --state '.tools/sepolia/state.json'

@@ -1,0 +1,73 @@
+{
+  "started_at": "2026-11-16T13:38:04.793913+00:00",
+  "source_export": {
+    "path": "/tmp/cryptocampo-entrega-corregida-20261116",
+    "files": 2870,
+    "hashes_match": true,
+    "installation_and_execution": "not_run"
+  },
+  "manifest_sha256": "8721aa7b397640c793b782aa37a66b2b8bb0a462969195a8a5dd4751a3be865b",
+  "source_manifest": "corrected-content-check.json",
+  "checks": [
+    {
+      "name": "corrected-clean-setup",
+      "command": [
+        "bash",
+        "tools/setup.sh"
+      ],
+      "started_at": "2026-11-16T13:38:04.793913+00:00",
+      "exit_code": 6,
+      "log": "corrected-clean-setup.txt"
+    },
+    {
+      "name": "corrected-clean-python-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "started_at": "2026-11-16T13:38:04.826108+00:00",
+      "exit_code": 0,
+      "log": "corrected-clean-python-tests.txt"
+    },
+    {
+      "name": "corrected-clean-git-init",
+      "command": [
+        "git",
+        "init",
+        "--quiet"
+      ],
+      "started_at": "2026-11-16T13:38:05.541634+00:00",
+      "exit_code": 0,
+      "log": "corrected-clean-git-init.txt"
+    },
+    {
+      "name": "corrected-clean-static-check",
+      "command": [
+        "python3",
+        "tools/check-delivery.py",
+        "--output-dir",
+        ".tools/delivery-check/clean"
+      ],
+      "started_at": "2026-11-16T13:38:05.545538+00:00",
+      "exit_code": 0,
+      "log": "corrected-clean-static-check.txt"
+    }
+  ],
+  "excluded_runtime_paths_absent_before_install": true,
+  "compiled_artifacts_absent_during_python_tests": true,
+  "status": "blocked",
+  "blockers": [
+    "GitHub DNS: curl exit 6",
+    "Local sockets denied: see final-validation gas-matrix/local-demo"
+  ],
+  "full_clean_validation": "not_run: setup failed; no cached binaries or libraries copied",
+  "test_fixture_fix": "tools/test_sepolia.py now supplies methodIdentifiers through a local mock",
+  "later_evidence_note": "This report and its logs were generated after export and are outside the exported source manifest."
+}

@@ -1,0 +1,26 @@
+# Matriz de cumplimiento de las indicaciones de entrega
+
+Fuente: [copia fiel del README de la consigna](consigna-entrega.md), original `Consignas-ProyectoFinal/README.md` de la carpeta de la materia. Se conserva la numeración repetida del punto 7 y se revisan también los tres pedidos finales. El material original no fue modificado.
+
+| Punto del README | Implementación | Evidencia / resultado |
+| --- | --- | --- |
+| 1. Inicializar un proyecto Foundry | [Estructura del proyecto](../README.md#arquitectura), [foundry.toml](../foundry.toml). | Fuentes, tests y scripts independientes; compilación actual satisfactoria. |
+| 2. Configuración y variables de entorno | [foundry.toml](../foundry.toml), [.env.example](../.env.example), [.gitignore](../.gitignore). | Compilador, EVM y remappings fijados; [instalación](../README.md#instalación) y revisión de secretos en el [informe actual](entrega-validacion-2026-11-16.md). |
+| 3. OpenZeppelin 4.5.0 | [Instalador por revisión fija](../tools/setup.sh). | Revisión `a5445b0afb8b350417b6e6ab3160554967bc151f`, biblioteca limpia en el entorno existente. Descarga limpia actual bloqueada por DNS. |
+| 4. Desarrollo de CCNFT | [CCNFT.sol](../src/CCNFT.sol); [reglas y operaciones](../README.md#operaciones-y-reglas-económicas). | Compra, publicación, reventa, reclamo, setters y metadatos; 49 pruebas Solidity y cobertura base aprobadas. |
+| 5. Tests y scripts de despliegue | [Tests](../test/), [Deploy](../script/Deploy.s.sol), [ejecutor público](../tools/sepolia.py). | [Validación del sistema](system-validation.md), [informe actual](entrega-validacion-2026-11-16.md) y 26 recibos de Sepolia. |
+| 6. Compilación | `make build`, `make validate`. | Compilación forzada con Solidity 0.8.19 aprobada en el [registro actual](evidence/delivery-2026-11-16/validation/build.txt). |
+| 7. Makefile | [Makefile](../Makefile). | Targets de instalación, compilación, tests, gas y etapas Anvil/Sepolia documentados y revisados. |
+| 7. Despliegue y verificación por scripts | [Deploy](../script/Deploy.s.sol), [Publish](../script/Publish.s.sol), [ejecutor y verificación](../tools/sepolia.py). | [Ambos contratos verificados](entrega.md#contratos-y-actores), [respuestas Etherscan conservadas](evidence/sepolia-verified-2026-11-15/review.json). |
+| 8. Importación de BUSD en MetaMask | Dirección de BUSD en Sepolia; [pasos de importación](sepolia.md). | [Captura original](evidence/metamask-import-2026-11-15/metamask-busd-a.png): A, Sepolia, 916 BUSD. |
+| 9. Interacción `buy` y condicionantes | [Configure](../script/Configure.s.sol), [Prepare](../script/Prepare.s.sol), [Buy](../script/Operations.s.sol). | Once configuraciones, tres habilitaciones y [compra exitosa](https://sepolia.etherscan.io/tx/0x15aa3c4a104213e3fa4afdb00ac4fccda5937c557b1eaef7eb75277ad8711b3b). |
+| 10. Aprobar CCNFT en BUSD | `Approve` en [Prepare](../script/Prepare.s.sol). | [Tres aprobaciones ERC20](entrega.md#las-26-transacciones-exitosas), por 204 / 121,2 / 105 BUSD. Se eligieron autorizaciones exactas en lugar de la opción amplia de la consigna. |
+| 11. Configurar colectores y token en CCNFT/Etherscan | `setFeesCollector`, `setFundsCollector`, `setFundsToken`, exclusivos de owner. | [Transacciones de configuración](entrega.md#las-26-transacciones-exitosas) y [55 controles de estado final](evidence/sepolia-journey-2026-11-15/final-check/result.json). Los nombres reales comienzan con minúscula. |
+| 12. Ejecutar `buy` | `buy(100 * 10^18, 2)` por A. | [Recibo e informe de compra](evidence/sepolia-journey-2026-11-15/buy/result.json), emisión de IDs 0 y 1, principal 200 y comisión 4 BUSD. |
+| Enlace Sepolia del contrato y todas las interacciones, incluida `buy` | [Guía de entrega](entrega.md). | Dos enlaces de código y 26 enlaces de transacción únicos, contrastados con sus recibos `status=1`. El CREATE fallido queda separado. |
+| Captura de CCNFT y BUSD importados en MetaMask | [Dos PNG originales](entrega.md#capturas-originales). | Importación acreditada; el certificado no renderiza dentro de MetaMask. Limitación expresa conservada, sin reemplazar la captura por una imagen externa. |
+| Enlace GitHub del proyecto completo | [Repositorio de referencia](https://github.com/FacundoBustelo/cryptocampo). | **Pendiente:** publicar estos cambios y comprobar el contenido publicado desde un clon limpio. La URL existente no acredita la publicación de esta entrega local. |
+
+El PDF conceptual y la plantilla también incluyen reventa y reclamo: ambos están implementados y tienen transacciones exitosas en la [guía](entrega.md), aunque el README destaque `buy`. La sección 8 del PDF presenta pool DEX o listado como opciones para obtener BUSD. El alcance aprobado mantiene ese apartado conceptual y usa distribución del suministro inicial para la demostración, sin acreditar un mercado externo; no se agregó un despliegue de pool como entregable del README.
+
+**Estado de fase 8:** documentación local preparada, controles estáticos y pruebas del entorno existente revisados. La aceptación de reproducción sigue pendiente: DNS impide instalar en copia limpia y los sockets bloquean una nueva matriz de gas y los dos Anvil. Publicación y verificación del repositorio publicado quedan fuera de esta implementación local. Ver [resultados y pasos pendientes](entrega-validacion-2026-11-16.md).

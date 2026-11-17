@@ -1,0 +1,11 @@
+{
+  "copy": "/tmp/cryptocampo-clean-bdwj6pm3",
+  "source": "git ls-files --cached --others --exclude-standard -z",
+  "files": 2760,
+  "command": [
+    "bash",
+    "tools/setup.sh"
+  ],
+  "exit_code": 6,
+  "log": "/home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/clean-install-2026-11-16.txt"
+}

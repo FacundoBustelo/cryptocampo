@@ -1,0 +1,23 @@
+Resumen de cobertura:
+Ran 7 test suites in 1.10s (1.42s CPU time): 49 tests passed, 0 failed, 0 skipped (49 total tests)
+| File                       | % Lines           | % Statements      | % Branches       | % Funcs         |
+| script/Configure.s.sol     | 100.00% (17/17)   | 100.00% (18/18)   | 100.00% (0/0)    | 100.00% (1/1)   |
+| script/DemoBase.sol        | 100.00% (40/40)   | 100.00% (41/41)   | 89.74% (35/39)   | 100.00% (7/7)   |
+| script/Deploy.s.sol        | 33.33% (2/6)      | 33.33% (2/6)      | 100.00% (0/0)    | 100.00% (1/1)   |
+| script/Identity.s.sol      | 0.00% (0/2)       | 0.00% (0/1)       | 100.00% (0/0)    | 0.00% (0/1)     |
+| script/Operations.s.sol    | 100.00% (51/51)   | 100.00% (60/60)   | 66.67% (16/24)   | 100.00% (4/4)   |
+| script/Prepare.s.sol       | 100.00% (38/38)   | 100.00% (44/44)   | 77.27% (17/22)   | 100.00% (3/3)   |
+| script/Publish.s.sol       | 100.00% (23/23)   | 100.00% (33/33)   | 75.00% (15/20)   | 100.00% (1/1)   |
+| src/BUSD.sol               | 100.00% (2/2)     | 100.00% (1/1)     | 100.00% (0/0)    | 100.00% (1/1)   |
+| src/CCNFT.sol              | 100.00% (122/122) | 100.00% (116/116) | 97.53% (79/81)   | 100.00% (25/25) |
+| test/CCNFTBase.sol         | 100.00% (60/60)   | 100.00% (65/65)   | 100.00% (1/1)    | 100.00% (9/9)   |
+| test/DemoScripts.t.sol     | 100.00% (3/3)     | 100.00% (3/3)     | 100.00% (0/0)    | 100.00% (1/1)   |
+| test/mocks/Adversaries.sol | 100.00% (52/52)   | 100.00% (50/50)   | 61.54% (16/26)   | 100.00% (9/9)   |
+| Total                      | 98.56% (410/416)  | 98.86% (433/438)  | 84.04% (179/213) | 98.41% (62/63)  |
+
+Ramas sin cubrir de src/CCNFT.sol:
+-  runtime IC 12061 -> Item 641: Branch (branch: 20, path: 0) (location: (source ID: 45, lines: 110..111, bytes: 4835..4907), hits: 0)
+  110:         require(address(fundsToken) != address(0), "Funds token not configured");
+-  runtime IC 12206 -> Item 645: Branch (branch: 21, path: 0) (location: (source ID: 45, lines: 111..112, bytes: 4917..4986), hits: 0)
+  111:         require(feesCollector != address(0), "Fees collector not configured");
+Ramas sin cubrir: 2 de 81 reportadas para CCNFT.

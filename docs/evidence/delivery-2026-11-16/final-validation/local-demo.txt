@@ -1,0 +1,3 @@
+Demostración fallida: [Errno 1] Operation not permitted; evidencia: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/delivery-after-fixture-fix/demo/run-1
+Demostración fallida: [Errno 1] Operation not permitted; evidencia: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/delivery-after-fixture-fix/demo/run-2
+failed: /home/fbustelo/Escritorio/UP/Desarrollo de blockchain/cryptocampo/.tools/validation/delivery-after-fixture-fix/demo

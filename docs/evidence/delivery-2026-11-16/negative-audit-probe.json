@@ -1,0 +1,19 @@
+{
+  "command": [
+    "python3",
+    "tools/check-delivery.py",
+    "--output-dir",
+    ".tools/delivery-check/negative-probe"
+  ],
+  "exit_code": 1,
+  "fixture": "temporary Markdown with a missing relative target and synthetic PEM header; removed afterwards",
+  "failed_checks": [
+    "credentials-scan",
+    "relative-links-and-images"
+  ],
+  "expected": [
+    "credentials-scan",
+    "relative-links-and-images"
+  ],
+  "status": "passed"
+}

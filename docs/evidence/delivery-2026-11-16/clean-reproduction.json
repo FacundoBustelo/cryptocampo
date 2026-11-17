@@ -1,0 +1,70 @@
+{
+  "started_at": "2026-11-16T13:35:39.596703+00:00",
+  "source_export": {
+    "path": "/tmp/cryptocampo-entrega-20261116",
+    "files": 2816,
+    "hashes_match": true,
+    "installation_and_execution": "not_run"
+  },
+  "manifest_sha256": "25cdee1539d485b0808b7cfe0b3ea989e6286d36d783c321e98568523c38e1d0",
+  "source_manifest": "prepared-content-check.json",
+  "checks": [
+    {
+      "name": "clean-setup",
+      "command": [
+        "bash",
+        "tools/setup.sh"
+      ],
+      "started_at": "2026-11-16T13:35:39.596703+00:00",
+      "exit_code": 6,
+      "log": "clean-setup.txt"
+    },
+    {
+      "name": "clean-python-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "started_at": "2026-11-16T13:35:39.628837+00:00",
+      "exit_code": 1,
+      "log": "clean-python-tests.txt"
+    },
+    {
+      "name": "clean-git-init",
+      "command": [
+        "git",
+        "init",
+        "--quiet"
+      ],
+      "started_at": "2026-11-16T13:35:40.345157+00:00",
+      "exit_code": 0,
+      "log": "clean-git-init.txt"
+    },
+    {
+      "name": "clean-static-check",
+      "command": [
+        "python3",
+        "tools/check-delivery.py",
+        "--output-dir",
+        ".tools/delivery-check/clean"
+      ],
+      "started_at": "2026-11-16T13:35:40.354171+00:00",
+      "exit_code": 0,
+      "log": "clean-static-check.txt"
+    }
+  ],
+  "status": "blocked",
+  "blockers": [
+    "GitHub DNS: curl exit 6",
+    "Local sockets denied: see validation gas-matrix/local-demo"
+  ],
+  "full_clean_validation": "not_run: setup failed; no cached binaries or libraries copied",
+  "later_evidence_note": "This report and its logs are generated after export and are outside the exported source manifest."
+}

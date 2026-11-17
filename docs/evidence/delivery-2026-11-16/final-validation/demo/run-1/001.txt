@@ -1,0 +1,9 @@
+ M README.md
+ M tools/test_sepolia.py
+?? docs/consigna-entrega.md
+?? docs/entrega-validacion-2026-11-16.md
+?? docs/entrega.md
+?? docs/evidence/delivery-2026-11-16/
+?? docs/fundamento-academico.md
+?? docs/matriz-entrega.md
+?? tools/check-delivery.py

@@ -1,0 +1,11 @@
+delivery-file-set: passed
+credentials-scan: passed
+env-example-empty: passed
+relative-links-and-images: passed
+sepolia-journey-2026-11-15-hashes: passed
+sepolia-verified-2026-11-15-hashes: passed
+original-wallet-captures: passed
+archived-sepolia-receipts-and-state: passed
+executed-sources-preserved: passed
+assignment-copy: passed
+passed: /tmp/cryptocampo-entrega-corregida-20261116/.tools/delivery-check/clean/result.json

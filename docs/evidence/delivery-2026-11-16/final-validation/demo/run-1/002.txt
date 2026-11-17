@@ -1,0 +1,283 @@
+diff --git a/README.md b/README.md
+index 9652822..fce11f5 100644
+--- a/README.md
++++ b/README.md
+@@ -1,160 +1,145 @@
+ # CryptoCampo NFT
+ 
+-Contratos para certificados agrícolas de demostración y pagos con un token ERC20 BUSD. Los certificados no acreditan existencias físicas verificadas y el token no tiene respaldo en dólares.
++Trabajo final de Desarrollo de Blockchain: certificados agrícolas de demostración mediante NFTs ERC721 y pagos con un ERC20 llamado BUSD. Permite comprar, publicar, revender y reclamar certificados. **Los NFTs no acreditan existencias físicas verificadas y BUSD no tiene respaldo en dólares ni vínculo con un token externo.**
+ 
+-Se incluyen BUSD, que emite 10 millones de tokens con 18 decimales al desplegador, y CCNFT, con compra, publicación, reventa, reclamo y metadatos compartidos. **Fases 2 y 3 validadas en GitHub Actions al 15/11/2026:** entorno con versiones y revisiones fijadas, compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada y 35 transacciones exitosas para medir gas. CCNFT alcanza 100 % de líneas, sentencias y funciones y 97,53 % de ramas; los dos rechazos restantes de `trade` están justificados como inalcanzables mediante las funciones públicas actuales. El cierre abarca el rango medido, sin establecer un máximo global de gas. La fase 4 acredita **publicación y resolución verificadas**: imagen y JSON recuperados por Pinata y Filebase, y cinco comprobaciones aprobadas con la URI definitiva en Anvil. La presentación en billetera y Sepolia quedan para fases posteriores; ambos workflows remotos fueron confirmados en verde por el usuario y sus enlaces están registrados. Ver [evidencia IPFS y Anvil](docs/ipfs-verification-2026-11-15.md). Ver [evidencia y revisión de ramas](docs/ci-validation-2026-11-15.md).
++Las fases 1–7 están completadas dentro del alcance académico. Sepolia conserva dos contratos verificados, 26 transacciones exitosas, 55 controles finales y capturas originales de los tokens importados en MetaMask. La billetera muestra el NFT con un marcador genérico: el render de su imagen sigue siendo una limitación documentada. Esta descripción se basa en evidencia del 15/11/2026 revisada localmente, sin una nueva consulta a la red.
+ 
+-**Fase 5 completada:** se revisó el artefacto de la [ejecución 43748041038](https://github.com/FacundoBustelo/cryptocampo/actions/runs/43748041038), sobre `d7a17d9`: 20 controles aprobados, 48 pruebas Solidity, cuatro fuzz de 256 casos, 26 pruebas Python, cobertura CCNFT conservada en 100 % de líneas/sentencias/funciones y 79/81 ramas, reporte de gas y 35 mediciones exitosas en Anvil. El artefacto resuelve el control de gas bloqueado localmente. Ver [matriz y cierre](docs/system-validation.md) y [revisión de la evidencia](docs/evidence/ci-validation-43748041038-1/review.json). Las comprobaciones IPFS/URI de fase 4 conservan su evidencia separada. Sepolia y MetaMask corresponden a fase 7.
++La fase 8 tiene documentación y contenido de entrega preparados localmente. Su aceptación de reproducción sigue pendiente por los bloqueos de DNS y sockets registrados el 16/11/2026. La publicación de estos cambios en GitHub y la comprobación del repositorio publicado siguen pendientes.
+ 
+-**Fase 6 completada en Anvil:** se revisó directamente la ejecución local `20261115T191712781157Z`, con dos redes nuevas, 52 recibos exitosos y 838 comprobaciones aprobadas. Ambos recorridos conservan un NFT de A, nominal vigente de 100 BUSD, saldo del colector de 105 BUSD y las variaciones acordadas. Scripts, Makefile y consultas Cast quedan documentados e integrados en CI; no se afirma una nueva ejecución remota. Ver [evidencia y cierre](docs/local-demo-validation.md) y [comandos y fundamento académico](docs/local-demo.md).
++| Lectura | Contenido |
++| --- | --- |
++| [Guía de entrega](docs/entrega.md) | Contratos, las 26 transacciones —incluida `buy`—, capturas y resultados. |
++| [Matriz de la consigna](docs/matriz-entrega.md) | Cada indicación vinculada con implementación y evidencia. |
++| [Conceptos de los cuatro módulos](docs/fundamento-academico.md) | Material local, aplicación y decisiones propias. |
++| [Revisión y reproducción del 16/11](docs/entrega-validacion-2026-11-16.md) | Comandos, versiones, hashes, resultados y bloqueos actuales. |
++| [Demostración Anvil](docs/local-demo.md) / [Sepolia y MetaMask](docs/sepolia.md) | Ejecución por etapas, consultas y recuperación. |
++
++## Arquitectura
+ 
+-**Fase 7 iniciada:** perfiles explícitos Anvil/Sepolia, claves de entorno, diagnóstico, simulación de gas, publicación por transacción, recuperación por nonce y verificación Etherscan. Ver [guía de Sepolia y MetaMask](docs/sepolia.md) y [validación de la preparación](docs/sepolia-validation.md). El despliegue público y las capturas siguen pendientes de RPC, API y cinco cuentas de prueba financiadas.
++[BUSD](src/BUSD.sol) hereda de ERC20 de OpenZeppelin y emite 10.000.000 BUSD con 18 decimales al desplegador. [CCNFT](src/CCNFT.sol) hereda de `ERC721Enumerable`, `Ownable` y `ReentrancyGuard`. Mantiene propietarios, nominales, publicaciones y límites; utiliza `IERC20.transferFrom` para pagar directamente entre las cuentas. CCNFT no custodia BUSD.
+ 
+-## Entorno
++Hay cinco actores: administrador, comprador A, comprador B, colector de fondos y colector de comisiones. El administrador configura y habilita las operaciones mediante setters `onlyOwner`. El colector recibe el principal de las compras y financia los reclamos; el vendedor recibe el precio de reventa y el colector de comisiones recibe los cargos adicionales.
+ 
+-Se requieren Linux x86_64, Bash, Git, curl, tar e install, además de acceso a GitHub y al servidor de compiladores de Solidity.
++| Directorio o archivo | Responsabilidad |
++| --- | --- |
++| [src/](src/) | BUSD y CCNFT. |
++| [test/](test/) | Operaciones, administración, atomicidad, reentrada, metadatos y fuzz. |
++| [script/](script/) | Identidad, despliegue, configuración, financiación y operaciones. |
++| [tools/](tools/) | Instalación, validación integral, gas y ejecutores Anvil/Sepolia. |
++| [assets/](assets/) | Certificado SVG y JSON compartido. |
++| [docs/](docs/) | Guías e informes; `evidence/` conserva registros originales y hashes. |
++| [foundry.toml](foundry.toml), [Makefile](Makefile), [.env.example](.env.example) | Compilación, comandos y nombres de variables. |
++| [.github/workflows/](.github/workflows/) | Validación automatizada y comprobación manual de metadatos. |
+ 
+-| Componente | Versión | Revisión |
+-| --- | --- | --- |
+-| Foundry | v1.4.4 | 05794498bf47257b144e2e2789a1d5bf8566be0e |
+-| Solidity | 0.8.19 | Configurada en foundry.toml |
+-| OpenZeppelin Contracts | v4.5.0 | a5445b0afb8b350417b6e6ab3160554967bc151f |
+-| forge-std | v1.9.7 | 77041d2ce690e692d6e03cc812b57d1ddaa4d505 |
++## Instalación
+ 
+-Referencias: [Foundry](https://github.com/foundry-rs/foundry/releases/tag/v1.4.4), [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts/releases/tag/v4.5.0) y [forge-std](https://github.com/foundry-rs/forge-std/releases/tag/v1.9.7).
++Ejecutar desde la raíz de este repositorio (`cryptocampo/` en la carpeta de la materia). Se requieren Linux x86_64, Bash, Git, curl, tar, gzip, `install` y utilidades GNU básicas (`uname`, `mktemp`, `mkdir`, `rm`, `mv`, `head`, `grep`). Para los controles se necesitan **Python 3.11 o posterior** y GNU Make. Las herramientas Python usan la biblioteca estándar, sin paquetes de pip. La instalación necesita DNS/HTTPS hacia GitHub y la primera compilación necesita acceso al servidor de compiladores de Solidity. Anvil requiere permiso para abrir sockets locales.
+ 
+-Desde la raíz del repositorio:
++| Componente | Versión / revisión fijada |
++| --- | --- |
++| Foundry | v1.4.4 / `05794498bf47257b144e2e2789a1d5bf8566be0e` |
++| Solidity | 0.8.19, optimizador 200 runs, EVM Paris |
++| OpenZeppelin Contracts | v4.5.0 / `a5445b0afb8b350417b6e6ab3160554967bc151f` |
++| forge-std | v1.9.7 / `77041d2ce690e692d6e03cc812b57d1ddaa4d505` |
+ 
+ ```bash
+ bash tools/setup.sh
+ export PATH="$PWD/.tools/bin:$PATH"
+-cp .env.example .env
+-forge build
+-forge test -vv
+-forge fmt --check
+-forge coverage
+-forge test --gas-report
+-# Todos los controles con logs, códigos y hashes en un directorio nuevo:
+-python3 tools/validate-system.py
++make build
++make test
++make test-python
++make fmt-check
++# Compilación, pruebas/fuzz, cobertura base, gas y dos recorridos Anvil:
++make validate
++# Enlaces relativos, imágenes, integridad Sepolia y revisión de secretos:
++python3 tools/check-delivery.py
+ ```
+ 
+-La instalación guarda los binarios en `.tools/bin/` y las dependencias en `lib/`, sin modificar la configuración del usuario ni crear commits. Las bibliotecas se descargan por revisión fija y se comprueba que una instalación existente conserve esa revisión sin cambios locales. Ambos directorios se regeneran con el instalador y están excluidos de Git. Forge descarga Solidity 0.8.19 durante la primera compilación.
++El instalador descarga los binarios en `.tools/bin/` y las bibliotecas en `lib/`, por revisión fija. Comprueba revisión y ausencia de cambios locales en dependencias ya instaladas. No modifica la configuración del usuario ni crea commits. Forge descarga Solidity 0.8.19 al compilar por primera vez. `.tools/`, `lib/`, `out/`, `cache/` y `broadcast/` se regeneran y están excluidos de Git.
+ 
+-Las variables del ejemplo se utilizan en los comandos `sepolia-`; no son necesarias para compilar, probar o ejecutar Anvil. Los archivos de entorno locales quedan excluidos de Git.
++**No hace falta `.env` para compilar, probar o usar Anvil.** Para Sepolia, copiar `.env.example` a `.env`, aplicar `chmod 600 .env` y completar RPC, API de Etherscan y las cinco cuentas de prueba. Las claves se usan por entorno y no deben incorporarse a la entrega. Cada firmante necesita ETH de prueba para gas, además de BUSD para los pagos correspondientes. Ver [preparación pública](docs/sepolia.md).
+ 
+-## Contratos y operaciones
++## Comandos y demostración
+ 
+-CCNFT hereda de `ERC721Enumerable`, `Ownable` y `ReentrancyGuard`, con nombre `CryptoCampo NFT` y símbolo `CCNFT`. Comienza con las tres operaciones deshabilitadas. Los IDs comienzan en cero, se reservan antes de `_safeMint` y no se vuelven a emitir después de una quema.
+-
+-Los importes usan unidades mínimas del ERC20: para BUSD, `100 ether` en Solidity representa 100 BUSD. Las tasas se expresan en puntos básicos (`10_000 = 100 %`) y la división entera trunca sobre el total de cada operación.
+-
+-| Función | Efecto y pagos |
++| Comando | Efecto |
+ | --- | --- |
+-| `buy(uint256 value, uint256 amount)` | Emite un lote de nominal permitido. Cobra `value * amount` al comprador para fondos, más `principal * buyFee / 10_000` para comisiones. Aumenta `totalValue` por el principal. |
+-| `putOnSale(uint256 tokenId, uint256 price)` | Solo el propietario puede publicar con precio positivo. Una nueva publicación actualiza el precio sin duplicar el ID. |
+-| `trade(uint256 tokenId)` | Cobra al comprador el precio publicado para el vendedor, más `price * tradeFee / 10_000` para comisiones. Transfiere mediante `_safeTransfer`, elimina la publicación y conserva el nominal. Rechaza la compra al propio vendedor. |
+-| `claim(uint256[] calldata tokenIds)` | Quema los NFTs del llamador y elimina nominales y publicaciones. Cobra al colector de fondos la suma nominal más `principal * profitToPay / 10_000`. Reduce `totalValue` solo por el nominal. Los IDs repetidos revierten toda la operación. |
+-
+-`totalValue` es el nominal vigente, equivalente a la suma de `values` de los NFTs en circulación. Los reclamos liberan capacidad de emisión. El principal de las compras va directamente al colector; CCNFT no custodia BUSD. El colector debe disponer de saldo y aprobar a CCNFT para financiar el pago completo de los reclamos. Compradores iniciales y secundarios también aprueban a CCNFT por principal o precio **más comisión**.
+-
+-Todos los setters de la plantilla mantienen sus nombres y tipos, y requieren `onlyOwner`. Se rechazan direcciones cero, direcciones de token sin código, nominales y precios cero, lotes configurados en cero y comisiones mayores que 10.000. `profitToPay` conserva todo el rango `uint32`, sin límite adicional del 100 %. Un límite de emisión cero impide nuevas compras; reducirlo no altera el nominal existente ni impide reclamar.
+-
+-Para comprar se configuran token, ambos colectores, nominales, lote y límite de emisión. Reventa requiere token y colector de comisiones; reclamo requiere token y colector de fondos. Las habilitaciones se administran con `setCanBuy`, `setCanTrade` y `setCanClaim`.
+-
+-Las cuatro operaciones tienen `nonReentrant`, incluida la publicación durante callbacks de recepción de NFTs. Cada pago comprueba el booleano de `transferFrom`; si la comisión es cero se omite ese cobro. Un fallo revierte pagos, emisiones, quemas y publicaciones. En reventa, la publicación se elimina y la propiedad se actualiza antes de callbacks y cobros. Las tres transferencias públicas de ERC721 revierten con `Not Allowed`, incluso con aprobación del NFT.
+-
+-Se conservan las auxiliares `find`, `addToArray` y `removeFromArray`: búsqueda lineal, reemplazo por el último elemento y `pop`. La lista no conserva el orden. Publicar, actualizar o eliminar cuesta O(n) en la cantidad de publicaciones; reclamar un lote puede costar O(lote × publicaciones). `maxBatchCount` no limita la longitud global de la lista. La matriz de Anvil midió listas de 1, 10 y 100 y lotes de 1 y 10: comprar diez NFTs consumió 1.475.810 gas; reclamar diez publicados al final de una lista de cien, 1.220.864. Son recibos de escenarios específicos, sin cotas garantizadas para listas mayores, otros ERC20 o receptores contrato. Ver [tabla y límites de interpretación](docs/gas-scenarios.md).
+-
+-Los eventos `Buy`, `PutOnSale`, `Trade` y `Claim` identifican participantes, IDs y nominal o precio. `Trade` incluye la comisión. `BuyPayment` y `ClaimPayment` registran principal y comisión o beneficio de todo el lote, para reflejar correctamente el redondeo agregado.
+-
+-El recorrido de aceptación compra dos NFTs de 100 BUSD con 2 % de comisión, revende uno a 120 con 1 % y lo reclama con 5 % de beneficio (105 BUSD). La prueba comprueba eventos, autorizaciones exactas, variaciones de saldo A: −84; B: −16,2; fondos: +95; comisiones: +5,2 BUSD, y nominal final de 100 BUSD. **La prueba pasó en el registro de CI recibido el 15/11/2026.**
+-
+-## Metadatos compartidos — publicación y resolución verificadas
++| `make install`, `build`, `fmt-check`, `test`, `test-python` | Instalar, compilar, revisar formato y probar. |
++| `make coverage` | Cobertura; `validate` exige además la base documentada. |
++| `make gas`, `make gas-matrix` | Reporte de pruebas y 35 mediciones por escenario en Anvil. |
++| `make demo` | Dos redes Anvil nuevas; dos recorridos completos con recibos y verificaciones Cast. |
++| `make validate` | 21 controles con logs, códigos y hashes en un directorio nuevo de `.tools/validation/`. |
++| `make anvil` | Nodo local persistente; las etapas siguientes se ejecutan en otra terminal. |
++| `make deploy configure fund approvals enable buy list trade claim` | Recorrido local por etapas sobre `RPC_URL` y `STATE`. |
++| `make sepolia-doctor` | Diagnóstico de red, cuentas y financiación pública. |
++| `make sepolia-deploy`, `make sepolia-verify` | Publicación y verificación públicas. |
++| `make sepolia-check`, `make sepolia-reconcile` | Comprobación del estado y reconciliación de recibos/nonces. |
+ 
+-[`assets/certificate.svg`](assets/certificate.svg) es un certificado agrícola sencillo con el texto visible «Certificado de demostración». Se usan formas y texto SVG, siguiendo la separación entre imagen y metadatos tratada en la cursada. [`assets/metadata.json`](assets/metadata.json) contiene solo `name`, `description` e `image`, sin IDs ni nominales individuales. Todos los NFTs usan la misma ficha; la propiedad y el nominal se consultan en el contrato.
++Las etapas locales usan `RPC_URL=http://127.0.0.1:8545` y `STATE=.tools/demo-state.json` por defecto. Los comandos `sepolia-` publican transacciones cuando la etapa lo requiere y conservan estado separado en `.tools/sepolia/`. Consultar la [secuencia completa y recuperación](docs/sepolia.md) antes de ejecutarlos. Los comandos de validación integral solo utilizan Anvil.
+ 
+-`setMetadataURI(string)` requiere `onlyOwner`, rechaza cadenas vacías con `Empty metadata URI` y emite `MetadataURIUpdated(string metadataURI)` en cada configuración o actualización. El administrador puede cambiar la ficha de todos los NFTs vigentes y futuros. El constructor sigue sin argumentos.
++## Operaciones y reglas económicas
+ 
+-`tokenURI(uint256)` comprueba primero la existencia del NFT y revierte con `Token does not exist` para IDs inexistentes o quemados. Para un NFT vigente devuelve la cadena compartida, inicialmente vacía. Una reventa conserva esa URI. La configuración de metadatos no habilita operaciones ni modifica saldos, publicaciones o nominales; comprar, revender y reclamar funcionan sin configurar la URI.
++Todas las cantidades monetarias son enteros en unidades mínimas: **1 BUSD = `10^18` unidades**. `100 ether` en Solidity representa aquí 100 BUSD, sin transferir ETH. Las tasas se expresan en puntos básicos: `10_000 = 100 %`. Cada división entera trunca sobre el importe total de la operación.
+ 
+-El JSON preparado para publicar referencia la imagen mediante `ipfs://bafkreidkykrr5euk77wd3srhwatez6bfrkre5jv775mjggz6wx6sihrhd4`. Conserva únicamente nombre, descripción de demostración e imagen. Para revisar los archivos locales desde el directorio del proyecto:
+-
+-```bash
+-python3 -m http.server 8000 --bind 127.0.0.1 --directory assets
+-```
+-
+-Abrir `http://127.0.0.1:8000/certificate.svg` y `http://127.0.0.1:8000/metadata.json`. En una futura demostración local, el propietario podrá llamar a `setMetadataURI("http://127.0.0.1:8000/metadata.json")`. Las pruebas Solidity comparan cadenas; no descargan recursos ni prueban accesibilidad HTTP. `https://metadata.example.invalid/updated.json`, usado al probar actualizaciones, es otro marcador de prueba sin publicación. Estas referencias locales no sirven para billeteras de terceros.
+-
+-La publicación se realiza manualmente desde Pinata, eligiendo **IPFS público** y subiendo cada archivo individualmente, sin carpeta contenedora. Primero se sube y fija `certificate.svg`; se comprueba su CID por dos gateways; luego se establece `image` como `ipfs://<CID_REAL_DE_IMAGEN>` y se retira de la descripción la frase sobre pruebas locales. Solo después se sube y fija el JSON definitivo. Ambos archivos deben permanecer fijados. Ver [instrucciones de publicación de Pinata](https://docs.pinata.cloud/files/uploading-files) y [pinning en IPFS](https://docs.ipfs.tech/how-to/pin-files/).
+-
+-El [registro de publicación](docs/ipfs-publication.json) contiene ambos CIDs, URIs, hashes SHA-256, fechas y evidencia de pinning. La ejecución del 15/11/2026 recuperó imagen y JSON mediante el gateway público de Pinata y el gateway independiente de Filebase: cuatro respuestas HTTP 200, con bytes idénticos a los archivos locales. La imagen recuperada se renderizó y revisó a 1200 × 800. El intento anterior con `ipfs.io` devolvió 429 y permanece documentado; se eligió Filebase explícitamente manteniendo los mismos CIDs.
+-
+-La URI definitiva configurada y comprobada en el CCNFT temporal es `ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4`. Anvil aprobó la URI común de dos NFTs, su conservación tras la reventa, las reversiones de IDs quemados e inexistentes y el rechazo de cambios por terceros. El [informe completo](docs/evidence/ipfs-publication-verified-2026-11-15.json) registra las cuatro descargas, las cinco comprobaciones y 25 transacciones de despliegue, configuración y operaciones. Los contratos conservan sus reglas económicas.
++| Función | Efecto y pagos |
++| --- | --- |
++| `buy(uint256 value, uint256 amount)` | Emite un lote de nominal permitido. Principal = `value * amount`; comprador → fondos: principal; comprador → comisiones: `principal * buyFee / 10_000`. Aumenta `totalValue` por el principal. |
++| `putOnSale(uint256 tokenId, uint256 price)` | Solo el propietario publica, con precio positivo. Una nueva publicación actualiza el precio sin duplicar el ID. No mueve BUSD. |
++| `trade(uint256 tokenId)` | Comprador → vendedor: precio publicado; comprador → comisiones: `price * tradeFee / 10_000`. Transfiere el NFT, limpia la publicación y conserva su nominal. Rechaza comprar al propio vendedor. |
++| `claim(uint256[] calldata tokenIds)` | Quema los NFTs del llamador y limpia valores y publicaciones. Fondos → llamador: suma nominal + `nominal * profitToPay / 10_000`. Reduce `totalValue` solo por el nominal. IDs repetidos revierten toda la operación. |
+ 
+-Ambos archivos deben mantenerse fijados en Pinata. La confirmación de subida pública y pinning automático procede de la captura y las declaraciones del usuario, conservadas junto con el registro; la recuperación pública está probada mediante las descargas. No se usaron credenciales de Pinata.
++`totalValue` es la suma de nominales de NFTs en circulación. Las reventas no lo alteran; los reclamos liberan capacidad de emisión. Los IDs comienzan en cero y no se reutilizan tras una quema.
+ 
+-```bash
+-# Siempre disponible, sin red ni Foundry:
+-python3 tools/verify-metadata.py --local-only
+-python3 -m unittest discover -s tools -p 'test_verify_metadata.py' -v
++Compradores iniciales y secundarios necesitan saldo y `BUSD.approve(CCNFT, importe)` por **principal o precio más comisión**. Para `claim`, el colector de fondos aprueba el pago completo a CCNFT. Una aprobación autoriza gasto y no mueve tokens. Configurar `profitToPay` no crea BUSD ni genera rendimientos: el colector necesita saldo y autorización suficientes.
+ 
+-# Tras registrar el CID de la imagen y confirmar su pinning:
+-python3 tools/verify-metadata.py --image-only --record
++| Parámetro de demostración | Valor |
++| --- | --- |
++| Nominales permitidos | 100 y 500 BUSD |
++| `buyFee`, `tradeFee`, `profitToPay` | 200 (2 %), 100 (1 %), 500 (5 %) |
++| `maxBatchCount` | 10 |
++| `maxValueToRaise` | 10.000 BUSD de nominal vigente |
+ 
+-# Reproducir la ejecución satisfactoria con Pinata y Filebase:
+-bash tools/setup.sh
+-python3 tools/verify-metadata.py --independent-gateway filebase --record
++Estos valores son decisiones del TP y se configuran por setters. La base de `tradeFee` sobre el precio publicado también es una interpretación adoptada, identificada en el [fundamento académico](docs/fundamento-academico.md). Las comisiones admiten 0–10.000 puntos básicos; `profitToPay` conserva el rango `uint32` de la plantilla. Se rechazan direcciones cero, token sin código, nominal/precio cero y lote configurado en cero. Reducir el límite nominal no altera NFTs existentes ni impide reclamar.
+ 
+-# Otro operador independiente disponible (respondió 429 en el intento previo):
+-python3 tools/verify-metadata.py --independent-gateway ipfs.io --record
++Las operaciones comienzan deshabilitadas. Los setters son exclusivos del administrador; las cuatro operaciones tienen `nonReentrant`. Cada pago comprueba el retorno de `transferFrom` y un fallo revierte cobros, emisión, quema y publicaciones. Las tres transferencias públicas del ERC721 revierten con `Not Allowed`, incluso con aprobación del NFT; la reventa se realiza mediante `trade` y `_safeTransfer` interno.
+ 
+-# Probar solo la URI en Anvil, sin nuevas descargas IPFS:
+-python3 tools/verify-metadata.py --anvil-only --record
+-```
++La lista de ventas usa búsqueda lineal y eliminación por reemplazo con el último elemento: no conserva orden. El costo de reclamar puede crecer como lote × publicaciones. Las [35 mediciones históricas de gas](docs/gas-scenarios.md) abarcan listas de 1, 10 y 100 y lotes de 1 y 10; no establecen una cota global.
+ 
+-El verificador compara los bytes de ambos archivos con los locales mediante el gateway público de Pinata y el operador independiente seleccionado (`ipfs.io` o Filebase), valida JSON/SVG y comprueba la referencia a la imagen. También inicia un Anvil temporal, aunque un gateway no responda, despliega BUSD y CCNFT con los parámetros de demostración y verifica la URI compartida antes y después de revender, las reversiones de IDs quemados e inexistentes y el rechazo de cambios por terceros. Los resultados y descargas se guardan en `.tools/metadata-verification/`. Con `--record`, el manifiesto registra el intento, incluso si falla. `--anvil-only` guarda su resultado en `anvil_verification` y `.tools/metadata-verification/anvil/`, conservando el informe de descargas. Su éxito acredita solo la URI en Anvil. Un fallo deja el estado `pending` y devuelve código 1.
++## Recorrido y financiación
+ 
+-El workflow **Verificar publicación IPFS y URI en Anvil** se activa solo mediante `workflow_dispatch` y conserva un artefacto con la evidencia, incluso ante fallos del verificador. Los pushes y PRs ejecutan la validación local de metadatos y las pruebas del verificador, los controles de contratos y la demostración Anvil de fase 6. Las pruebas unitarias Solidity mantienen sus referencias locales y no dependen de IPFS.
++A y B reciben 1.000 BUSD cada uno; fondos recibe 10 BUSD adicionales del suministro inicial. A autoriza 204 BUSD y compra dos NFTs de 100. Publica el NFT 0 a 120 BUSD; B autoriza 121,2 y lo compra. Fondos autoriza 105 y B reclama el NFT 0. A conserva el NFT 1, de nominal 100 BUSD.
+ 
+-La [guía de publicación y evidencia](docs/ipfs-publication.md) detalla cómo completar el registro y revisar la imagen recuperada. El [resultado observado](docs/ipfs-verification-2026-11-15.md) es **publicación y resolución verificadas**, con cuatro descargas coincidentes, confirmación de pinning, revisión visual y comprobación real en Anvil. La fase 4 queda cerrada: ambos workflows remotos fueron confirmados en verde por el usuario y [sus enlaces están registrados](docs/evidence/ci-runs-received-2026-11-15.json). Para reproducir el resultado satisfactorio, usar `filebase` como operador independiente. El agente no inspeccionó los logs remotos. La presentación en una billetera permanece pendiente para una fase posterior, junto con Sepolia.
++| Cuenta | Saldo inicial BUSD | Saldo final BUSD | Variación |
++| --- | ---: | ---: | ---: |
++| A | 1.000 | 916 | −84 |
++| B | 1.000 | 983,8 | −16,2 |
++| Fondos | 10 | 105 | +95 |
++| Comisiones | 0 | 5,2 | +5,2 |
+ 
+-## Organización y comprobación
++Las variaciones suman cero, queda nominal total de 100 BUSD y las autorizaciones exactas se consumen. La reserva final de 105 puede cubrir el NFT restante, pero requeriría una nueva aprobación del colector. Sin los 10 iniciales quedarían 95 y faltarían 10 para ese segundo reclamo.
+ 
+-- `src/`: contratos activos.
+-- `test/BUSD.t.sol`: metadatos, suministro y asignación inicial de BUSD.
+-- `test/CCNFTAdmin.t.sol`: configuración, permisos y habilitaciones.
+-- `test/CCNFTOperations.t.sol`: recorrido de aceptación, eventos, límites, publicaciones, enumeración, reclamos y redondeo.
+-- `test/CCNFTSecurity.t.sol` y `test/mocks/`: atomicidad ante fallos de saldo, autorización, segundo cobro, ERC20 falso y callbacks ERC721/ERC20.
+-- `test/CCNFTFuzz.t.sol`: cuatro pruebas parametrizadas de fórmulas y conservación del nominal, con 256 casos por prueba.
+-- `test/CCNFTMetadata.t.sol`: URI inicial, permisos, cadena vacía, eventos, actualización común, reventa, existencia y separación de la lógica económica.
+-- `script/`: despliegue, configuración, financiación, aprobaciones y operaciones de demostración.
+-- `Makefile` y `tools/demo.py`: ejecución por etapas o dos recorridos completos en redes Anvil nuevas.
+-- `test/DemoScripts.t.sol`: guardas, configuración y composición de scripts.
+-- `assets/`: certificado SVG y JSON compartido preparado para publicar, con la URI IPFS real de la imagen.
+-- `docs/`: evidencia de contratos, gas y registro de publicación IPFS.
+-- `tools/`: instalación reproducible, medición de gas, verificación de metadatos y validación con informes persistentes.
++La liquidez se explica conceptualmente: disponer de BUSD distribuido y reservas para reclamos no implica una pool, un precio de mercado ni convertibilidad a dólares. No se implementaron exchanges, oráculos, respaldo agrícola externo ni una interfaz web; la consigna disponible no define una pool como entregable.
+ 
+-El workflow **Validar contratos** ejecuta `tools/validate-system.py` y conserva el artefacto `contracts-validation-<run_id>-<run_attempt>`, incluso ante fallos. Incluye logs de instalación, pruebas Solidity y Python, cobertura completa y resumida, reporte de gas, códigos de salida, commit, diff y hashes de fuentes. Restaura la compilación optimizada después de medir cobertura y antes de ambos informes de gas. La matriz ejecuta `tools/measure-gas.py` en Anvil y copia su JSON únicamente si termina con éxito. Después ejecuta `tools/demo.py` en dos redes nuevas y conserva sus recibos y verificaciones, también ante fallos. Scripts y Makefile forman parte del registro de hashes. Las 35 transacciones históricas con listas de 1, 10 y 100 y lotes de 1 y 10 se conservan por separado; ver [método, resultados y límites](docs/gas-scenarios.md).
++## Metadatos y evidencia pública
+ 
+-La configuración fija Solidity 0.8.19, EVM Paris y optimización con 200 ejecuciones. Las pruebas se ejecutan localmente, sin RPC ni cuentas externas.
++[certificate.svg](assets/certificate.svg) y [metadata.json](assets/metadata.json) contienen una ficha común de demostración, sin IDs ni nominales individuales. La URI definitiva es `ipfs://bafkreihjmwkav7thv25yhsosaemqlvn5necgydfkofak7dl5zel3zuw5t4`. `tokenURI` comprueba existencia y conserva la ficha en reventa. `setMetadataURI` permite al administrador actualizarla para todos los NFTs; los metadatos no son inmutables. Ambos recursos requieren pinning para su disponibilidad. Ver [publicación y resolución verificadas](docs/ipfs-verification-2026-11-15.md).
+ 
+-Hay 48 funciones de prueba: 2 de BUSD y 46 de CCNFT, incluidas las 4 pruebas fuzz. Se conservaron las 39 originales y se añadieron 8 de metadatos y una de configuración incompleta de `claim`; la prueba de permisos administrativos incluye el nuevo setter y la de interfaces comprueba ERC721Metadata. Las 48 pasaron en el último registro de cobertura recibido el 15/11/2026, sin fallos ni omisiones. CCNFT alcanzó 100 % de líneas, sentencias y funciones y 97,53 % de ramas (79/81). La justificación de las dos guardas restantes de `trade` está en la [revisión de cobertura](docs/ci-validation-2026-11-15.md).
++| Contrato en Sepolia (11155111) | Código verificado |
++| --- | --- |
++| BUSD | [0x2a37e9ac75569eea1537bdb7ba6beb5b6cd8f710](https://sepolia.etherscan.io/address/0x2a37e9ac75569eea1537bdb7ba6beb5b6cd8f710#code) |
++| CCNFT | [0xbd6c1c5f5690d92021bff186597c2b71daf97a34](https://sepolia.etherscan.io/address/0xbd6c1c5f5690d92021bff186597c2b71daf97a34#code) |
+ 
+-## Estado de verificación al 14/11/2026
++La [guía de entrega](docs/entrega.md) reúne las 26 transacciones y las capturas originales. [Resultado de fase 7](docs/sepolia-results.md) conserva la limitación visual de MetaMask y el intento CREATE fallido, separado de los recibos exitosos.
+ 
+-`bash tools/setup.sh` se volvió a intentar tras incorporar los metadatos y terminó con código 6: `curl: (6) Could not resolve host: github.com`. No se instalaron Foundry ni bibliotecas. Las revisiones de la tabla están fijadas en el instalador, pero no se pudieron contrastar contra dependencias descargadas. Los comandos y códigos de salida están en la [evidencia de ejecución](docs/verification-2026-11-14.txt); los alcances de la revisión están en la [nota de validación](docs/validation.md).
++## Estado y validación
+ 
+-| Comprobación | Resultado real |
++| Fase | Estado y evidencia |
+ | --- | --- |
+-| `bash -n tools/setup.sh` | Correcto. |
+-| Lectura con `tomllib` | Solidity 0.8.19, remappings y 256 casos fuzz comprobados. |
+-| `git check-ignore --no-index` | 38 rutas representativas excluidas y 16 rutas de proyecto versionables comprobadas; incluye secretos, artefactos, herramientas y bibliotecas. |
+-| Revisión estática local | 10 fuentes Solidity revisadas. Suministro BUSD conservado y hashes de las referencias académicas sin cambios durante esta revisión. No sustituye a la compilación. |
+-| JSON y SVG | JSON válido con `name`, `description` e `image`; SVG XML válido, renderizado y revisado visualmente. Imagen y ficha comunes, sin nominales ni IDs. |
+-| `.tools/bin/forge build` | Bloqueado: ejecutable inexistente (código 127). |
+-| `.tools/bin/forge test -vv` | Bloqueado: ejecutable inexistente (código 127). |
+-| `.tools/bin/forge fmt --check` | Bloqueado: ejecutable inexistente (código 127). |
+-| `.tools/bin/forge coverage` | Bloqueado: ejecutable inexistente (código 127). |
+-| `.tools/bin/forge test --gas-report` | Bloqueado: ejecutable inexistente (código 127). |
+-
+-En esa comprobación local del 14/11/2026 no se obtuvieron resultados de pruebas, cobertura ni gas. El [registro posterior de CI del 15/11/2026](docs/ci-validation-2026-11-15.md) permite cerrar las fases 2 y 3: compilación y formato satisfactorios, 48 pruebas aprobadas, cobertura revisada, reporte agregado de gas y 35 recibos de medición por escenario, con entorno identificado. En el avance de fase 4 se reintentó `bash tools/setup.sh`: continúa el error DNS al resolver `github.com`. La nueva validación local y las 14 pruebas iniciales del verificador aprobaron. El usuario instaló después Foundry 1.4.4 y las dependencias fijadas, y recuperó ambos recursos de Pinata con HTTP 200. `ipfs.io` devolvió 429. La ejecución posterior del usuario con Filebase completó las cuatro descargas y la prueba real de Anvil, con estado `verified`. Luego el agente repitió formato, 48 pruebas Solidity, cobertura, reporte agregado de gas y 20 pruebas del verificador con éxito. La nueva medición por escenarios quedó bloqueada por permisos de sockets de esta sesión y el usuario confirmó después ambos workflows remotos en verde, con sus enlaces registrados y sin inspección directa de logs por el agente. Ver [resultado final y límites](docs/ipfs-verification-2026-11-15.md). Ver [evidencia de fase 4](docs/metadata-validation-2026-11-15.json).
++| 1. Alcance | Reglas definidas; [fundamento y decisiones](docs/fundamento-academico.md). |
++| 2–3. Entorno y contratos | Completadas; [CI, cobertura y ramas inalcanzables](docs/ci-validation-2026-11-15.md). |
++| 4. Metadatos | Publicación/resolución verificadas; [IPFS y Anvil](docs/ipfs-verification-2026-11-15.md). |
++| 5. Sistema | Completada en el rango medido; [matriz de validación](docs/system-validation.md). |
++| 6. Anvil | Dos redes, 52 recibos y 838 comprobaciones históricos; [cierre local](docs/local-demo-validation.md). |
++| 7. Sepolia y MetaMask | Completada académicamente con limitación visual; [resultado](docs/sepolia-results.md). |
++| 8. Entrega | Documentación local preparada; reproducción actual bloqueada y publicación final pendiente; [revisión actual](docs/entrega-validacion-2026-11-16.md). |
++
++El 16/11/2026 aprobaron compilación, formato, **49 pruebas Solidity** (cuatro fuzz de 256 casos), **70 pruebas Python**, cobertura base y reporte de gas. CCNFT conserva 100 % de líneas (122/122), sentencias (116/116) y funciones (25/25), y 97,53 % de ramas (79/81). Los dos rechazos pendientes de `trade` son inalcanzables mediante la interfaz pública actual. La validación integral actual no está aprobada: la matriz de gas y ambos Anvil requieren sockets y la instalación limpia requiere DNS hacia GitHub. Se conservan logs e informes nuevos junto con los históricos, sin atribuirles una nueva ejecución pública.
+diff --git a/tools/test_sepolia.py b/tools/test_sepolia.py
+index a680909..747dba4 100644
+--- a/tools/test_sepolia.py
++++ b/tools/test_sepolia.py
+@@ -456,7 +456,10 @@ class PublicTest(unittest.TestCase):
+             self.assertEqual(runner.context['balances']['a'], 1000)
+ 
+     def test_reverts_require_rpc_revert_data_and_reject_transport_errors(self):
+-        with tempfile.TemporaryDirectory() as directory:
++        # La prueba de errores RPC no necesita artefactos ignorados de una compilación.
++        artifact = {'methodIdentifiers': {'listTokensOnSale(uint256)': '505546e7'}}
++        with tempfile.TemporaryDirectory() as directory, \
++                patch.object(public.local.gas, 'load_artifact', return_value=artifact):
+             root = Path(directory)
+             runner = public.Sepolia(root, root / 'state.json', environment())
+             runner.context['addresses']['CCNFT'] = '0xnft'
